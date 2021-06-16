@@ -4,9 +4,13 @@ public class Ingrediente {
     private int Id;
     private String Nombre;
     private int Cantidad;
-    private int Unidades;
+    private String Unidades;
 
-    public Ingrediente(int id, String nombre,int cantidad, int unidades ){
+    public Ingrediente(){
+        
+    }
+    
+    public Ingrediente(int id, String nombre,int cantidad, String unidades ){
         setId(id);
         setNombre(nombre);
         setCantidad(cantidad);
@@ -17,31 +21,32 @@ public class Ingrediente {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
     public String getNombre() {
         return Nombre;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
 
     public int getCantidad() {
         return Cantidad;
     }
 
-    public void setCantidad(int cantidad) {
-        Cantidad = cantidad;
+    public void setCantidad(int Cantidad) {
+        this.Cantidad = Cantidad;
     }
 
-    public int getUnidades() {
+    public String getUnidades() {
         return Unidades;
     }
 
-    public void setUnidades(int unidades) {
-        Unidades = unidades;
+    public void setUnidades(String Unidades) {
+        this.Unidades = Unidades;
     }
+
 }

@@ -1,29 +1,37 @@
 package com.grupo5;
 
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import com.grupo5.Usuarios.*;
 import com.grupo5.Productos.*;
 import com.grupo5.Clientes.*;
-import java.util.*;
+import java.io.*;
+import java.util.Scanner;
 
 public class Main {
 
-    public static Gestor_usuario gestor_usuario;
-    public static Gestor_Producto gestor_producto;
-    public static Gestor_cliente gestor_cliente;
-    public static Gestor_usuario gestor_usuarios;
-//    public static Reportes reportes;
-//    public static Log log;
+    public static Restaurante Nuevo;
+    public static String tipoDeCarga;
+    public static Gestor_usuario usuario = new Gestor_usuario();
+    public static Gestor_cliente cliente = new Gestor_cliente();
+    public static Gestor_Producto producto = new Gestor_Producto();
+    public static Ingrediente ingrediente = new Ingrediente();
 
     public static void main(String[] args) {
         // write your code here
         // Aqui ira el menu, la carga de los jsons iniciales, etc. ver el grupo xd
-        Gestor_usuario user = new Gestor_usuario();
-        Gestor_cliente cliente = new Gestor_cliente();
-        Gestor_Producto producto = new Gestor_Producto();
+
         // en la instancia de la clase opciones se pide un entero que es el modo
         // el modo es la seleccion entre json o bin
-        Opciones op = new Opciones(cliente, user, producto, 1);
-
+        //leerConfig();
+        leerClientes();
+        leerUsuarios();
+        leerProductos();
+        if ("json".equals(tipoDeCarga)) {
+            Opciones op = new Opciones(cliente, usuario, producto, 1);
+        } else if ("bin".equals(tipoDeCarga)) {
+            Opciones op = new Opciones(cliente, usuario, producto, 0);
+        }
         menuPrincipal();
     }
 
@@ -36,7 +44,7 @@ public class Main {
             System.out.println("*******************************");
             System.out.println("* Ingrese su usuario          *");
             String user = login.nextLine();
-            System.out.println("* Ingrese su contraseña       *");
+            System.out.println("* Ingrese su contraseÃ±a       *");
             String pass = login.nextLine();
             System.out.println("*******************************");
             int Opciones = 0;
@@ -44,7 +52,7 @@ public class Main {
             do {
                 try {
                     System.out.println("*******************************");
-                    System.out.println("*       MENÚ PRINCIPAL        *");
+                    System.out.println("*       MENÃš PRINCIPAL        *");
                     System.out.println("*******************************");
                     System.out.println("* 1) Informacion Restaurante  *");
                     System.out.println("* 2) Usuarios                 *");
@@ -58,7 +66,7 @@ public class Main {
                     Opciones = MenuPrincipal.nextInt();
                     switch (Opciones) {
                         case 1:
-                            //INFORMACION RESTAURANTE
+                            //leerConfig();
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -76,15 +84,21 @@ public class Main {
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
-                                    //LISTADO USUARIOS
+                                    usuario.print_usu();
                                     break;
 
                                 case 2:
-                                    //ELIMINAR USUARIOS
+                                    Scanner eliminar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del usuario a eliminar: ");
+                                    int eliminarId = eliminar.nextInt();
+                                    usuario.eliminarUsuario(eliminarId);
                                     break;
 
                                 case 3:
-                                    //VER USUARIOS
+                                    Scanner buscar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del usuario a buscar: ");
+                                    int buscarId = buscar.nextInt();
+                                    usuario.printUsuarioSolo(buscarId);
                                     break;
 
                                 case 4:
@@ -112,15 +126,25 @@ public class Main {
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
-                                    //LISTADO PRODUCTOS
+                                    try {
+                                        producto.printProductos();
+                                    } catch (Exception e) {
+                                        System.out.println("Problem");
+                                    }
                                     break;
 
                                 case 2:
-                                    //ELIMINAR PRODUCTOS
+                                    Scanner eliminar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del cliente a eliminar: ");
+                                    int eliminarId = eliminar.nextInt();
+                                    cliente.eliminarCliente(eliminarId);
                                     break;
 
                                 case 3:
-                                    //VER PRODUCTOS
+                                    Scanner buscar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del cliente a buscar: ");
+                                    int buscarId = buscar.nextInt();
+                                    cliente.printClienteSolo(buscarId);
                                     break;
 
                                 case 4:
@@ -148,15 +172,21 @@ public class Main {
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
-                                    //LISTADO CLIENTES
+                                    cliente.printClientes();
                                     break;
 
                                 case 2:
-                                    //ELIMINAR CLIENTES
+                                    Scanner eliminar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del cliente a eliminar: ");
+                                    int eliminarId = eliminar.nextInt();
+                                    cliente.eliminarCliente(eliminarId);
                                     break;
 
                                 case 3:
-                                    //VER CLIENTES
+                                    Scanner buscar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id del cliente a buscar: ");
+                                    int buscarId = buscar.nextInt();
+                                    cliente.printClienteSolo(buscarId);
                                     break;
 
                                 case 4:
@@ -208,42 +238,6 @@ public class Main {
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 6:
-                            //FACTURAS
-                            System.out.println("*******************************");
-                            System.out.println("*          USUARIOS           *");
-                            System.out.println("*******************************");
-                            System.out.println("* 1) Listado de Usuarios      *");
-                            System.out.println("* 2) Eliminar Usuario         *");
-                            System.out.println("* 3) Ver Usuario              *");
-                            System.out.println("* 4) Menu Principal           *");
-                            System.out.println("*******************************");
-                            Opciones = MenuPrincipal.nextInt();
-                            switch (Opciones) {
-                                case 1:
-                                    //LISTADO USUARIOS
-                                    break;
-
-                                case 2:
-                                    //ELIMINAR USUARIO
-                                    break;
-
-                                case 3:
-                                    //VER USUARIO
-                                    break;
-
-                                case 4:
-                                    //VUELTA AL MENU PRINCIPAL
-                                    break;
-
-                                default:
-                                    System.out.println("Seleccione una opcion");
-                                    break;
-                            }
-                            break;
-
-//-------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------
-                        case 7:
                             //GUARDAR CAMBIOS
                             System.out.println("*******************************");
                             System.out.println("*       GUARDAR CAMBIOS       *");
@@ -274,7 +268,7 @@ public class Main {
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
-                        case 8:
+                        case 7:
                             //SALIDA
                             System.out.println("Has salido del programa");
                             break;
@@ -282,18 +276,211 @@ public class Main {
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         default:
-                            System.out.println("Advertencia: Debes elegir una opción de 1 a x");
+                            System.out.println("Advertencia: Debes elegir una opciÃ³n de 1 a x");
                             break;
                     }
                 } catch (Exception e) {
                     MenuPrincipal = new Scanner(System.in);
-                    System.out.println("Advertencia: Debes elegir una opción de 1 a x");
+                    System.out.println("Advertencia: Debes elegir una opciÃ³n de 1 a x");
                 }
-            } while (Opciones != 8);
+            } while (Opciones != 7);
 //            }
         } catch (Exception e) {
-            System.out.println("Has hecho una acción no valida,");
-            System.out.println("Ejecuta el programa nuevamente");
+            System.out.println("Has hecho una acciÃ³n no valida,");
+        }
+    }
+
+    /*public static void leerConfig() {
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        String Contenido = "";
+        try {
+            archivo = new File("config.json");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String Linea;
+
+            while ((Linea = br.readLine()) != null) {
+                Contenido += Linea;
+            }
+            
+            JsonObject Obj = new JsonObject();
+            Obj.getAsJsonObject(Contenido);
+            JsonParser Parser = new JsonParser();
+            JsonReader jsonReader = new JsonReader(new StringReader(Contenido));
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+
+                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
+
+                System.out.println("\n");
+                String nombre = GsonObj.get("name").getAsString();
+                System.out.println("Nombre: " + nombre);
+                String direccion = GsonObj.get("address").getAsString();
+                System.out.println("DirecciÃ³n: " + direccion);
+                int numero = GsonObj.get("phone").getAsInt();
+                System.out.println("Numero de telefono: " + numero);
+                System.out.println("\n");
+                tipoDeCarga = GsonObj.get("load").getAsString();
+                Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        }
+    }*/
+    public static void leerClientes() {
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        String Contenido = "";
+        try {
+            archivo = new File("clients.json");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String Linea;
+
+            while ((Linea = br.readLine()) != null) {
+                Contenido += Linea;
+            }
+
+            JsonParser Parser = new JsonParser();
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+
+            for (int i = 0; i < GsonArr.size(); i++) {
+                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
+
+                System.out.println("\n");
+                int id = GsonObj.get("id").getAsInt();
+                String nombre = GsonObj.get("name").getAsString();
+                String direccion = GsonObj.get("address").getAsString();
+                int numero = GsonObj.get("phone").getAsInt();
+                String nit = GsonObj.get("nit").getAsString();
+                cliente.insertarCliente(id, nombre, direccion, numero, nit);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        }
+    }
+
+    public static void leerUsuarios() {
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        String Contenido = "";
+        try {
+            archivo = new File("clients.json");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String Linea;
+
+            while ((Linea = br.readLine()) != null) {
+                Contenido += Linea;
+            }
+
+            JsonParser Parser = new JsonParser();
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+
+            for (int i = 0; i < GsonArr.size(); i++) {
+                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
+
+                System.out.println("\n");
+                int id = GsonObj.get("id").getAsInt();
+                String nombre = GsonObj.get("username").getAsString();
+                String password = GsonObj.get("password").getAsString();
+                usuario.Ins_usu(id, nombre, password);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
+        }
+    }
+
+    public static void leerProductos() {
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        String Contenido = "";
+        try {
+            archivo = new File("products.json");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String Linea;
+
+            while ((Linea = br.readLine()) != null) {
+                Contenido += Linea;
+            }
+
+            JsonParser Parser = new JsonParser();
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+
+            for (int i = 0; i < GsonArr.size(); i++) {
+                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
+
+                System.out.println("\n");
+                int id = GsonObj.get("id").getAsInt();
+                String nombre = GsonObj.get("name").getAsString();
+                String descripcion = GsonObj.get("description").getAsString();
+                double costo = GsonObj.get("cost").getAsInt();
+                double precio = GsonObj.get("price").getAsInt();
+
+                JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
+                System.out.println(Ingred);
+                
+
+                Ingrediente aux = null;
+                for (int j = 0; j < Ingred.size(); j++) {
+                    try {
+                        JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
+                        System.out.println("\n");
+                        int idIng = GsonObj2.get("id").getAsInt();
+                        String nombreIng = GsonObj2.get("name").getAsString();
+                        int cantidadIng = GsonObj2.get("quantity").getAsInt();
+                        String unidadesIng = GsonObj2.get("units").getAsString();
+
+                        aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
+                    } catch (Exception e) {
+                        System.out.println("Problem");
+                    }
+                }
+
+                producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+                System.out.println(e2);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ public class Producto {
     private String Nombre;
     private String Descripcion;
     private double costo;
-    private  double precio;
+    private double precio;
     private Ingrediente Ingredientes;
 
     public Producto(int id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes){

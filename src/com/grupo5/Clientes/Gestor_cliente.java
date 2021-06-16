@@ -5,6 +5,7 @@ import com.grupo5.Usuarios.Usuario;
 import java.util.ArrayList;
 
 public class Gestor_cliente {
+
     ArrayList<Cliente> clientes = new ArrayList();
 
     public boolean insertarCliente(int id, String nombre, String direccion, int telefono, String nit) {
@@ -14,6 +15,7 @@ public class Gestor_cliente {
         }
         return false;
     }
+
     // lo hice rapido se puede usar el metodo .forEach si lo prefieren
     public void printClientes() {
         for (int i = 0; i < clientes.size(); i++) {
@@ -26,30 +28,53 @@ public class Gestor_cliente {
         }
     }
 
-    public boolean verificarCliente(int id , String nit) {
+    public boolean verificarCliente(int id, String nit) {
         boolean state = false;
         int i = 0;
-        while(state == false  && i< clientes.size()){
-            if ((clientes.get(i).getId() ==id) && (clientes.get(i).getNit().compareTo(nit) == 0)){
+        while (state == false && i < clientes.size()) {
+            if ((clientes.get(i).getId() == id) && (clientes.get(i).getNit().compareTo(nit) == 0)) {
                 state = true;
                 return true;
-            }else{
+            } else {
                 i++;
             }
         }
         return false;
     }
+
     public Cliente getCliente(int id) {
         boolean state = false;
         int i = 0;
-        while(state == false  && i< clientes.size()){
-            if ((clientes.get(i).getId() ==id)){
+        while (state == false && i < clientes.size()) {
+            if ((clientes.get(i).getId() == id)) {
                 state = true;
                 return clientes.get(i);
-            }else{
+            } else {
                 i++;
             }
         }
         return null;
+    }
+
+    public void printClienteSolo(int id) {
+        System.out.print("\nNombre: " + clientes.get(id).getNombre());
+        System.out.print("\nDirección: " + clientes.get(id).getDireccion());
+        System.out.print("\nTelefono: " + clientes.get(id).getTelefono());
+        System.out.println("\nNit: " + clientes.get(id).getNit());
+        System.out.println("\n");
+    }
+    
+    public void eliminarCliente(int id) {
+        boolean state = false;
+        int i = 0;
+        while (state == false && i < clientes.size()) {
+            if (clientes.get(i).getId() == id) {
+                state = true;
+                clientes.remove(i);
+                System.out.println("Cliente con id " + (i+1) + " eliminado");
+            } else {
+                i++;
+            }
+        }
     }
 }
