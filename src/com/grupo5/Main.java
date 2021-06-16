@@ -126,25 +126,21 @@ public class Main {
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
-                                    try {
-                                        producto.printProductos();
-                                    } catch (Exception e) {
-                                        System.out.println("Problem");
-                                    }
+                                    producto.printProductos();
                                     break;
 
                                 case 2:
                                     Scanner eliminar = new Scanner(System.in);
-                                    System.out.println("Ingrese el id del cliente a eliminar: ");
+                                    System.out.println("Ingrese el id del producto a eliminar: ");
                                     int eliminarId = eliminar.nextInt();
-                                    cliente.eliminarCliente(eliminarId);
+                                    producto.eliminarProducto(eliminarId);
                                     break;
 
                                 case 3:
                                     Scanner buscar = new Scanner(System.in);
-                                    System.out.println("Ingrese el id del cliente a buscar: ");
+                                    System.out.println("Ingrese el id del producto a buscar: ");
                                     int buscarId = buscar.nextInt();
-                                    cliente.printClienteSolo(buscarId);
+                                    producto.printProductoSolo(buscarId);
                                     break;
 
                                 case 4:
@@ -367,14 +363,12 @@ public class Main {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
         } finally {
             try {
                 if (null != fr) {
                     fr.close();
                 }
             } catch (Exception e2) {
-                System.out.println(e2);
             }
         }
     }
@@ -385,7 +379,7 @@ public class Main {
         BufferedReader br;
         String Contenido = "";
         try {
-            archivo = new File("clients.json");
+            archivo = new File("users.json");
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String Linea;
@@ -408,14 +402,12 @@ public class Main {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
         } finally {
             try {
                 if (null != fr) {
                     fr.close();
                 }
             } catch (Exception e2) {
-                System.out.println(e2);
             }
         }
     }
@@ -449,9 +441,6 @@ public class Main {
                 double precio = GsonObj.get("price").getAsInt();
 
                 JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
-                System.out.println(Ingred);
-                
-
                 Ingrediente aux = null;
                 for (int j = 0; j < Ingred.size(); j++) {
                     try {
@@ -472,14 +461,12 @@ public class Main {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
         } finally {
             try {
                 if (null != fr) {
                     fr.close();
                 }
             } catch (Exception e2) {
-                System.out.println(e2);
             }
         }
     }

@@ -57,10 +57,11 @@ public class Gestor_cliente {
     }
 
     public void printClienteSolo(int id) {
-        System.out.print("\nNombre: " + clientes.get(id).getNombre());
-        System.out.print("\nDirección: " + clientes.get(id).getDireccion());
-        System.out.print("\nTelefono: " + clientes.get(id).getTelefono());
-        System.out.println("\nNit: " + clientes.get(id).getNit());
+        int aux = id - 1;
+        System.out.print("\nNombre: " + clientes.get(aux).getNombre());
+        System.out.print("\nDirección: " + clientes.get(aux).getDireccion());
+        System.out.print("\nTelefono: " + clientes.get(aux).getTelefono());
+        System.out.println("\nNit: " + clientes.get(aux).getNit());
         System.out.println("\n");
     }
     

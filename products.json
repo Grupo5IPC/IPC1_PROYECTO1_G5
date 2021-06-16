@@ -1,0 +1,17 @@
+﻿[
+    {
+        "id": 1,
+        "name": "Pizza",
+        "description": "Pizza Hawaiana con queso",
+        "cost": 40,
+        "price": 50,
+        "ingredients": [
+            {
+		"id": 1,
+                "name": "Piña",
+                "quantity": 1,
+                "units": "Unidades"
+            }
+        ]
+    }
+]

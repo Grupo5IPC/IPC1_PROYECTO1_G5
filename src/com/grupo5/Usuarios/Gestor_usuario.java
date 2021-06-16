@@ -37,8 +37,9 @@ public class Gestor_usuario {
     }
     
     public void printUsuarioSolo(int id) {
-        System.out.print("\nUsuario: " + usuarios.get(id).getUsuario());
-        System.out.print("\nPassword: " + usuarios.get(id).getPassword());
+        int aux = id - 1;
+        System.out.print("\nUsuario: " + usuarios.get(aux).getUsuario());
+        System.out.print("\nPassword: " + usuarios.get(aux).getPassword());
         System.out.println("\n");
     }
     

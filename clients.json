@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "Darwin Arevalo",
+        "address": "Ciudad de Guatemala",
+        "phone": 42562365,
+        "nit": "5283282-3"
+    },
+    {
+        "id": 2,
+        "name": "Alexis Arevalo",
+        "address": "Ciudad de Minessota",
+        "phone": 34562365,
+        "nit": "3253282-3"
+    },
+    {
+        "id": 3,
+        "name": "Darla Arevalo",
+        "address": "Ciudad de Guatemala",
+        "phone": 76765565,
+        "nit": "9797464-3"
+    }
+]
