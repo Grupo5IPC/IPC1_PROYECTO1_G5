@@ -1,12 +1,10 @@
 package com.grupo5.Usuarios;
 
 public class Usuario {
-    private int Id;
     private String Usuario;
     private String Password;
 
-    public Usuario(int Id, String usuario, String password){
-        setId(Id);
+    public Usuario(String usuario, String password){
         setUsuario(usuario);
         setPassword(password);
     }
@@ -25,14 +23,4 @@ public class Usuario {
     public void setPassword(String password) {
         this.Password = password;
     }
-
-    public int getId() {
-        return Id;
-    }
-
-    public void setId(int Id) {
-        this.Id = Id;
-    }
-    
-    
 }

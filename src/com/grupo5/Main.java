@@ -5,6 +5,7 @@ import com.google.gson.stream.JsonReader;
 import com.grupo5.Usuarios.*;
 import com.grupo5.Productos.*;
 import com.grupo5.Clientes.*;
+import com.grupo5.Facturas.*;
 import java.io.*;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class Main {
     public static Gestor_usuario usuario = new Gestor_usuario();
     public static Gestor_cliente cliente = new Gestor_cliente();
     public static Gestor_Producto producto = new Gestor_Producto();
+    public static Gestor_Factura factura = new Gestor_Factura();
     public static Ingrediente ingrediente = new Ingrediente();
 
     public static void main(String[] args) {
@@ -23,10 +25,11 @@ public class Main {
 
         // en la instancia de la clase opciones se pide un entero que es el modo
         // el modo es la seleccion entre json o bin
-        //leerConfig();
+        leerConfig();
         leerClientes();
         leerUsuarios();
         leerProductos();
+        //leerFacturas();
         if ("json".equals(tipoDeCarga)) {
             Opciones op = new Opciones(cliente, usuario, producto, 1);
         } else if ("bin".equals(tipoDeCarga)) {
@@ -66,7 +69,7 @@ public class Main {
                     Opciones = MenuPrincipal.nextInt();
                     switch (Opciones) {
                         case 1:
-                            //leerConfig();
+                            Nuevo.printRestaurante();
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -89,16 +92,16 @@ public class Main {
 
                                 case 2:
                                     Scanner eliminar = new Scanner(System.in);
-                                    System.out.println("Ingrese el id del usuario a eliminar: ");
-                                    int eliminarId = eliminar.nextInt();
-                                    usuario.eliminarUsuario(eliminarId);
+                                    System.out.println("Ingrese el username del usuario a eliminar: ");
+                                    String eliminarUser = eliminar.nextLine();
+                                    usuario.eliminarUsuario(eliminarUser);
                                     break;
 
                                 case 3:
                                     Scanner buscar = new Scanner(System.in);
-                                    System.out.println("Ingrese el id del usuario a buscar: ");
-                                    int buscarId = buscar.nextInt();
-                                    usuario.printUsuarioSolo(buscarId);
+                                    System.out.println("Ingrese el username del usuario a buscar: ");
+                                    String buscarUser = buscar.nextLine();
+                                    usuario.printUsuarioSolo(buscarUser);
                                     break;
 
                                 case 4:
@@ -286,7 +289,7 @@ public class Main {
         }
     }
 
-    /*public static void leerConfig() {
+    public static void leerConfig() {
         File archivo;
         FileReader fr = null;
         BufferedReader br;
@@ -300,25 +303,15 @@ public class Main {
             while ((Linea = br.readLine()) != null) {
                 Contenido += Linea;
             }
-            
-            JsonObject Obj = new JsonObject();
-            Obj.getAsJsonObject(Contenido);
+
             JsonParser Parser = new JsonParser();
-            JsonReader jsonReader = new JsonReader(new StringReader(Contenido));
-            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+            JsonObject GsonObj = (JsonObject) Parser.parse(Contenido);
 
-                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
-
-                System.out.println("\n");
-                String nombre = GsonObj.get("name").getAsString();
-                System.out.println("Nombre: " + nombre);
-                String direccion = GsonObj.get("address").getAsString();
-                System.out.println("Dirección: " + direccion);
-                int numero = GsonObj.get("phone").getAsInt();
-                System.out.println("Numero de telefono: " + numero);
-                System.out.println("\n");
-                tipoDeCarga = GsonObj.get("load").getAsString();
-                Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
+            String nombre = GsonObj.get("name").getAsString();
+            String direccion = GsonObj.get("address").getAsString();
+            int numero = GsonObj.get("phone").getAsInt();
+            tipoDeCarga = GsonObj.get("load").getAsString();
+            Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -331,7 +324,8 @@ public class Main {
                 System.out.println(e2);
             }
         }
-    }*/
+    }
+
     public static void leerClientes() {
         File archivo;
         FileReader fr = null;
@@ -353,7 +347,6 @@ public class Main {
             for (int i = 0; i < GsonArr.size(); i++) {
                 JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
 
-                System.out.println("\n");
                 int id = GsonObj.get("id").getAsInt();
                 String nombre = GsonObj.get("name").getAsString();
                 String direccion = GsonObj.get("address").getAsString();
@@ -394,11 +387,9 @@ public class Main {
             for (int i = 0; i < GsonArr.size(); i++) {
                 JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
 
-                System.out.println("\n");
-                int id = GsonObj.get("id").getAsInt();
                 String nombre = GsonObj.get("username").getAsString();
                 String password = GsonObj.get("password").getAsString();
-                usuario.Ins_usu(id, nombre, password);
+                usuario.Ins_usu(nombre, password);
             }
 
         } catch (Exception e) {
@@ -433,7 +424,6 @@ public class Main {
             for (int i = 0; i < GsonArr.size(); i++) {
                 JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
 
-                System.out.println("\n");
                 int id = GsonObj.get("id").getAsInt();
                 String nombre = GsonObj.get("name").getAsString();
                 String descripcion = GsonObj.get("description").getAsString();
@@ -443,18 +433,13 @@ public class Main {
                 JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
                 Ingrediente aux = null;
                 for (int j = 0; j < Ingred.size(); j++) {
-                    try {
                         JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
-                        System.out.println("\n");
                         int idIng = GsonObj2.get("id").getAsInt();
                         String nombreIng = GsonObj2.get("name").getAsString();
                         int cantidadIng = GsonObj2.get("quantity").getAsInt();
                         String unidadesIng = GsonObj2.get("units").getAsString();
 
                         aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
-                    } catch (Exception e) {
-                        System.out.println("Problem");
-                    }
                 }
 
                 producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
@@ -470,4 +455,75 @@ public class Main {
             }
         }
     }
+    
+    /*public static void leerFacturas() {
+        File archivo;
+        FileReader fr = null;
+        BufferedReader br;
+        String Contenido = "";
+        try {
+            archivo = new File("invoices.json");
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+            String Linea;
+
+            while ((Linea = br.readLine()) != null) {
+                Contenido += Linea;
+            }
+
+            JsonParser Parser = new JsonParser();
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+
+            for (int i = 0; i < GsonArr.size(); i++) {
+                JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
+
+                System.out.println("\n");
+                int id = GsonObj.get("id").getAsInt();
+                int idcliente = GsonObj.get("client").getAsInt();
+                Cliente auxclient = cliente.getCliente(idcliente);
+                String fecha = GsonObj.get("date").getAsString();
+                Detalle detalle1;
+
+                JsonArray Ingred = GsonObj.get("products").getAsJsonArray();
+                Detalle aux = null;
+                for (int j = 0; j < Ingred.size(); j++) {
+                    try {
+                        JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
+                        System.out.println("\n");
+                        String nombreIng = GsonObj2.get("name").getAsString();
+
+                        int x = 0;
+                        boolean encontrado = false;
+                        while (x < 10 && encontrado == false) {
+                            if (producto.getProductos(x).equals(nombreIng)) {
+                                encontrado = true;
+                                String nombre1 = GsonObj2.get("name").getAsString();
+                                int auxProductId = producto.getId_nombre(nombre1);
+                                String auxProductNombre = Producto.;
+                                Producto auxProduct = new Producto(auxProductId, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes);
+                                aux = factura.crearDetalle(auxProduct, producto);
+                            } else {
+                                i++;
+                            }
+                        }
+                        int cantidadIng = GsonObj2.get("price").getAsInt();
+
+                    } catch (Exception e) {
+                        System.out.println("Problem");
+                    }
+                }
+
+                factura.insertarFactura(id, auxclient, fecha, aux);
+            }
+
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (null != fr) {
+                    fr.close();
+                }
+            } catch (Exception e2) {
+            }
+        }
+    }*/
 }

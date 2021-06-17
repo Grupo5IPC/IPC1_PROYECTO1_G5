@@ -1,6 +1,7 @@
 package com.grupo5;
 
 public class Restaurante {
+
     private String nombre;
     private String direccion;
     private int numero;
@@ -43,5 +44,13 @@ public class Restaurante {
 
     public void setTipoDeCarga(String tipoDeCarga) {
         this.tipoDeCarga = tipoDeCarga;
+    }
+
+    public void printRestaurante() {
+        System.out.println("");
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Dirección: " + direccion);
+        System.out.println("Número de teléfono: " + numero);
+        System.out.println("");
     }
 }
