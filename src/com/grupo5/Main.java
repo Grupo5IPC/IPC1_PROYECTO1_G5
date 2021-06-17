@@ -29,7 +29,7 @@ public class Main {
         leerClientes();
         leerUsuarios();
         leerProductos();
-        //leerFacturas();
+        leerFacturas();
         if ("json".equals(tipoDeCarga)) {
             Opciones op = new Opciones(cliente, usuario, producto, 1);
         } else if ("bin".equals(tipoDeCarga)) {
@@ -213,15 +213,21 @@ public class Main {
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
-                                    //LISTADO FACTURA
+                                    factura.printFacturas();
                                     break;
 
                                 case 2:
-                                    //ELIMINAR FACTURA
+                                    Scanner eliminar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id de la factura a eliminar: ");
+                                    int eliminarId = eliminar.nextInt();
+                                    factura.eliminarFactura(eliminarId);
                                     break;
 
                                 case 3:
-                                    //VER FACTURA
+                                    Scanner buscar = new Scanner(System.in);
+                                    System.out.println("Ingrese el id de la factura a buscar: ");
+                                    int buscarId = buscar.nextInt();
+                                    factura.printFacturaSolo(buscarId);
                                     break;
 
                                 case 4:
@@ -433,13 +439,13 @@ public class Main {
                 JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
                 Ingrediente aux = null;
                 for (int j = 0; j < Ingred.size(); j++) {
-                        JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
-                        int idIng = GsonObj2.get("id").getAsInt();
-                        String nombreIng = GsonObj2.get("name").getAsString();
-                        int cantidadIng = GsonObj2.get("quantity").getAsInt();
-                        String unidadesIng = GsonObj2.get("units").getAsString();
+                    JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
+                    int idIng = GsonObj2.get("id").getAsInt();
+                    String nombreIng = GsonObj2.get("name").getAsString();
+                    int cantidadIng = GsonObj2.get("quantity").getAsInt();
+                    String unidadesIng = GsonObj2.get("units").getAsString();
 
-                        aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
+                    aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
                 }
 
                 producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
@@ -455,8 +461,8 @@ public class Main {
             }
         }
     }
-    
-    /*public static void leerFacturas() {
+
+    public static void leerFacturas() {
         File archivo;
         FileReader fr = null;
         BufferedReader br;
@@ -477,43 +483,40 @@ public class Main {
             for (int i = 0; i < GsonArr.size(); i++) {
                 JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
 
-                System.out.println("\n");
                 int id = GsonObj.get("id").getAsInt();
                 int idcliente = GsonObj.get("client").getAsInt();
                 Cliente auxclient = cliente.getCliente(idcliente);
                 String fecha = GsonObj.get("date").getAsString();
-                Detalle detalle1;
 
                 JsonArray Ingred = GsonObj.get("products").getAsJsonArray();
-                Detalle aux = null;
+                Detalle auxdetalle = null;
+
                 for (int j = 0; j < Ingred.size(); j++) {
                     try {
                         JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
-                        System.out.println("\n");
-                        String nombreIng = GsonObj2.get("name").getAsString();
-
+                        String nombreProd = GsonObj2.get("name").getAsString();
+                        //Encontrar Id con el Nombre
+                        //Encontrar un Prodcuto con el Id
                         int x = 0;
                         boolean encontrado = false;
-                        while (x < 10 && encontrado == false) {
-                            if (producto.getProductos(x).equals(nombreIng)) {
+                        while (x < producto.contProductos() && encontrado == false) {
+                            boolean found = producto.verificarProducto(producto.getId_nombre(nombreProd));
+                            if (found == true) {
                                 encontrado = true;
-                                String nombre1 = GsonObj2.get("name").getAsString();
-                                int auxProductId = producto.getId_nombre(nombre1);
-                                String auxProductNombre = Producto.;
-                                Producto auxProduct = new Producto(auxProductId, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes);
-                                aux = factura.crearDetalle(auxProduct, producto);
+                                int auxProductId = producto.getId_nombre(nombreProd);
+                                Producto auxProduct = producto.getProductos(auxProductId);
+                                auxdetalle = factura.crearDetalle(auxProductId, auxProduct);
                             } else {
                                 i++;
                             }
                         }
-                        int cantidadIng = GsonObj2.get("price").getAsInt();
-
+                        //int cantidadIng = GsonObj2.get("price").getAsInt();
                     } catch (Exception e) {
-                        System.out.println("Problem");
+                        System.out.println(e);
                     }
-                }
 
-                factura.insertarFactura(id, auxclient, fecha, aux);
+                }
+                factura.insertarFactura(id, auxclient, fecha, auxdetalle);
             }
 
         } catch (Exception e) {
@@ -525,5 +528,5 @@ public class Main {
             } catch (Exception e2) {
             }
         }
-    }*/
+    }
 }

@@ -58,6 +58,16 @@ public class Gestor_Producto {
         return false;
     }
 
+    public int contProductos(){
+        int cont = 0;
+        for (int i = 0; i < productos.size(); i++) {
+            if (productos != null) {
+                cont++;
+            }
+        }
+        return cont;
+    }
+    
     public Producto getProductos(int id) {
         boolean state = false;
         int i = 0;

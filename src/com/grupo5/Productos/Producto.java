@@ -8,6 +8,9 @@ public class Producto {
     private double precio;
     private Ingrediente Ingredientes;
 
+    public Producto() {
+    }
+    
     public Producto(int id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes){
         setId(id);
         setNombre(nombre);

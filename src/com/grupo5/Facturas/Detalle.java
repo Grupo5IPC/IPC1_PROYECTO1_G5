@@ -25,4 +25,5 @@ public class Detalle {
     public void setProducto(Producto producto) {
         this.Producto = producto;
     }
+    
 }
