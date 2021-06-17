@@ -23,11 +23,11 @@ public class Gestor_usuario {
         }
     }
 
-    public boolean verificar(String nombre) {
+    public boolean verificar(String nombre, String pass) {
         boolean state = false;
         int i = 0;
         while (state == false && i < usuarios.size()) {
-            if (usuarios.get(i).getUsuario().equals(nombre)) {
+            if (usuarios.get(i).getUsuario().equals(nombre) && usuarios.get(i).getPassword().equals(pass)) {
                 state = true;
                 return true;
             } else {

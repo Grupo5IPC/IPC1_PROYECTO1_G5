@@ -34,6 +34,8 @@ public class Main {
             Opciones op = new Opciones(cliente, usuario, producto, 1);
         } else if ("bin".equals(tipoDeCarga)) {
             Opciones op = new Opciones(cliente, usuario, producto, 0);
+        }else{
+            System.out.println("ERROR: La carga no es un archivo json o binario");
         }
         menuPrincipal();
     }
@@ -51,7 +53,7 @@ public class Main {
             String pass = login.nextLine();
             System.out.println("*******************************");
             int Opciones = 0;
-//            if (gestor_usuario.verificar(user, pass)) {
+            if (usuario.verificar(user, pass)) {
             do {
                 try {
                     System.out.println("*******************************");
@@ -75,19 +77,23 @@ public class Main {
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 2:
+                            do{
                             //USUARIOS
                             System.out.println("*******************************");
                             System.out.println("*          USUARIOS           *");
                             System.out.println("*******************************");
                             System.out.println("* 1) Listado de Usuarios      *");
                             System.out.println("* 2) Eliminar Usuario         *");
-                            System.out.println("* 3) Ver Usuario             *");
+                            System.out.println("* 3) Ver Usuario              *");
                             System.out.println("* 4) Menu Principal           *");
                             System.out.println("*******************************");
+                            System.out.print("Elige una opcion: ");
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
+                                    System.out.println("");
                                     usuario.print_usu();
+                                    System.out.println("");
                                     break;
 
                                 case 2:
@@ -112,12 +118,14 @@ public class Main {
                                     System.out.println("Seleccione una opcion");
                                     break;
                             }
+                            }while(Opciones != 4);
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 3:
                             //PRODUCTOS
+                            do{
                             System.out.println("*******************************");
                             System.out.println("*          PRODUCTOS          *");
                             System.out.println("*******************************");
@@ -126,6 +134,7 @@ public class Main {
                             System.out.println("* 3) Ver Producto             *");
                             System.out.println("* 4) Menu Principal           *");
                             System.out.println("*******************************");
+                            System.out.print("Elige una opcion: ");
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
@@ -154,12 +163,15 @@ public class Main {
                                     System.out.println("Seleccione una opcion");
                                     break;
                             }
+                            }while(Opciones != 4);
+                            
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 4:
                             //CLIENTES
+                            do{
                             System.out.println("*******************************");
                             System.out.println("*          CLIENTES           *");
                             System.out.println("*******************************");
@@ -168,10 +180,13 @@ public class Main {
                             System.out.println("* 3) Ver Cliente              *");
                             System.out.println("* 4) Menu Principal           *");
                             System.out.println("*******************************");
+                            System.out.print("Elige una opcion: ");
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
+                                    System.out.println("");
                                     cliente.printClientes();
+                                    System.out.println("");
                                     break;
 
                                 case 2:
@@ -196,12 +211,14 @@ public class Main {
                                     System.out.println("Seleccione una opcion");
                                     break;
                             }
+                            }while (Opciones != 4);
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 5:
                             //FACTURAS
+                            do{
                             System.out.println("*******************************");
                             System.out.println("*          FACTURAS           *");
                             System.out.println("*******************************");
@@ -210,10 +227,13 @@ public class Main {
                             System.out.println("* 3) Ver Factura              *");
                             System.out.println("* 4) Menu Principal           *");
                             System.out.println("*******************************");
+                            System.out.print("Elige una opcion: ");
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
+                                    System.out.println("");
                                     factura.printFacturas();
+                                    System.out.println("");
                                     break;
 
                                 case 2:
@@ -238,12 +258,14 @@ public class Main {
                                     System.out.println("Seleccione una opcion");
                                     break;
                             }
+                            }while(Opciones != 4);
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------------
                         case 6:
                             //GUARDAR CAMBIOS
+                            do{
                             System.out.println("*******************************");
                             System.out.println("*       GUARDAR CAMBIOS       *");
                             System.out.println("*******************************");
@@ -251,6 +273,7 @@ public class Main {
                             System.out.println("* 2) Archivo Binario          *");
                             System.out.println("* 3) Menu Principal           *");
                             System.out.println("*******************************");
+                            System.out.print("Elige una opcion: ");
                             Opciones = MenuPrincipal.nextInt();
                             switch (Opciones) {
                                 case 1:
@@ -269,6 +292,7 @@ public class Main {
                                     System.out.println("Seleccione una opcion");
                                     break;
                             }
+                            }while(Opciones != 3);
                             break;
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -289,7 +313,7 @@ public class Main {
                     System.out.println("Advertencia: Debes elegir una opción de 1 a x");
                 }
             } while (Opciones != 7);
-//            }
+            }
         } catch (Exception e) {
             System.out.println("Has hecho una acción no valida,");
         }
