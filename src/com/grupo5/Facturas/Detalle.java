@@ -1,7 +1,9 @@
 package com.grupo5.Facturas;
 import com.grupo5.Productos.Producto;
 
-public class Detalle {
+import java.io.Serializable;
+
+public class Detalle implements Serializable {
     private int idFactura;
     private Producto Producto;
 

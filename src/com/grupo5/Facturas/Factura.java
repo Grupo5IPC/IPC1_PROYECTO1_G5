@@ -2,7 +2,9 @@ package com.grupo5.Facturas;
 
 import com.grupo5.Clientes.Cliente;
 
-public class Factura {
+import java.io.Serializable;
+
+public class Factura implements Serializable {
     // e
     private int id;
     private Cliente Cliente;

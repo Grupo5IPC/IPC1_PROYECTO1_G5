@@ -1,6 +1,7 @@
 package com.grupo5.Clientes;
+import java.io.Serializable;
 
-public class Cliente {
+public class Cliente implements Serializable {
     private int Id;
     private String Nombre;
     private String Direccion;

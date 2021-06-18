@@ -1,10 +1,9 @@
 package com.grupo5.Clientes;
 
-import com.grupo5.Usuarios.Usuario;
-
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Gestor_cliente {
+public class Gestor_cliente implements Serializable{
 
     ArrayList<Cliente> clientes = new ArrayList();
 
@@ -27,7 +26,9 @@ public class Gestor_cliente {
 
         }
     }
-
+public ArrayList<Cliente> getClientes(){
+        return clientes;
+}
     public boolean verificarCliente(int id, String nit) {
         boolean state = false;
         int i = 0;

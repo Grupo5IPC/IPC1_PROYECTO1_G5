@@ -1,6 +1,8 @@
 package com.grupo5.Productos;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
     private int Id;
     private String Nombre;
     private String Descripcion;

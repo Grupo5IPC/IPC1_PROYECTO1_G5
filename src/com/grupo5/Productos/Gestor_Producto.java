@@ -1,16 +1,18 @@
 package com.grupo5.Productos;
 
-import com.grupo5.Usuarios.Usuario;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Gestor_Producto {
+public class Gestor_Producto implements Serializable {
 
     ArrayList<Producto> productos = new ArrayList();
 
     public Ingrediente createIngrediente(int id, String nombre, int cantidad, String unidades) {
         Ingrediente ingrediente = new Ingrediente(id, nombre, cantidad, unidades);
         return ingrediente;
+    }
+    public  ArrayList<Producto> getProductos(){
+        return productos;
     }
 
     public boolean insertarProducto(int id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes) {

@@ -1,12 +1,12 @@
 package com.grupo5.Facturas;
 
 import com.grupo5.Clientes.Cliente;
-import com.grupo5.Productos.Ingrediente;
 import com.grupo5.Productos.Producto;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Gestor_Factura {
+public class Gestor_Factura implements Serializable{
 
     ArrayList<Factura> facturas = new ArrayList();
 
@@ -15,6 +15,9 @@ public class Gestor_Factura {
         Detalle detalle = new Detalle(id, producto);
         return detalle;
     }
+   public ArrayList<Factura> getFacturas(){
+        return facturas;
+   }
 
     public boolean insertarFactura(int id, Cliente cliente, String fecha, Detalle detalle) {
         // para obtener el cliente usar antes el metodo getCliente del gesto Cliente con el id que se ingresa
