@@ -25,6 +25,7 @@ public class Main {
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
     public static Log log;
+    public static Logdeacciones logdeacciones;
     public static Ingrediente ingrediente = new Ingrediente();
     public static String ruta;
     public static int modo = 0;
@@ -36,6 +37,7 @@ public class Main {
         // en la instancia de la clase opciones se pide un entero que es el modo
         // el modo es la seleccion entre json o bin
         leerConfig();
+        logdeacciones = new Logdeacciones();
         log = new Log();
         leerClientes();
         leerUsuarios();
@@ -70,6 +72,7 @@ public class Main {
             int Opciones = 0;
 
             if (usuario.verificar(user, pass)) {
+                logdeacciones.addlog(user + ": Inicio de sesión exitoso" + "\t");
                 do {
                     try {
                         System.out.println("*******************************");
@@ -120,6 +123,7 @@ public class Main {
                                                 log.addCuerpo("USERS: No existen usuarios a eliminar");
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 2){
                                                 System.out.println("USERS: El usuario se ha eliminado");
+                                                logdeacciones.addlog(user + ": Eliminó al usuario \""+ eliminarUser +"\" " + "\t");
                                                 serializarObjetos(modo);
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 3){
                                                 System.out.println("El usuario ingresado no existe");
@@ -281,6 +285,7 @@ public class Main {
                                                 log.addCuerpo("INVOICES: No existen facturas ingresadas, no se elimino");
                                             }else if ( cliente.eliminarCliente(eliminarId) == 2){
                                                 System.out.println("Factura eliminado correctamente");
+                                                logdeacciones.addlog(user + ": Eliminó la factura con id " + eliminarId + "\t");
                                                 serializarObjetos(modo);
                                             }else if ( cliente.eliminarCliente(eliminarId) == 0){
                                                 log.addCuerpo("INVOICES: No existe el id "+eliminarId+", no se elimino");
@@ -359,6 +364,8 @@ public class Main {
                         System.out.println("Advertencia: Debes elegir una opción de 1 a x");
                     }
                 } while (Opciones != 7);
+            } else {
+                logdeacciones.addlog(user + ": Inicio de sesión fallido" + "\t");
             }
         } catch (Exception e) {
             System.out.println("Has hecho una acción no valida,");
