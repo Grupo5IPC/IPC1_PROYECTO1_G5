@@ -57,13 +57,11 @@ public class Gestor_usuario implements Serializable {
 
     public void printUsuarioSolo(String nombre) {
         int i = 0;
-        while (i < usuarios.size()) {
+        for (i = 0; i < usuarios.size(); i++){
             if (usuarios.get(i).getUsername().equals(nombre)) {
                 System.out.print("\nUsuario: " + usuarios.get(i).getUsername());
                 System.out.print("\nPassword: " + usuarios.get(i).getPassword());
-                System.out.println("\n");
-            }else{
-                i++;
+                System.out.println("\n");    
             }
         }
     }
@@ -87,7 +85,7 @@ public class Gestor_usuario implements Serializable {
                 i++;
             }
         }
-        return modo;
+        return modo = 3;
     }
 
     /*
