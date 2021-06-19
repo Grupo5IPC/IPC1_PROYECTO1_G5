@@ -175,6 +175,7 @@ public class Main {
                                             if (producto.verificarProducto(eliminarId)){
                                                 producto.eliminarProducto(eliminarId);
                                                 serializarObjetos(modo);
+                                                logdeacciones.addlog(user + ": Eliminó el producto \""+ "nombredelproducto" +"\" con id " + eliminarId);
                                             }else{
                                                 log.addCuerpo("PRODUCTS: No existe el id "+eliminarId+", no se elimino");
                                             }
@@ -230,6 +231,7 @@ public class Main {
                                                 log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
                                             }else if ( cliente.eliminarCliente(eliminarId) == 2){
                                                 System.out.println("Cliente eliminado correctamente");
+                                                logdeacciones.addlog(user + ": Eliminó al cliente \""+ "nombredelcliente"+"\" con id " + eliminarId);
                                                 serializarObjetos(modo);
                                             }else if ( cliente.eliminarCliente(eliminarId) == 0){
                                                 log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
