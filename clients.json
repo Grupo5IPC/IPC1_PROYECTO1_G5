@@ -19,5 +19,12 @@
         "address": "Ciudad de Guatemala",
         "phone": 76765565,
         "nit": "9797464-3"
+    },
+    {
+        "id": 3,
+        "name": "Darla ",
+        "address": "Ciudad de Guatemala",
+        "phone": 76765565,
+        "nit": "9797464-3"
     }
 ]

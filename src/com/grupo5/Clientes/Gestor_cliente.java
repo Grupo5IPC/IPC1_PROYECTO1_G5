@@ -29,11 +29,12 @@ public class Gestor_cliente implements Serializable{
 public ArrayList<Cliente> getClientes(){
         return clientes;
 }
-    public boolean verificarCliente(int id, String nit) {
+    public boolean verificarCliente(int id) {
         boolean state = false;
         int i = 0;
+        //System.out.println(clientes.size());
         while (state == false && i < clientes.size()) {
-            if ((clientes.get(i).getId() == id) && (clientes.get(i).getNit().compareTo(nit) == 0)) {
+            if (clientes.get(i).getId() == id) {
                 state = true;
                 return true;
             } else {
@@ -66,17 +67,25 @@ public ArrayList<Cliente> getClientes(){
         System.out.println("\n");
     }
     
-    public void eliminarCliente(int id) {
+    public int eliminarCliente(int id) {
         boolean state = false;
         int i = 0;
+        int modo = 0;
+        if (clientes== null || clientes.isEmpty()){
+            modo =1;
+            return modo;
+        }
         while (state == false && i < clientes.size()) {
             if (clientes.get(i).getId() == id) {
                 state = true;
                 clientes.remove(i);
+                modo = 2;
                 System.out.println("Cliente con id " + (i+1) + " eliminado");
+                return modo;
             } else {
                 i++;
             }
         }
+        return modo;
     }
 }

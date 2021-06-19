@@ -24,8 +24,10 @@ public class Main {
     public static Gestor_cliente cliente;
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
+    public static Log log;
     public static Ingrediente ingrediente = new Ingrediente();
     public static String ruta;
+    public static int modo = 0;
 
     public static void main(String[] args) {
         // write your code here
@@ -34,11 +36,12 @@ public class Main {
         // en la instancia de la clase opciones se pide un entero que es el modo
         // el modo es la seleccion entre json o bin
         leerConfig();
+        log = new Log();
         leerClientes();
         leerUsuarios();
         leerProductos();
         leerFacturas();
-        desserializarObjetos();
+        //desserializarObjetos();
         if ("json".equals(tipoDeCarga)) {
             Opciones op = new Opciones(cliente, usuario, producto, 1);
         } else if ("ipcrm".equals(tipoDeCarga)) {
@@ -47,6 +50,7 @@ public class Main {
             System.out.println("ERROR: La carga no es un archivo json o binario");
         }
         menuPrincipal();
+
     }
 
     public static void menuPrincipal() {
@@ -54,6 +58,7 @@ public class Main {
         Scanner MenuPrincipal = new Scanner(System.in);
         try {
             //usuario.print_usu();
+            cliente.printClientes();
             System.out.println("*******************************");
             System.out.println("*           LOGIN             *");
             System.out.println("*******************************");
@@ -111,7 +116,14 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a eliminar: ");
                                             String eliminarUser = eliminar.nextLine();
-                                            usuario.eliminarUsuario(eliminarUser);
+                                            if (usuario.eliminarUsuario(eliminarUser) == 1){
+                                                log.addCuerpo("USERS: No existen usuarios a eliminar");
+                                            }else if(usuario.eliminarUsuario(eliminarUser) == 2){
+                                                System.out.println("USERS: El usuario se ha eliminado");
+                                                serializarObjetos(modo);
+                                            }else if(usuario.eliminarUsuario(eliminarUser) == 3){
+                                                System.out.println("El usuario ingresado no existe");
+                                            }
                                             break;
 
                                         case 3:
@@ -156,7 +168,13 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            producto.eliminarProducto(eliminarId);
+                                            if (producto.verificarProducto(eliminarId)){
+                                                producto.eliminarProducto(eliminarId);
+                                                serializarObjetos(modo);
+                                            }else{
+                                                log.addCuerpo("PRODUCTS: No existe el id "+eliminarId+", no se elimino");
+                                            }
+
                                             break;
 
                                         case 3:
@@ -204,7 +222,15 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del cliente a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            cliente.eliminarCliente(eliminarId);
+                                            if ( cliente.eliminarCliente(eliminarId) == 1){
+                                                log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
+                                            }else if ( cliente.eliminarCliente(eliminarId) == 2){
+                                                System.out.println("Cliente eliminado correctamente");
+                                                serializarObjetos(modo);
+                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
+                                                log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
+                                            }
+
                                             break;
 
                                         case 3:
@@ -251,7 +277,14 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id de la factura a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            factura.eliminarFactura(eliminarId);
+                                            if ( cliente.eliminarCliente(eliminarId) == 1){
+                                                log.addCuerpo("INVOICES: No existen facturas ingresadas, no se elimino");
+                                            }else if ( cliente.eliminarCliente(eliminarId) == 2){
+                                                System.out.println("Factura eliminado correctamente");
+                                                serializarObjetos(modo);
+                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
+                                                log.addCuerpo("INVOICES: No existe el id "+eliminarId+", no se elimino");
+                                            }
                                             break;
 
                                         case 3:
@@ -358,6 +391,7 @@ public class Main {
             //System.out.println(tipoDeCarga);
             if (tipoDeCarga.equals("bin")) {
                 tipoDeCarga = "ipcrm";
+                modo = 1;
             }
             Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
 
@@ -406,8 +440,11 @@ public class Main {
                     String direccion = GsonObj.get("address").getAsString();
                     int numero = GsonObj.get("phone").getAsInt();
                     String nit = GsonObj.get("nit").getAsString();
-
-                    cliente.insertarCliente(id, nombre, direccion, numero, nit);
+                    if (cliente.verificarCliente(id) == false) {
+                        cliente.insertarCliente(id, nombre, direccion, numero, nit);
+                    }else{
+                        log.addCuerpo("CLIENTS: El id "+ id+" ya existe, no se registro");
+                    }
                 }
 
             } catch (Exception e) {
@@ -472,7 +509,11 @@ public class Main {
 
                     String nombre = GsonObj.get("username").getAsString();
                     String password = GsonObj.get("password").getAsString();
-                    usuario.Ins_usu(nombre, password);
+                    if (usuario.verificarExistencia(nombre) == false) {
+                        usuario.Ins_usu(nombre, password);
+                    }else{
+                        log.addCuerpo("USERS: El nombre de usuario "+ nombre+" ya existe, no se registro");
+                    }
                 }
 
             } catch (Exception e) {
@@ -549,8 +590,11 @@ public class Main {
 
                         aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
                     }
-
-                    producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
+                    if (producto.verificarProducto(id) == false) {
+                        producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
+                    }else{
+                        log.addCuerpo("PRODUCTOS: El id "+ id+" ya existe, no se registro");
+                    }
                 }
 
             } catch (Exception e) {
@@ -640,7 +684,11 @@ public class Main {
                         }
 
                     }
-                    factura.insertarFactura(id, auxclient, fecha, auxdetalle);
+                    if (factura.verificarFactura(id) == false) {
+                        factura.insertarFactura(id, auxclient, fecha, auxdetalle);
+                    }else{
+                        log.addCuerpo("INVOICES: El id"+ id+" ya existe, no se registro");
+                    }
                 }
 
             } catch (Exception e) {
@@ -691,7 +739,7 @@ public class Main {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 ArrayList<Usuario> array = usuario.getArray();
                 String g = gson.toJson(array);
-                FileWriter writer1 = new FileWriter("Guardado/JSON/users.json", true);
+                FileWriter writer1 = new FileWriter("users.json", true);
                 writer1.write(g);
                 writer1.close();
                 //System.out.println(g);
@@ -700,7 +748,7 @@ public class Main {
 
                 ArrayList<Cliente> clientes = cliente.getClientes();
                 String g2 = gson.toJson(clientes);
-                FileWriter writer2 = new FileWriter("Guardado/JSON/clients.json", true);
+                FileWriter writer2 = new FileWriter("clients.json", true);
                 writer2.write(g2);
                 writer2.close();
                 //System.out.println(g2);
@@ -709,7 +757,7 @@ public class Main {
 
                 ArrayList<Producto> array2 = producto.getProductos();
                 String g3 = gson.toJson(array2);
-                FileWriter writer3 = new FileWriter("Guardado/JSON/products.json", true);
+                FileWriter writer3 = new FileWriter("products.json", true);
                 writer3.write(g3);
                 writer3.close();
                 //System.out.println(g3);
@@ -718,7 +766,7 @@ public class Main {
 
                 ArrayList<Factura> array4 = factura.getFacturas();
                 String g4 = gson.toJson(array4);
-                FileWriter writer4 = new FileWriter("Guardado/JSON/invoices.json", true);
+                FileWriter writer4 = new FileWriter("invoices.json", true);
                 writer4.write(g4);
                 writer4.close();
                 //System.out.println(g4);
@@ -797,21 +845,16 @@ public class Main {
     }
 
     public static void serializarObjetos(int modo) {
-        if (modo == 1 ) {
+        if (modo == 0 ) {
 
             try {
-                File directorio = new File("Guardado/JSON");
-                if (!directorio.exists()) {
-                    if (directorio.mkdirs()) {
-                    } else {
-                    }
-                }
+
 
                 // Serializar usuarios
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 ArrayList<Usuario> array = usuario.getArray();
                 String g = gson.toJson(array);
-                FileWriter writer1 = new FileWriter("Guardado/JSON/users.json", true);
+                FileWriter writer1 = new FileWriter("users.json", true);
                 writer1.write(g);
                 writer1.close();
                 //System.out.println(g);
@@ -820,7 +863,7 @@ public class Main {
 
                 ArrayList<Cliente> clientes = cliente.getClientes();
                 String g2 = gson.toJson(clientes);
-                FileWriter writer2 = new FileWriter("Guardado/JSON/clients.json", true);
+                FileWriter writer2 = new FileWriter("clients.json", true);
                 writer2.write(g2);
                 writer2.close();
                 //System.out.println(g2);
@@ -829,7 +872,7 @@ public class Main {
 
                 ArrayList<Producto> array2 = producto.getProductos();
                 String g3 = gson.toJson(array2);
-                FileWriter writer3 = new FileWriter("Guardado/JSON/products.json", true);
+                FileWriter writer3 = new FileWriter("products.json", true);
                 writer3.write(g3);
                 writer3.close();
                 //System.out.println(g3);
@@ -838,7 +881,7 @@ public class Main {
 
                 ArrayList<Factura> array4 = factura.getFacturas();
                 String g4 = gson.toJson(array4);
-                FileWriter writer4 = new FileWriter("Guardado/JSON/invoices.json", true);
+                FileWriter writer4 = new FileWriter("invoices.json", true);
                 writer4.write(g4);
                 writer4.close();
                 //System.out.println(g4);

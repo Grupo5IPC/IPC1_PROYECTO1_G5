@@ -41,6 +41,20 @@ public class Gestor_usuario implements Serializable {
         return false;
     }
 
+    public boolean verificarExistencia(String nombre) {
+        boolean state = false;
+        int i = 0;
+        while (state == false && i < usuarios.size()) {
+            if (usuarios.get(i).getUsername().equals(nombre) ) {
+                state = true;
+                return true;
+            } else {
+                i++;
+            }
+        }
+        return false;
+    }
+
     public void printUsuarioSolo(String nombre) {
         int i = 0;
         while (i < usuarios.size()) {
@@ -54,16 +68,26 @@ public class Gestor_usuario implements Serializable {
         }
     }
             
-    public void eliminarUsuario(String nombre) {
+    public int eliminarUsuario(String nombre) {
         int i = 0;
+        int modo = 0;
+        if (usuarios == null || usuarios.isEmpty()){
+            modo = 1;
+            return modo;
+        }
+
         while (i < usuarios.size()) {
             if (usuarios.get(i).getUsername().equals(nombre)) {
                 usuarios.remove(i);
+                modo = 2;
                 System.out.println("Usuario con username " + nombre + " eliminado");
+                return modo;
+
             } else {
                 i++;
             }
         }
+        return modo;
     }
 
     /*

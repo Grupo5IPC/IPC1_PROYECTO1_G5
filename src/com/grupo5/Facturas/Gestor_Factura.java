@@ -70,17 +70,25 @@ public class Gestor_Factura implements Serializable{
         System.out.println("");
     }
 
-    public void eliminarFactura(int id) {
+    public int eliminarFactura(int id) {
         boolean state = false;
         int i = 0;
+        int modo = 0;
+        if (facturas.isEmpty() || facturas == null){
+            modo = 1;
+            return modo;
+        }
         while (state == false && i < facturas.size()) {
             if (facturas.get(i).getId() == id) {
                 state = true;
                 facturas.remove(i);
                 System.out.println("Factura con id " + (i + 1) + " eliminado");
+                modo = 2;
+                return modo;
             } else {
                 i++;
             }
         }
+        return modo;
     }
 }
