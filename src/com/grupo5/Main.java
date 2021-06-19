@@ -125,7 +125,7 @@ public class Main {
                                                 System.out.println("USERS: El usuario se ha eliminado");
                                                 logdeacciones.addlog(user + ": Eliminó al usuario \""+eliminarUser+"\" ");
                                                 serializarObjetos(modo);
-                                            }else if(usuario.eliminarUsuario(eliminarUser) == 3){
+                                            }else if(usuario.eliminarUsuario(eliminarUser) == 0){
                                                 System.out.println("El usuario ingresado no existe");
                                             }
                                             break;
@@ -231,10 +231,10 @@ public class Main {
                                                 log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
                                             }else if ( cliente.eliminarCliente(eliminarId) == 2){
                                                 System.out.println("Cliente eliminado correctamente");
-                                                logdeacciones.addlog(user + ": Eliminó al cliente \""+ "nombredelcliente"+"\" con id " + eliminarId);
+                                                logdeacciones.addlog(user + ": Eliminó al cliente \""+ cliente.getCliente(eliminarId) +"\" con id " + eliminarId);
                                                 serializarObjetos(modo);
-                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
-                                                log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
+//                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
+//                                                log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
                                             }
 
                                             break;
