@@ -72,7 +72,7 @@ public class Main {
             int Opciones = 0;
 
             if (usuario.verificar(user, pass)) {
-                logdeacciones.addlog(user + ": Inicio de sesión exitoso" + "\t");
+                logdeacciones.addlog(user + ": Inicio de sesión exitoso");
                 do {
                     try {
                         System.out.println("*******************************");
@@ -123,7 +123,7 @@ public class Main {
                                                 log.addCuerpo("USERS: No existen usuarios a eliminar");
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 2){
                                                 System.out.println("USERS: El usuario se ha eliminado");
-                                                logdeacciones.addlog(user + ": Eliminó al usuario \""+ eliminarUser +"\" " + "\t");
+                                                logdeacciones.addlog(user + ": Eliminó al usuario \""+eliminarUser+"\" ");
                                                 serializarObjetos(modo);
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 3){
                                                 System.out.println("El usuario ingresado no existe");
@@ -285,7 +285,7 @@ public class Main {
                                                 log.addCuerpo("INVOICES: No existen facturas ingresadas, no se elimino");
                                             }else if ( cliente.eliminarCliente(eliminarId) == 2){
                                                 System.out.println("Factura eliminado correctamente");
-                                                logdeacciones.addlog(user + ": Eliminó la factura con id " + eliminarId + "\t");
+                                                logdeacciones.addlog(user + ": Eliminó la factura con id " + eliminarId);
                                                 serializarObjetos(modo);
                                             }else if ( cliente.eliminarCliente(eliminarId) == 0){
                                                 log.addCuerpo("INVOICES: No existe el id "+eliminarId+", no se elimino");
