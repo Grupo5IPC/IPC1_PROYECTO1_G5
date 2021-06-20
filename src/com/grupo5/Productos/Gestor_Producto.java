@@ -7,8 +7,8 @@ public class Gestor_Producto implements Serializable {
 
     ArrayList<Producto> productos = new ArrayList();
 
-    public Ingrediente createIngrediente(int id, String nombre, int cantidad, String unidades) {
-        Ingrediente ingrediente = new Ingrediente(id, nombre, cantidad, unidades);
+    public Ingrediente createIngrediente(String nombre, int cantidad, String unidades) {
+        Ingrediente ingrediente = new Ingrediente(nombre, cantidad, unidades);
         return ingrediente;
     }
 
@@ -38,7 +38,6 @@ public class Gestor_Producto implements Serializable {
             System.out.print(productos.get(i).getPrecio());
             System.out.println("");
             System.out.println("Ingredientes del producto " + productos.get(i).getId());
-            System.out.print(productos.get(i).getIngredientes().getId() + ",");
             System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
             System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
             System.out.print(productos.get(i).getIngredientes().getUnidades());
@@ -109,13 +108,13 @@ public class Gestor_Producto implements Serializable {
         System.out.print(productos.get(aux).getPrecio());
         System.out.println("");
         System.out.println("Ingredientes del producto " + productos.get(aux).getId());
-        System.out.print(productos.get(aux).getIngredientes().getId() + ",");
         System.out.print(productos.get(aux).getIngredientes().getNombre() + ",");
         System.out.print(productos.get(aux).getIngredientes().getCantidad() + ",");
         System.out.print(productos.get(aux).getIngredientes().getUnidades());
         System.out.println("");
     }
-    public String getNombre_id(int  id){
+
+    public String getNombre_id(int id) {
         boolean state = false;
         String nombre = "";
         int i = 0;
@@ -123,7 +122,7 @@ public class Gestor_Producto implements Serializable {
         while (state == false && i < productos.size()) {
             if (productos.get(i).getId() == id) {
                 state = true;
-               nombre = productos.get(i).getNombre();
+                nombre = productos.get(i).getNombre();
                 return nombre;
             } else {
                 i++;
@@ -131,13 +130,15 @@ public class Gestor_Producto implements Serializable {
         }
         return nombre;
     }
-    public boolean buscarProducto(int id){
+
+    public boolean buscarProducto(int id) {
         boolean state = false;
         int i = 0;
         //System.out.println(clientes.size());
         while (state == false && i < productos.size()) {
             if (productos.get(i).getId() == id) {
                 state = true;
+                System.out.println("");
                 System.out.print(productos.get(i).getId() + ",");
                 System.out.print(productos.get(i).getNombre() + ",");
                 System.out.print(productos.get(i).getDescripcion() + ",");
@@ -145,10 +146,14 @@ public class Gestor_Producto implements Serializable {
                 System.out.print(productos.get(i).getPrecio());
                 System.out.println("");
                 System.out.println("Ingredientes del producto " + productos.get(i).getId());
-                System.out.print(productos.get(i).getIngredientes().getId() + ",");
-                System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
-                System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
-                System.out.print(productos.get(i).getIngredientes().getUnidades());
+                System.out.println(productos.get(i).getIngredientes().getNombre().length());
+                for (int j = 0; j < productos.get(i).getIngredientes().getNombre().length(); j++) {
+                    System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
+                    System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
+                    System.out.print(productos.get(i).getIngredientes().getUnidades());
+                }
+
+                System.out.println("");
                 return true;
             } else {
                 i++;
