@@ -146,13 +146,9 @@ public class Gestor_Producto implements Serializable {
                 System.out.print(productos.get(i).getPrecio());
                 System.out.println("");
                 System.out.println("Ingredientes del producto " + productos.get(i).getId());
-                System.out.println(productos.get(i).getIngredientes().getNombre().length());
-                for (int j = 0; j < productos.get(i).getIngredientes().getNombre().length(); j++) {
-                    System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
-                    System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
-                    System.out.print(productos.get(i).getIngredientes().getUnidades());
-                }
-
+                System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
+                System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
+                System.out.print(productos.get(i).getIngredientes().getUnidades());
                 System.out.println("");
                 return true;
             } else {
