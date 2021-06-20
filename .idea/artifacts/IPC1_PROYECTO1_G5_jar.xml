@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="IPC1_PROYECTO1_G5:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/IPC1_PROYECTO1_G5_jar</output-path>
+    <root id="archive" name="IPC1_PROYECTO1_G5.jar">
+      <element id="module-output" name="IPC1_PROYECTO1_G5" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/com/grupo5/gson-2.8.7.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

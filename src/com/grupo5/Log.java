@@ -19,7 +19,7 @@ public class Log {
         int minutos = fecha.get(Calendar.MINUTE);
         n_reporte = "errors";
         try {
-            File directorio = new File("Log");
+            File directorio = new File("Log de errores");
             if (!directorio.exists()) {
                 if (directorio.mkdirs()) {
 
@@ -27,7 +27,7 @@ public class Log {
 
                 }
             }
-            File archivo = new File("Log/" + n_reporte + ".log");
+            File archivo = new File("Log de errores/" + n_reporte + ".log");
             if (archivo.createNewFile()) {
                 //System.out.println("reporte creado");
             }
@@ -41,7 +41,7 @@ public class Log {
 
     public static void add_Titulo(String cadena) {
         try {
-            FileWriter fn = new FileWriter("Log/" + n_reporte + ".log", true);
+            FileWriter fn = new FileWriter("Log de errores" + n_reporte + ".log", true);
             Calendar fecha = Calendar.getInstance();
             int anio = fecha.get(Calendar.YEAR);
             int mes = fecha.get(Calendar.MONTH);
@@ -59,7 +59,7 @@ public class Log {
 
     public static void addCuerpo(String cadena) {
         try {
-            FileWriter fn = new FileWriter("Log/" + n_reporte + ".log", true);
+            FileWriter fn = new FileWriter("Log de errores/" + n_reporte + ".log", true);
             Calendar fecha = Calendar.getInstance();
             int anio = fecha.get(Calendar.YEAR);
             int mes = fecha.get(Calendar.MONTH);

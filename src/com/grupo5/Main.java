@@ -363,11 +363,14 @@ public class Main {
                                         case 1:
                                             //JSON
                                             serializarObjetos(Opciones);
+                                            System.out.println("Serializacion correcta");
                                             break;
 
                                         case 2:
                                             //BINARIO
                                             serializarObjetos(Opciones);
+                                            System.out.println("Serializacion correcta");
+
                                             break;
 
                                         case 3:
@@ -510,7 +513,7 @@ public class Main {
             try {
                 //Deserializar clientes
                 File archivo1 = new File("Guardado/BIN/clients.ipcrm");
-                System.out.println("La ruta del fichero es: " + archivo1.getAbsolutePath());
+                System.out.println("La ruta del fichero es:Guardado/BIN/") ;
                 if (archivo1.exists()) {
 
                     try {
