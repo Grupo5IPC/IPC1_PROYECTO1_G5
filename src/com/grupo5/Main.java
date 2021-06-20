@@ -602,12 +602,11 @@ public class Main {
                     Ingrediente aux = null;
                     for (int j = 0; j < Ingred.size(); j++) {
                         JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
-                        int idIng = GsonObj2.get("id").getAsInt();
                         String nombreIng = GsonObj2.get("name").getAsString();
                         int cantidadIng = GsonObj2.get("quantity").getAsInt();
                         String unidadesIng = GsonObj2.get("units").getAsString();
 
-                        aux = producto.createIngrediente(idIng, nombreIng, cantidadIng, unidadesIng);
+                        aux = producto.createIngrediente(nombreIng, cantidadIng, unidadesIng);
                     }
                     if (producto.verificarProducto(id) == false) {
                         producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
