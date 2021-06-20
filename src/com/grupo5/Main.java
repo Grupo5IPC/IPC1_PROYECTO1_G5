@@ -408,6 +408,7 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println("Has hecho una acción no valida,");
+            System.out.println("Vuelve a intentarlo");
         }
     }
 
