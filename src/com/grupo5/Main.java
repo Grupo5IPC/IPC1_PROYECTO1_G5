@@ -438,7 +438,7 @@ public class Main {
             //System.out.println(tipoDeCarga);
             if (tipoDeCarga.equals("bin")) {
                 tipoDeCarga = "ipcrm";
-                modo = 1;
+                modo = 2;
             }
             Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
 
@@ -893,7 +893,7 @@ public class Main {
     }
 
     public static void serializarObjetos(int modo) {
-        if (modo == 0) {
+        if (modo == 0 || modo== 1) {
 
             try {
 
