@@ -1,14 +1,6 @@
 [
-    {
-	"id": 1,
-        "username": "alexizzarevalo",
-        "password": "helloworld"
-    },
-
-	{
-	"id": 2,
-        "username": "admin",
-        "password": "admin"
-    }
-
+  {
+    "username": "alexizzarevalo",
+    "password": "helloworld"
+  }
 ]

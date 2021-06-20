@@ -3,7 +3,7 @@ package com.grupo5.Clientes;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Gestor_cliente implements Serializable{
+public class Gestor_cliente implements Serializable {
 
     ArrayList<Cliente> clientes = new ArrayList();
 
@@ -17,38 +17,43 @@ public class Gestor_cliente implements Serializable{
 
     // lo hice rapido se puede usar el metodo .forEach si lo prefieren
     public void printClientes() {
+        if (clientes.isEmpty()) {
+            System.out.println("No existen clientes");
+        }
         for (int i = 0; i < clientes.size(); i++) {
             System.out.print(clientes.get(i).getId() + ",");
-            System.out.print(clientes.get(i).getNombre() + ",");
-            System.out.print(clientes.get(i).getDireccion() + ",");
-            System.out.print(clientes.get(i).getTelefono() + ",");
+            System.out.print(clientes.get(i).getName() + ",");
+            System.out.print(clientes.get(i).getAddress() + ",");
+            System.out.print(clientes.get(i).getPhone() + ",");
             System.out.println(clientes.get(i).getNit());
 
         }
     }
-public ArrayList<Cliente> getClientes(){
-        return clientes;
-}
 
-public boolean buscarCliente(int id){
-    boolean state = false;
-    int i = 0;
-    //System.out.println(clientes.size());
-    while (state == false && i < clientes.size()) {
-        if (clientes.get(i).getId() == id) {
-            state = true;
-            System.out.print("\nNombre: " + clientes.get(i).getNombre());
-            System.out.print("\nDirección: " + clientes.get(i).getDireccion());
-            System.out.print("\nTelefono: " + clientes.get(i).getTelefono());
-            System.out.println("\nNit: " + clientes.get(i).getNit());
-            System.out.println("\n");
-            return true;
-        } else {
-            i++;
-        }
+    public ArrayList<Cliente> getClientes() {
+        return clientes;
     }
-    return false;
-}
+
+    public boolean buscarCliente(int id) {
+        boolean state = false;
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < clientes.size()) {
+            if (clientes.get(i).getId() == id) {
+                state = true;
+                System.out.print("\nNombre: " + clientes.get(i).getName());
+                System.out.print("\nDirección: " + clientes.get(i).getAddress());
+                System.out.print("\nTelefono: " + clientes.get(i).getPhone());
+                System.out.println("\nNit: " + clientes.get(i).getNit());
+                System.out.println("\n");
+                return true;
+            } else {
+                i++;
+            }
+        }
+        return false;
+    }
+
     public boolean verificarCliente(int id) {
         boolean state = false;
         int i = 0;
@@ -78,21 +83,38 @@ public boolean buscarCliente(int id){
         return null;
     }
 
+    public String getNombre_id(int id) {
+        boolean state = false;
+        String nombre = "";
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < clientes.size()) {
+            if (clientes.get(i).getId() == id) {
+                state = true;
+                nombre = clientes.get(i).getName();
+                return nombre;
+            } else {
+                i++;
+            }
+        }
+        return nombre;
+    }
+
     public void printClienteSolo(int id) {
         int aux = id - 1;
-        System.out.print("\nNombre: " + clientes.get(aux).getNombre());
-        System.out.print("\nDirección: " + clientes.get(aux).getDireccion());
-        System.out.print("\nTelefono: " + clientes.get(aux).getTelefono());
+        System.out.print("\nNombre: " + clientes.get(aux).getName());
+        System.out.print("\nDirección: " + clientes.get(aux).getAddress());
+        System.out.print("\nTelefono: " + clientes.get(aux).getPhone());
         System.out.println("\nNit: " + clientes.get(aux).getNit());
         System.out.println("\n");
     }
-    
+
     public int eliminarCliente(int id) {
         boolean state = false;
         int i = 0;
         int modo = 0;
-        if (clientes== null || clientes.isEmpty()){
-            modo =1;
+        if (clientes == null || clientes.isEmpty()) {
+            modo = 1;
             return modo;
         }
         while (state == false && i < clientes.size()) {
@@ -100,7 +122,7 @@ public boolean buscarCliente(int id){
                 state = true;
                 clientes.remove(i);
                 modo = 2;
-                System.out.println("Cliente con id " + (i+1) + " eliminado");
+                //System.out.println("Cliente con id " + (i+1) + " eliminado");
                 return modo;
             } else {
                 i++;

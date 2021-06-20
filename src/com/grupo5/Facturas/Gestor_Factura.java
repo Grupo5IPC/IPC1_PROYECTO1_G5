@@ -34,12 +34,15 @@ public class Gestor_Factura implements Serializable{
 
     // lo hice rapido se puede usar el metodo .forEach si lo prefieren
     public void printFacturas() {
+        if (facturas.isEmpty()){
+            System.out.println("No hay mas facturas");
+        }
         for (int i = 0; i < facturas.size(); i++) {
             System.out.println("");
             System.out.println("Id Factura: " + facturas.get(i).getId());
-            System.out.println("Cliente: " + facturas.get(i).getCliente().getNombre());
-            System.out.println("Fecha: " + facturas.get(i).getFecha());
-            System.out.println("Productos: " + facturas.get(i).getDetalle().getProducto().getNombre());
+            System.out.println("Cliente: " + facturas.get(i).getClient().getName());
+            System.out.println("Fecha: " + facturas.get(i).getDate());
+            System.out.println("Productos: " + facturas.get(i).getProducts().getProducto().getName());
             System.out.println("");
 // si se dan cuenta si colocan un . luego del getDetalle les dejara tomar cualquier dato que deseen de el objeto detalle y a su vez si colocan esto facturas.get(i).getDetalle().getProducto().
 // luego del punto les dejara tomar cualquier field del objeto producto
@@ -64,9 +67,9 @@ public class Gestor_Factura implements Serializable{
     public void printFacturaSolo(int id) {
         int aux = id - 1;
         System.out.print("Id Factura: " + facturas.get(aux).getId() + ",");
-        System.out.print("Cliente: " + facturas.get(aux).getCliente().getNombre() + ",");
-        System.out.print("Fecha: " + facturas.get(aux).getFecha() + ",");
-        System.out.print("Productos: " + facturas.get(aux).getDetalle().getProducto() + ",");
+        System.out.print("Cliente: " + facturas.get(aux).getClient().getName() + ",");
+        System.out.print("Fecha: " + facturas.get(aux).getDate() + ",");
+        System.out.print("Productos: " + facturas.get(aux).getProducts().getProducto() + ",");
         System.out.println("");
     }
 
@@ -90,5 +93,24 @@ public class Gestor_Factura implements Serializable{
             }
         }
         return modo;
+    }
+    public boolean buscarFactura(int id){
+        boolean state = false;
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < facturas.size()) {
+            if (facturas.get(i).getId() == id) {
+                state = true;
+                System.out.print("Id Factura: " + facturas.get(i).getId() + ",");
+                System.out.print("Cliente: " + facturas.get(i).getClient().getName() + ",");
+                System.out.print("Fecha: " + facturas.get(i).getDate() + ",");
+                System.out.print("Productos: " + facturas.get(i).getProducts().getProducto() + ",");
+                System.out.println("");
+                return true;
+            } else {
+                i++;
+            }
+        }
+        return false;
     }
 }

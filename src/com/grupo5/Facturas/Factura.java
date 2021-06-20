@@ -7,38 +7,38 @@ import java.io.Serializable;
 public class Factura implements Serializable {
     // e
     private int id;
-    private Cliente Cliente;
-    private String Fecha;
-    private Detalle Detalle;
+    private Cliente client;
+    private String date;
+    private Detalle products;
     public Factura(int id, Cliente cliente, String fecha, Detalle detalle){
         setId(id);
-        setCliente(cliente);
-        setFecha(fecha);
-        setDetalle(detalle);
+        setClient(cliente);
+        setDate(fecha);
+        setProducts(detalle);
     }
 
-    public Cliente getCliente() {
-        return Cliente;
+    public Cliente getClient() {
+        return client;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.Cliente = cliente;
+    public void setClient(Cliente client) {
+        this.client = client;
     }
 
-    public String getFecha() {
-        return Fecha;
+    public String getDate() {
+        return date;
     }
 
-    public void setFecha(String fecha) {
-        this.Fecha = fecha;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public com.grupo5.Facturas.Detalle getDetalle() {
-        return Detalle;
+    public com.grupo5.Facturas.Detalle getProducts() {
+        return products;
     }
 
-    public void setDetalle(com.grupo5.Facturas.Detalle detalle) {
-        Detalle = detalle;
+    public void setProducts(com.grupo5.Facturas.Detalle products) {
+        this.products = products;
     }
 
     public int getId() {

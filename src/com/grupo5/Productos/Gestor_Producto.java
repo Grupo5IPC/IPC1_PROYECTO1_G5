@@ -29,18 +29,20 @@ public class Gestor_Producto implements Serializable {
 // lo hice rapido se puede usar el metodo .forEach si lo prefieren
 
     public void printProductos() {
-
+if (productos.isEmpty()){
+    System.out.println("No existen productos");
+}
         for (int i = 0; i < productos.size(); i++) {
             System.out.print(productos.get(i).getId() + ",");
-            System.out.print(productos.get(i).getNombre() + ",");
-            System.out.print(productos.get(i).getDescripcion() + ",");
-            System.out.print(productos.get(i).getCosto() + ",");
-            System.out.print(productos.get(i).getPrecio());
+            System.out.print(productos.get(i).getName() + ",");
+            System.out.print(productos.get(i).getDescription() + ",");
+            System.out.print(productos.get(i).getCost() + ",");
+            System.out.print(productos.get(i).getPrice());
             System.out.println("");
             System.out.println("Ingredientes del producto " + productos.get(i).getId());
-            System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
-            System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
-            System.out.print(productos.get(i).getIngredientes().getUnidades());
+            System.out.print(productos.get(i).getIngredients().getName() + ",");
+            System.out.print(productos.get(i).getIngredients().getQuantity() + ",");
+            System.out.print(productos.get(i).getIngredients().getUnits());
             System.out.println("");
 
         }
@@ -88,7 +90,7 @@ public class Gestor_Producto implements Serializable {
         boolean state = false;
         int i = 0;
         while (state == false && i < productos.size()) {
-            if (productos.get(i).getNombre().compareTo(nombre) == 0) {
+            if (productos.get(i).getName().compareTo(nombre) == 0) {
                 state = true;
                 return productos.get(i).getId();
             } else {
@@ -102,15 +104,15 @@ public class Gestor_Producto implements Serializable {
     public void printProductoSolo(int id) {
         int aux = id - 1;
         System.out.print(productos.get(aux).getId() + ",");
-        System.out.print(productos.get(aux).getNombre() + ",");
-        System.out.print(productos.get(aux).getDescripcion() + ",");
-        System.out.print(productos.get(aux).getCosto() + ",");
-        System.out.print(productos.get(aux).getPrecio());
+        System.out.print(productos.get(aux).getName() + ",");
+        System.out.print(productos.get(aux).getDescription() + ",");
+        System.out.print(productos.get(aux).getCost() + ",");
+        System.out.print(productos.get(aux).getPrice());
         System.out.println("");
         System.out.println("Ingredientes del producto " + productos.get(aux).getId());
-        System.out.print(productos.get(aux).getIngredientes().getNombre() + ",");
-        System.out.print(productos.get(aux).getIngredientes().getCantidad() + ",");
-        System.out.print(productos.get(aux).getIngredientes().getUnidades());
+        System.out.print(productos.get(aux).getIngredients().getName() + ",");
+        System.out.print(productos.get(aux).getIngredients().getQuantity() + ",");
+        System.out.print(productos.get(aux).getIngredients().getUnits());
         System.out.println("");
     }
 
@@ -122,7 +124,7 @@ public class Gestor_Producto implements Serializable {
         while (state == false && i < productos.size()) {
             if (productos.get(i).getId() == id) {
                 state = true;
-                nombre = productos.get(i).getNombre();
+                nombre = productos.get(i).getName();
                 return nombre;
             } else {
                 i++;
@@ -140,17 +142,17 @@ public class Gestor_Producto implements Serializable {
                 state = true;
                 System.out.println("");
                 System.out.print(productos.get(i).getId() + ",");
-                System.out.print(productos.get(i).getNombre() + ",");
-                System.out.print(productos.get(i).getDescripcion() + ",");
-                System.out.print(productos.get(i).getCosto() + ",");
-                System.out.print(productos.get(i).getPrecio());
+                System.out.print(productos.get(i).getName() + ",");
+                System.out.print(productos.get(i).getDescription() + ",");
+                System.out.print(productos.get(i).getCost() + ",");
+                System.out.print(productos.get(i).getPrice());
                 System.out.println("");
                 System.out.println("Ingredientes del producto " + productos.get(i).getId());
-                System.out.println(productos.get(i).getIngredientes().getNombre().length());
-                for (int j = 0; j < productos.get(i).getIngredientes().getNombre().length(); j++) {
-                    System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
-                    System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
-                    System.out.print(productos.get(i).getIngredientes().getUnidades());
+                System.out.println(productos.get(i).getIngredients().getName().length());
+                for (int j = 0; j < productos.get(i).getIngredients().getName().length(); j++) {
+                    System.out.print(productos.get(i).getIngredients().getName() + ",");
+                    System.out.print(productos.get(i).getIngredients().getQuantity() + ",");
+                    System.out.print(productos.get(i).getIngredients().getUnits());
                 }
 
                 System.out.println("");

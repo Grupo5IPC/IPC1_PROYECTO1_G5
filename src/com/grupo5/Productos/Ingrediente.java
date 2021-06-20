@@ -3,42 +3,42 @@ package com.grupo5.Productos;
 import java.io.Serializable;
 
 public class Ingrediente implements Serializable {
-    private String Nombre;
-    private int Cantidad;
-    private String Unidades;
+    private String name;
+    private int quantity;
+    private String units;
 
     public Ingrediente(){
         
     }
     
     public Ingrediente(String nombre,int cantidad, String unidades ){
-        setNombre(nombre);
-        setCantidad(cantidad);
-        setUnidades(unidades);
+        setName(nombre);
+        setQuantity(cantidad);
+        setUnits(unidades);
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setName(String Nombre) {
+        this.name = Nombre;
     }
 
-    public int getCantidad() {
-        return Cantidad;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setCantidad(int Cantidad) {
-        this.Cantidad = Cantidad;
+    public void setQuantity(int Cantidad) {
+        this.quantity = Cantidad;
     }
 
-    public String getUnidades() {
-        return Unidades;
+    public String getUnits() {
+        return units;
     }
 
-    public void setUnidades(String Unidades) {
-        this.Unidades = Unidades;
+    public void setUnits(String Unidades) {
+        this.units = Unidades;
     }
 
 }

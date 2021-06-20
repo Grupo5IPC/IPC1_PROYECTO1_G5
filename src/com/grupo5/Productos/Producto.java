@@ -3,70 +3,70 @@ package com.grupo5.Productos;
 import java.io.Serializable;
 
 public class Producto implements Serializable {
-    private int Id;
-    private String Nombre;
-    private String Descripcion;
-    private double costo;
-    private double precio;
-    private Ingrediente Ingredientes;
+    private int id;
+    private String name;
+    private String description;
+    private double cost;
+    private double price;
+    private Ingrediente ingredients;
 
     public Producto() {
     }
     
-    public Producto(int id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes){
-        setId(id);
-        setNombre(nombre);
-        setDescripcion(descripcion);
-        setCosto(costo);
-        setPrecio(precio);
-        setIngredientes(ingredientes);
+    public Producto(int Id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes){
+        setId(Id);
+        setName(nombre);
+        setDescription(descripcion);
+        setCost(costo);
+        setPrice(precio);
+        setIngredients(ingredientes);
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public double getCosto() {
-        return costo;
+    public double getCost() {
+        return cost;
     }
 
-    public void setCosto(double costo) {
-        this.costo = costo;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
-    public double getPrecio() {
-        return precio;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-    public Ingrediente getIngredientes() {
-        return Ingredientes;
+    public Ingrediente getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredientes(Ingrediente ingredientes) {
-        Ingredientes = ingredientes;
+    public void setIngredients(Ingrediente ingredients) {
+        this.ingredients = ingredients;
     }
 }

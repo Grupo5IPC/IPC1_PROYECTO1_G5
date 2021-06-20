@@ -2,56 +2,56 @@ package com.grupo5.Clientes;
 import java.io.Serializable;
 
 public class Cliente implements Serializable {
-    private int Id;
-    private String Nombre;
-    private String Direccion;
-    private int Telefono;
-    private String Nit;
-    public Cliente(int id, String nombre, String direccion, int telefono, String nit){
-        setId(id);
-        setNombre(nombre);
-        setDireccion(direccion);
-        setTelefono(telefono);
-        setNit(nit);
+    private int id;
+    private String name;
+    private String address;
+    private int phone;
+    private String nit;
+    public Cliente(int Id, String nombre, String direccion, int telefono, String Nit){
+        setId(Id);
+        setName(nombre);
+        setAddress(direccion);
+        setPhone(telefono);
+        setNit(Nit);
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDireccion() {
-        return Direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        Direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getTelefono() {
-        return Telefono;
+    public int getPhone() {
+        return phone;
     }
 
-    public void setTelefono(int telefono) {
-        Telefono = telefono;
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
     public String getNit() {
-        return Nit;
+        return nit;
     }
 
     public void setNit(String nit) {
-        Nit = nit;
+        this.nit = nit;
     }
 }
