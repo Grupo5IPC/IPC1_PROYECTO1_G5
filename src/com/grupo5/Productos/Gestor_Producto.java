@@ -115,6 +115,47 @@ public class Gestor_Producto implements Serializable {
         System.out.print(productos.get(aux).getIngredientes().getUnidades());
         System.out.println("");
     }
+    public String getNombre_id(int  id){
+        boolean state = false;
+        String nombre = "";
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < productos.size()) {
+            if (productos.get(i).getId() == id) {
+                state = true;
+               nombre = productos.get(i).getNombre();
+                return nombre;
+            } else {
+                i++;
+            }
+        }
+        return nombre;
+    }
+    public boolean buscarProducto(int id){
+        boolean state = false;
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < productos.size()) {
+            if (productos.get(i).getId() == id) {
+                state = true;
+                System.out.print(productos.get(i).getId() + ",");
+                System.out.print(productos.get(i).getNombre() + ",");
+                System.out.print(productos.get(i).getDescripcion() + ",");
+                System.out.print(productos.get(i).getCosto() + ",");
+                System.out.print(productos.get(i).getPrecio());
+                System.out.println("");
+                System.out.println("Ingredientes del producto " + productos.get(i).getId());
+                System.out.print(productos.get(i).getIngredientes().getId() + ",");
+                System.out.print(productos.get(i).getIngredientes().getNombre() + ",");
+                System.out.print(productos.get(i).getIngredientes().getCantidad() + ",");
+                System.out.print(productos.get(i).getIngredientes().getUnidades());
+                return true;
+            } else {
+                i++;
+            }
+        }
+        return false;
+    }
 
     public void eliminarProducto(int id) {
         boolean state = false;

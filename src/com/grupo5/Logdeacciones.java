@@ -37,7 +37,7 @@ public class Logdeacciones {
             DateTimeFormatter formato_a = DateTimeFormatter.ofPattern(formato);
             LocalDateTime ahora = LocalDateTime.now();
             String tiempo = formato_a.format(ahora);
-            String accion = tiempo + "\t" + cadena + "\n");
+            String accion = tiempo + "\t" + cadena + "\n";
             fn.write(accion);
             fn.close();
         } catch (Exception e) {

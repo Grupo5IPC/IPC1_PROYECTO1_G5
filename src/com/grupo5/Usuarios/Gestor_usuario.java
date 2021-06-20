@@ -10,9 +10,27 @@ public class Gestor_usuario implements Serializable {
     public boolean Ins_usu(String nombre, String pass) {
         Usuario user = new Usuario(nombre, pass);
         usuarios.add(user);
-            System.out.println("Ingresado");
+        // System.out.println("Ingresado");
             return true;
 
+    }
+    public boolean buscarUsuario(String username){
+        boolean state = false;
+        int i = 0;
+        //System.out.println(clientes.size());
+        while (state == false && i < usuarios.size()) {
+            if (usuarios.get(i).getUsername() == username) {
+                state = true;
+                System.out.print("\nNombre: " + usuarios.get(i).getUsername());
+                System.out.print("\nPassword: " + usuarios.get(i).getPassword());
+
+                System.out.println("\n");
+                return true;
+            } else {
+                i++;
+            }
+        }
+        return false;
     }
 
     // lo hice rapido se puede usar el metodo .forEach si lo prefieren

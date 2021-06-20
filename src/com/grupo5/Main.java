@@ -60,7 +60,7 @@ public class Main {
         Scanner MenuPrincipal = new Scanner(System.in);
         try {
             //usuario.print_usu();
-            cliente.printClientes();
+            //cliente.printClientes();
             System.out.println("*******************************");
             System.out.println("*           LOGIN             *");
             System.out.println("*******************************");
@@ -122,7 +122,7 @@ public class Main {
                                             if (usuario.eliminarUsuario(eliminarUser) == 1){
                                                 log.addCuerpo("USERS: No existen usuarios a eliminar");
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 2){
-                                                System.out.println("USERS: El usuario se ha eliminado");
+                                                //System.out.println("USERS: El usuario se ha eliminado");
                                                 logdeacciones.addlog(user + ": Eliminó al usuario \""+eliminarUser+"\" ");
                                                 serializarObjetos(modo);
                                             }else if(usuario.eliminarUsuario(eliminarUser) == 0){
@@ -134,7 +134,11 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a buscar: ");
                                             String buscarUser = buscar.nextLine();
-                                            usuario.printUsuarioSolo(buscarUser);
+                                            if (usuario.buscarUsuario(buscarUser)){
+
+                                            }else{
+                                                System.out.println("No se ha encontrado el usuario");
+                                            }
                                             break;
 
                                         case 4:
@@ -174,8 +178,9 @@ public class Main {
                                             int eliminarId = eliminar.nextInt();
                                             if (producto.verificarProducto(eliminarId)){
                                                 producto.eliminarProducto(eliminarId);
+                                                String nombre = producto.getNombre_id(eliminarId);
                                                 serializarObjetos(modo);
-                                                logdeacciones.addlog(user + ": Eliminó el producto \""+ "nombredelproducto" +"\" con id " + eliminarId);
+                                                logdeacciones.addlog(user + ": Eliminó el producto \""+ nombre +"\" con id " + eliminarId);
                                             }else{
                                                 log.addCuerpo("PRODUCTS: No existe el id "+eliminarId+", no se elimino");
                                             }
@@ -186,7 +191,11 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a buscar: ");
                                             int buscarId = buscar.nextInt();
-                                            producto.printProductoSolo(buscarId);
+                                            if (producto.buscarProducto(buscarId)){
+
+                                            }else{
+                                                System.out.println("No se encontro el producto");
+                                            }
                                             break;
 
                                         case 4:
@@ -227,14 +236,15 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del cliente a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            if ( cliente.eliminarCliente(eliminarId) == 1){
+                                            int res = cliente.eliminarCliente(eliminarId);
+                                            if ( res == 1){
                                                 log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
-                                            }else if ( cliente.eliminarCliente(eliminarId) == 2){
+                                            }else if ( res == 2){
                                                 System.out.println("Cliente eliminado correctamente");
                                                 logdeacciones.addlog(user + ": Eliminó al cliente \""+ cliente.getCliente(eliminarId) +"\" con id " + eliminarId);
                                                 serializarObjetos(modo);
-//                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
-//                                                log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
+                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
+                                              log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
                                             }
 
                                             break;
@@ -863,7 +873,7 @@ public class Main {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 ArrayList<Usuario> array = usuario.getArray();
                 String g = gson.toJson(array);
-                FileWriter writer1 = new FileWriter("users.json", true);
+                FileWriter writer1 = new FileWriter("users.json", false);
                 writer1.write(g);
                 writer1.close();
                 //System.out.println(g);
@@ -872,7 +882,7 @@ public class Main {
 
                 ArrayList<Cliente> clientes = cliente.getClientes();
                 String g2 = gson.toJson(clientes);
-                FileWriter writer2 = new FileWriter("clients.json", true);
+                FileWriter writer2 = new FileWriter("clients.json", false);
                 writer2.write(g2);
                 writer2.close();
                 //System.out.println(g2);
@@ -881,7 +891,7 @@ public class Main {
 
                 ArrayList<Producto> array2 = producto.getProductos();
                 String g3 = gson.toJson(array2);
-                FileWriter writer3 = new FileWriter("products.json", true);
+                FileWriter writer3 = new FileWriter("products.json", false);
                 writer3.write(g3);
                 writer3.close();
                 //System.out.println(g3);
@@ -890,7 +900,7 @@ public class Main {
 
                 ArrayList<Factura> array4 = factura.getFacturas();
                 String g4 = gson.toJson(array4);
-                FileWriter writer4 = new FileWriter("invoices.json", true);
+                FileWriter writer4 = new FileWriter("invoices.json", false);
                 writer4.write(g4);
                 writer4.close();
                 //System.out.println(g4);

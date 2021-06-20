@@ -29,7 +29,7 @@ public class Log {
             }
             File archivo = new File("Log/" + n_reporte + ".log");
             if (archivo.createNewFile()) {
-                System.out.println("reporte creado");
+                //System.out.println("reporte creado");
             }
         } catch (Exception e) {
             System.out.println(e);

@@ -29,6 +29,26 @@ public class Gestor_cliente implements Serializable{
 public ArrayList<Cliente> getClientes(){
         return clientes;
 }
+
+public boolean buscarCliente(int id){
+    boolean state = false;
+    int i = 0;
+    //System.out.println(clientes.size());
+    while (state == false && i < clientes.size()) {
+        if (clientes.get(i).getId() == id) {
+            state = true;
+            System.out.print("\nNombre: " + clientes.get(i).getNombre());
+            System.out.print("\nDirección: " + clientes.get(i).getDireccion());
+            System.out.print("\nTelefono: " + clientes.get(i).getTelefono());
+            System.out.println("\nNit: " + clientes.get(i).getNit());
+            System.out.println("\n");
+            return true;
+        } else {
+            i++;
+        }
+    }
+    return false;
+}
     public boolean verificarCliente(int id) {
         boolean state = false;
         int i = 0;
