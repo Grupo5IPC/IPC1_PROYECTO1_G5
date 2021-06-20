@@ -144,7 +144,8 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a buscar: ");
                                             String buscarUser = buscar.nextLine();
-                                            if (usuario.buscarUsuario(buscarUser)) {
+                                            System.out.println(buscarUser);
+                                            if (usuario.buscarUsuario(buscarUser) == true) {
 
                                             } else {
                                                 System.out.println("No se ha encontrado el usuario");

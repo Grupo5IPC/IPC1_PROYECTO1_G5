@@ -17,14 +17,16 @@ public class Gestor_usuario implements Serializable {
     public boolean buscarUsuario(String username){
         boolean state = false;
         int i = 0;
-        //System.out.println(clientes.size());
+
         while (state == false && i < usuarios.size()) {
-            if (usuarios.get(i).getUsername() == username) {
-                state = true;
+
+            if (usuarios.get(i).getUsername().equals( username)) {
+
                 System.out.print("\nNombre: " + usuarios.get(i).getUsername());
                 System.out.print("\nPassword: " + usuarios.get(i).getPassword());
 
                 System.out.println("\n");
+                state = true;
                 return true;
             } else {
                 i++;
@@ -49,6 +51,7 @@ public class Gestor_usuario implements Serializable {
         boolean state = false;
         int i = 0;
         while (state == false && i < usuarios.size()) {
+
             if (usuarios.get(i).getUsername().equals(nombre) && usuarios.get(i).getPassword().equals(pass)) {
                 state = true;
                 return true;
