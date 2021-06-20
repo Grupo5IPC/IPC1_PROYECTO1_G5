@@ -119,13 +119,13 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a eliminar: ");
                                             String eliminarUser = eliminar.nextLine();
-                                            if (usuario.eliminarUsuario(eliminarUser) == 1){
+                                            if (usuario.eliminarUsuario(eliminarUser) == 1) {
                                                 log.addCuerpo("USERS: No existen usuarios a eliminar");
-                                            }else if(usuario.eliminarUsuario(eliminarUser) == 2){
+                                            } else if (usuario.eliminarUsuario(eliminarUser) == 2) {
                                                 //System.out.println("USERS: El usuario se ha eliminado");
-                                                logdeacciones.addlog(user + ": Eliminó al usuario \""+eliminarUser+"\" ");
+                                                logdeacciones.addlog(user + ": Eliminó al usuario \"" + eliminarUser + "\" ");
                                                 serializarObjetos(modo);
-                                            }else if(usuario.eliminarUsuario(eliminarUser) == 0){
+                                            } else if (usuario.eliminarUsuario(eliminarUser) == 0) {
                                                 System.out.println("El usuario ingresado no existe");
                                             }
                                             break;
@@ -134,9 +134,9 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a buscar: ");
                                             String buscarUser = buscar.nextLine();
-                                            if (usuario.buscarUsuario(buscarUser)){
+                                            if (usuario.buscarUsuario(buscarUser)) {
 
-                                            }else{
+                                            } else {
                                                 System.out.println("No se ha encontrado el usuario");
                                             }
                                             break;
@@ -176,13 +176,13 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            if (producto.verificarProducto(eliminarId)){
+                                            if (producto.verificarProducto(eliminarId)) {
                                                 producto.eliminarProducto(eliminarId);
                                                 String nombre = producto.getNombre_id(eliminarId);
                                                 serializarObjetos(modo);
-                                                logdeacciones.addlog(user + ": Eliminó el producto \""+ nombre +"\" con id " + eliminarId);
-                                            }else{
-                                                log.addCuerpo("PRODUCTS: No existe el id "+eliminarId+", no se elimino");
+                                                logdeacciones.addlog(user + ": Eliminó el producto \"" + nombre + "\" con id " + eliminarId);
+                                            } else {
+                                                log.addCuerpo("PRODUCTS: No existe el id " + eliminarId + ", no se elimino");
                                             }
 
                                             break;
@@ -191,9 +191,9 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a buscar: ");
                                             int buscarId = buscar.nextInt();
-                                            if (producto.buscarProducto(buscarId)){
+                                            if (producto.buscarProducto(buscarId)) {
 
-                                            }else{
+                                            } else {
                                                 System.out.println("No se encontro el producto");
                                             }
                                             break;
@@ -237,14 +237,14 @@ public class Main {
                                             System.out.println("Ingrese el id del cliente a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
                                             int res = cliente.eliminarCliente(eliminarId);
-                                            if ( res == 1){
+                                            if (res == 1) {
                                                 log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
-                                            }else if ( res == 2){
+                                            } else if (res == 2) {
                                                 System.out.println("Cliente eliminado correctamente");
-                                                logdeacciones.addlog(user + ": Eliminó al cliente \""+ cliente.getCliente(eliminarId) +"\" con id " + eliminarId);
+                                                logdeacciones.addlog(user + ": Eliminó al cliente \"" + cliente.getCliente(eliminarId) + "\" con id " + eliminarId);
                                                 serializarObjetos(modo);
-                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
-                                              log.addCuerpo("CLIENTS: No existe el id "+eliminarId+", no se elimino");
+                                            } else if (cliente.eliminarCliente(eliminarId) == 0) {
+                                                log.addCuerpo("CLIENTS: No existe el id " + eliminarId + ", no se elimino");
                                             }
 
                                             break;
@@ -293,14 +293,14 @@ public class Main {
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id de la factura a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
-                                            if ( cliente.eliminarCliente(eliminarId) == 1){
+                                            if (cliente.eliminarCliente(eliminarId) == 1) {
                                                 log.addCuerpo("INVOICES: No existen facturas ingresadas, no se elimino");
-                                            }else if ( cliente.eliminarCliente(eliminarId) == 2){
+                                            } else if (cliente.eliminarCliente(eliminarId) == 2) {
                                                 System.out.println("Factura eliminado correctamente");
                                                 logdeacciones.addlog(user + ": Eliminó la factura con id " + eliminarId);
                                                 serializarObjetos(modo);
-                                            }else if ( cliente.eliminarCliente(eliminarId) == 0){
-                                                log.addCuerpo("INVOICES: No existe el id "+eliminarId+", no se elimino");
+                                            } else if (cliente.eliminarCliente(eliminarId) == 0) {
+                                                log.addCuerpo("INVOICES: No existe el id " + eliminarId + ", no se elimino");
                                             }
                                             break;
 
@@ -377,10 +377,15 @@ public class Main {
                     }
                 } while (Opciones != 7);
             } else {
+                System.out.println("\n");
+                System.out.println("Datos incorrectos, prueba de nuevo");
+                System.out.println("\n");
+                menuPrincipal();
+
                 logdeacciones.addlog(user + ": Inicio de sesión fallido" + "\t");
             }
         } catch (Exception e) {
-            System.out.println("Has hecho una acción no valida,");
+            System.out.println("Has hecho una acción no valida");
         }
     }
 
