@@ -13,6 +13,7 @@ public class Principal extends JFrame {
     public JPanel lateralSecundario;
     public JPanel Principal;
     public JPanel superior;
+    public JPanel CRUD;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -57,6 +58,7 @@ public class Principal extends JFrame {
         this.add(Principal);
         setUser();
         setSuperior();
+        setCRUD();
         menu();
     }
 
@@ -331,6 +333,15 @@ public class Principal extends JFrame {
         });
         superior.add(exit);
 
+
+
+    }
+    void setCRUD(){
+        CRUD = new JPanel(null);
+        CRUD.setBackground(fondo);
+        CRUD.setBounds(1,100,898,620);
+
+        Principal.add(CRUD);
 
 
     }
