@@ -69,7 +69,7 @@ public class Principal extends JFrame {
 
         profile.setSize(100, 100);
         profile.setBounds(40, 20, 110, 110);
-        profile.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\profile.png", profile));
+        profile.setIcon(getIcon2("iconos\\profile.png", profile));
 
         user.add(profile);
 
@@ -118,7 +118,7 @@ public class Principal extends JFrame {
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
         iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\user.png", iconVer));
+        iconVer.setIcon(getIcon2("iconos\\user.png", iconVer));
 
         botonVer.add(iconVer);
 
@@ -128,6 +128,19 @@ public class Principal extends JFrame {
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
         botonVer.add(txtVer);
+        botonVer.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonVer.setBackground(azul);
+            }
+            public void mouseExited(MouseEvent e) {
+                botonVer.setBackground(fondo);
+            }
+            public void mouseClicked(MouseEvent e) {
+                botonVer.setBackground(new Color(46,51,73));
+            }
+
+        });
 
         lateralSecundario.add(botonVer);
 
@@ -144,7 +157,7 @@ public class Principal extends JFrame {
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
         iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\clients.png", iconVer));
+        iconVer.setIcon(getIcon2("iconos\\clients.png", iconVer));
 
         botonclient.add(iconVer);
 
@@ -154,6 +167,19 @@ public class Principal extends JFrame {
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
         botonclient.add(txtVer);
+        botonclient.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonclient.setBackground(azul);
+            }
+            public void mouseExited(MouseEvent e) {
+                botonclient.setBackground(fondo);
+            }
+            public void mouseClicked(MouseEvent e) {
+                botonclient.setBackground(new Color(46,51,73));
+            }
+
+        });
 
         lateralSecundario.add(botonclient);
 
@@ -170,7 +196,7 @@ public class Principal extends JFrame {
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
         iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\products.png", iconVer));
+        iconVer.setIcon(getIcon2("iconos\\products.png", iconVer));
 
         botonproduct.add(iconVer);
 
@@ -180,7 +206,19 @@ public class Principal extends JFrame {
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
         botonproduct.add(txtVer);
+        botonproduct.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonproduct.setBackground(azul);
+            }
+            public void mouseExited(MouseEvent e) {
+                botonproduct.setBackground(fondo);
+            }
+            public void mouseClicked(MouseEvent e) {
+                botonproduct.setBackground(new Color(46,51,73));
+            }
 
+        });
         lateralSecundario.add(botonproduct);
 
         //boton listar invoice
@@ -196,7 +234,7 @@ public class Principal extends JFrame {
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
         iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\invoice.png", iconVer));
+        iconVer.setIcon(getIcon2("iconos\\invoice.png", iconVer));
 
         botoninvoice.add(iconVer);
 
@@ -206,9 +244,21 @@ public class Principal extends JFrame {
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
         botoninvoice.add(txtVer);
+        botoninvoice.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botoninvoice.setBackground(azul);
+            }
+            public void mouseExited(MouseEvent e) {
+                botoninvoice.setBackground(fondo);
+            }
+            public void mouseClicked(MouseEvent e) {
+                botoninvoice.setBackground(new Color(46,51,73));
+            }
 
+        });
         lateralSecundario.add(botoninvoice);
-        //boton listar invoice
+
 
         JPanel botonexit = new JPanel(null);
         botonexit.setBounds(0, 675, lateralSecundario.getWidth(), 45);
@@ -221,10 +271,22 @@ public class Principal extends JFrame {
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
         iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("C:\\Users\\ludwi\\IdeaProjects\\IPC1_PROYECTO1_G5\\iconos\\logout.png", iconVer));
+        iconVer.setIcon(getIcon2("iconos\\logout.png", iconVer));
 
         botonexit.add(iconVer);
+        botonexit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                botonexit.setBackground(azul);
+            }
+            public void mouseExited(MouseEvent e) {
+                botonexit.setBackground(fondo);
+            }
+            public void mouseClicked(MouseEvent e) {
+                botonexit.setBackground(new Color(46,51,73));
+            }
 
+        });
         txtVer = new JLabel("Salir");
         txtVer.setBounds(20, 15, 80, 20);
 
@@ -258,6 +320,12 @@ public class Principal extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
+            }
+            public void mouseEntered(MouseEvent e) {
+                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 19));
+            }
+            public void mouseExited(MouseEvent e) {
+                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
             }
 
         });
