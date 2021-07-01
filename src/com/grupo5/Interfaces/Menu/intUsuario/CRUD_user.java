@@ -38,7 +38,7 @@ public class CRUD_user extends JPanel {
 
         ArrayList<Usuario> data = usuario.getArray();
 
-        Object[] header = new Object[]{"Usuario", "Password", "", ""};
+        Object[] header = new Object[]{"   Usuario", "   Password", "", ""};
 
 
         Object matriz[][] = new Object[data.size()][4];
@@ -84,7 +84,7 @@ public class CRUD_user extends JPanel {
         table.setDefaultRenderer(Object.class, new Render());
         table.setFocusable(false);
         table.setBackground(azul);
-        table.setIntercellSpacing(new Dimension(1, 1));
+        table.setIntercellSpacing(new Dimension(0, 1));
         table.setRowHeight(50);
         table.setSelectionBackground(texto);
         table.setShowVerticalLines(false);
