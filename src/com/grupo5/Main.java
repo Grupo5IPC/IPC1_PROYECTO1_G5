@@ -58,6 +58,8 @@ public class Main {
         Principal p = new Principal(usuario);
         p.setVisible(true);
 
+
+
     }
 
     public static void menuPrincipal() {
