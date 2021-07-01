@@ -1,6 +1,7 @@
 package com.grupo5.Productos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Producto implements Serializable {
     private int id;
@@ -8,18 +9,18 @@ public class Producto implements Serializable {
     private String description;
     private double cost;
     private double price;
-    private Ingrediente ingredients;
+    private ArrayList<Ingrediente> ingredientes = new ArrayList();
 
     public Producto() {
     }
-    
-    public Producto(int Id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes){
-        setId(Id);
-        setName(nombre);
-        setDescription(descripcion);
-        setCost(costo);
-        setPrice(precio);
-        setIngredients(ingredientes);
+
+    public Producto(int id, String name, String description, double cost, double price, ArrayList ingredientes) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.price = price;
+        this.ingredientes = ingredientes;
     }
 
     public int getId() {
@@ -62,11 +63,13 @@ public class Producto implements Serializable {
         this.price = price;
     }
 
-    public Ingrediente getIngredients() {
-        return ingredients;
+    public ArrayList<Ingrediente> getIngredientes() {
+        return ingredientes;
     }
 
-    public void setIngredients(Ingrediente ingredients) {
-        this.ingredients = ingredients;
+    public void setIngredientes(ArrayList<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
+    
+    
 }

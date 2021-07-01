@@ -1,16 +1,37 @@
 [
-    {
-        "id": 1,
-        "name": "Pizza",
-        "description": "Pizza Hawaiana con queso",
-        "cost": 40,
-        "price": 50,
-        "ingredients": [
-            {
-                "name": "Piña",
-                "quantity": 1,
-                "units": "Unidades"
-            }
-        ]
-    }
+  {
+  "id": 1,
+  "name": "Pizza",
+  "description": "Pizza Hawaiana con queso",
+  "cost": 40,
+  "price": 50,
+  "ingredients": 
+	  [
+      {
+      "name": "Piña",
+      "quantity": 1,
+      "units": "Unidades"
+      },
+      {
+      "name": "Peperonni",
+      "quantity": 5,
+      "units": "Docenas"
+      }
+    ]
+  },
+  {
+  "id": 2,
+  "name": "HotDog",
+  "description": "Hotdog de salchicha inglesa",
+  "cost": 10,
+  "price": 20,
+  "ingredients": 
+	  [
+      {
+      "name": "Salichica inglesa",
+      "quantity": 1,
+      "units": "Unidades"
+      }
+    ]
+  }
 ]

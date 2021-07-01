@@ -132,12 +132,12 @@ public class Main {
                                                 log.addCuerpo("USERS: No existen usuarios a eliminar");
                                             } else if (res == 2) {
                                                 //System.out.println("USERS: El usuario se ha eliminado");
-                                                if (usuarioLog.equals(eliminarUser)){
+                                                if (usuarioLog.equals(eliminarUser)) {
                                                     System.out.println("Se ha cerrado la sesion");
                                                 }
                                                 logdeacciones.addlog(user + ": Eliminó al usuario \"" + eliminarUser + "\" ");
                                                 serializarObjetos(modo);
-                                                if (usuarioLog.equals(eliminarUser)){
+                                                if (usuarioLog.equals(eliminarUser)) {
                                                     System.out.println("Se ha cerrado la sesion");
                                                     menuPrincipal();
                                                 }
@@ -210,7 +210,7 @@ public class Main {
                                             System.out.println("Ingrese el id del producto a buscar: ");
                                             int buscarId = buscar.nextInt();
                                             if (producto.buscarProducto(buscarId)) {
-
+                                                //producto.printProductoSolo(buscarId);
                                             } else {
                                                 System.out.println("No se encontro el producto");
                                             }
@@ -333,9 +333,9 @@ public class Main {
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id de la factura a buscar: ");
                                             int buscarId = buscar.nextInt();
-                                            if (factura.buscarFactura(buscarId)){
+                                            if (factura.buscarFactura(buscarId)) {
 
-                                            }else{
+                                            } else {
                                                 System.out.println("No se ha encontrado la factura");
                                             }
                                             break;
@@ -519,7 +519,7 @@ public class Main {
             try {
                 //Deserializar clientes
                 File archivo1 = new File("Guardado/BIN/clients.ipcrm");
-                System.out.println("La ruta del fichero es:Guardado/BIN/") ;
+                System.out.println("La ruta del fichero es:Guardado/BIN/");
                 if (archivo1.exists()) {
 
                     try {
@@ -531,7 +531,6 @@ public class Main {
                         // e.printStackTrace();
                     }
                 }
-
 
             } catch (Exception e) {
                 System.out.println(e);
@@ -639,16 +638,19 @@ public class Main {
                     double precio = GsonObj.get("price").getAsInt();
 
                     JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
-                    Ingrediente aux = null;
+                    ArrayList <Ingrediente> aux = new ArrayList(Ingred.size());
+
                     for (int j = 0; j < Ingred.size(); j++) {
-                        JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
+                        JsonObject GsonObj2 = Ingred.get(j).getAsJsonObject();
                         String nombreIng = GsonObj2.get("name").getAsString();
                         int cantidadIng = GsonObj2.get("quantity").getAsInt();
                         String unidadesIng = GsonObj2.get("units").getAsString();
-
-                        aux = producto.createIngrediente(nombreIng, cantidadIng, unidadesIng);
+                        //----------------------------1----------------------------
+                        Ingrediente auxIng = new Ingrediente(nombreIng, cantidadIng, unidadesIng);
+                        aux.add(auxIng); 
                     }
                     if (producto.verificarProducto(id) == false) {
+                        //----------------------------2----------------------------
                         producto.insertarProducto(id, nombre, descripcion, costo, precio, aux);
                     } else {
                         log.addCuerpo("PRODUCTOS: El id " + id + " ya existe, no se registro");
@@ -656,6 +658,7 @@ public class Main {
                 }
 
             } catch (Exception e) {
+                System.out.println(e);
             } finally {
                 try {
                     if (null != fr) {
@@ -775,7 +778,6 @@ public class Main {
                     }
                 }
 
-
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -803,7 +805,6 @@ public class Main {
                 //System.out.println(g);
 
                 // Serializar clientes
-
                 ArrayList<Cliente> clientes = cliente.getClientes();
                 String g2 = gson.toJson(clientes);
                 FileWriter writer2 = new FileWriter("clients.json", true);
@@ -812,7 +813,6 @@ public class Main {
                 //System.out.println(g2);
 
                 // Serializar productos
-
                 ArrayList<Producto> array2 = producto.getProductos();
                 String g3 = gson.toJson(array2);
                 FileWriter writer3 = new FileWriter("products.json", true);
@@ -821,7 +821,6 @@ public class Main {
                 //System.out.println(g3);
 
                 // Serializar facturas
-
                 ArrayList<Factura> array4 = factura.getFacturas();
                 String g4 = gson.toJson(array4);
                 FileWriter writer4 = new FileWriter("invoices.json", true);
@@ -836,7 +835,6 @@ public class Main {
             try {
                 File directorio = new File("Guardado/BIN");
 
-
                 if (!directorio.exists()) {
                     if (directorio.mkdirs()) {
 
@@ -878,7 +876,6 @@ public class Main {
                     archivo3.createNewFile();
                 }
 
-
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo3));
                 salida.writeObject(producto);
                 salida.close();
@@ -891,7 +888,6 @@ public class Main {
                     archivo4.createNewFile();
                 }
 
-
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo4));
                 salida.writeObject(factura);
                 salida.close();
@@ -903,10 +899,9 @@ public class Main {
     }
 
     public static void serializarObjetos(int modo) {
-        if (modo == 0 || modo== 1) {
+        if (modo == 0 || modo == 1) {
 
             try {
-
 
                 // Serializar usuarios
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -919,7 +914,6 @@ public class Main {
                 //System.out.println(g);
 
                 // Serializar clientes
-
                 ArrayList<Cliente> clientes = cliente.getClientes();
                 String g2 = gson.toJson(clientes);
                 FileWriter writer2 = new FileWriter("clients.json", false);
@@ -928,7 +922,6 @@ public class Main {
                 //System.out.println(g2);
 
                 // Serializar productos
-
                 ArrayList<Producto> array2 = producto.getProductos();
                 String g3 = gson.toJson(array2);
                 FileWriter writer3 = new FileWriter("products.json", false);
@@ -937,7 +930,6 @@ public class Main {
                 //System.out.println(g3);
 
                 // Serializar facturas
-
                 ArrayList<Factura> array4 = factura.getFacturas();
                 String g4 = gson.toJson(array4);
                 FileWriter writer4 = new FileWriter("invoices.json", false);
@@ -952,7 +944,6 @@ public class Main {
             try {
                 File directorio = new File("Guardado/BIN");
 
-
                 if (!directorio.exists()) {
                     if (directorio.mkdirs()) {
 
@@ -994,7 +985,6 @@ public class Main {
                     archivo3.createNewFile();
                 }
 
-
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo3));
                 salida.writeObject(producto);
                 salida.close();
@@ -1007,7 +997,6 @@ public class Main {
                     archivo4.createNewFile();
                 }
 
-
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo4));
                 salida.writeObject(factura);
                 salida.close();
@@ -1018,4 +1007,3 @@ public class Main {
         }
     }
 }
-
