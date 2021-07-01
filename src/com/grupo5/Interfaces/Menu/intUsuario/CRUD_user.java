@@ -21,6 +21,10 @@ public class CRUD_user extends JPanel {
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
     public JTable table;
+    JButton eliminar;
+    JButton modificar;
+    DefaultTableModel model;
+
     public Color textoSecundario = new Color(158, 161, 176);
 
     public CRUD_user(Gestor_usuario user) {
@@ -42,7 +46,7 @@ public class CRUD_user extends JPanel {
 
 
         Object matriz[][] = new Object[data.size()][4];
-        JButton modificar = new JButton("Modificar");
+         modificar = new JButton("Modificar");
         modificar.setName("m");
         modificar.setForeground(textoSecundario);
         modificar.setBorder(null);
@@ -52,7 +56,7 @@ public class CRUD_user extends JPanel {
         modificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         modificar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
 
-        JButton eliminar = new JButton("Eliminar");
+        eliminar = new JButton("Eliminar");
         eliminar.setName("e");
         eliminar.setForeground(textoSecundario);
         eliminar.setBorder(null);
@@ -71,7 +75,7 @@ public class CRUD_user extends JPanel {
 
         }
 
-        DefaultTableModel model = new DefaultTableModel(matriz, header) {
+       model = new DefaultTableModel(matriz, header) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -114,14 +118,18 @@ public class CRUD_user extends JPanel {
                 if (row < table.getRowCount() && row >= 0 && col < table.getColumnCount() && col > 0) {
                     Object valor = table.getValueAt(row, col);
                     if (valor instanceof JButton) {
-                        ((JButton)valor).doClick();
+                        ((JButton) valor).doClick();
                         JButton btn = (JButton) valor;
                         if (btn.getName().equals("m")) {
                             System.out.println("Modificar");
-                            String usuario = (String) table.getValueAt(row,0);
+                            String usuario = (String) table.getValueAt(row, 0);
                             System.out.println(usuario);
                         }
                         if (btn.getName().equals("e")) {
+
+                            usuario.eliminarUsuario((String) table.getValueAt(row, 0));
+                            model.removeRow(row);
+                            usuario.print_usu();
                             System.out.println("Eliminar");
                         }
                     }
