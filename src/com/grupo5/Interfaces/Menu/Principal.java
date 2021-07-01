@@ -1,7 +1,9 @@
 package com.grupo5.Interfaces.Menu;
 
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
 //import org.jetbrains.annotations.NotNull;
@@ -12,6 +14,7 @@ import java.awt.geom.*;
 import java.awt.event.*;
 
 public class Principal extends JFrame {
+
     public JPanel user;
     public JPanel lateralSecundario;
     public JPanel Principal;
@@ -23,10 +26,11 @@ public class Principal extends JFrame {
     public Color textoSecundario = new Color(158, 161, 176);
 
     public static Gestor_usuario usuario;
+    public static Gestor_Producto producto;
 
-
-    public Principal(Gestor_usuario usuarios) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos) {
         usuario = usuarios;
+        producto = productos;
         this.setSize(1080, 720);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -66,11 +70,10 @@ public class Principal extends JFrame {
         setSuperior();
 
         menu();
-       repaint();
-       revalidate();
+        repaint();
+        revalidate();
 
     }
-
 
     void setUser() {
 
@@ -95,7 +98,6 @@ public class Principal extends JFrame {
         users.setBounds(0, 140, 180, 20);
 
         user.add(users);
-
 
     }
 
@@ -144,15 +146,17 @@ public class Principal extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 botonVer.setBackground(azul);
             }
+
             public void mouseExited(MouseEvent e) {
                 botonVer.setBackground(fondo);
             }
+
             public void mouseClicked(MouseEvent e) {
-                botonVer.setBackground(new Color(46,51,73));
+                botonVer.setBackground(new Color(46, 51, 73));
                 CRUD_user u = new CRUD_user(usuario);
                 u.setVisible(true);
                 u.setForeground(textoSecundario);
-                u.setBounds(2,0,898,620);
+                u.setBounds(2, 0, 898, 620);
                 CRUD.add(u);
                 revalidate();
                 repaint();
@@ -164,7 +168,6 @@ public class Principal extends JFrame {
         lateralSecundario.add(botonVer);
 
         //boton listar clientes
-
         JPanel botonclient = new JPanel(null);
         botonclient.setBounds(0, 245, lateralSecundario.getWidth(), 45);
         botonclient.setBackground(fondo);
@@ -191,11 +194,13 @@ public class Principal extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 botonclient.setBackground(azul);
             }
+
             public void mouseExited(MouseEvent e) {
                 botonclient.setBackground(fondo);
             }
+
             public void mouseClicked(MouseEvent e) {
-                botonclient.setBackground(new Color(46,51,73));
+                botonclient.setBackground(new Color(46, 51, 73));
             }
 
         });
@@ -203,7 +208,6 @@ public class Principal extends JFrame {
         lateralSecundario.add(botonclient);
 
         //boton listar product
-
         JPanel botonproduct = new JPanel(null);
         botonproduct.setBounds(0, 290, lateralSecundario.getWidth(), 45);
         botonproduct.setBackground(fondo);
@@ -230,20 +234,25 @@ public class Principal extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 botonproduct.setBackground(azul);
             }
+
             public void mouseExited(MouseEvent e) {
                 botonproduct.setBackground(fondo);
             }
+
             public void mouseClicked(MouseEvent e) {
-                botonproduct.setBackground(new Color(46,51,73));
-
-
+                botonproduct.setBackground(new Color(46, 51, 73));
+                CRUD_products p = new CRUD_products(producto);
+                p.setVisible(true);
+                p.setForeground(textoSecundario);
+                p.setBounds(2, 0, 898, 620);
+                CRUD.add(p);
+                revalidate();
+                repaint();
             }
-
         });
         lateralSecundario.add(botonproduct);
 
         //boton listar invoice
-
         JPanel botoninvoice = new JPanel(null);
         botoninvoice.setBounds(0, 335, lateralSecundario.getWidth(), 45);
         botoninvoice.setBackground(fondo);
@@ -270,16 +279,17 @@ public class Principal extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 botoninvoice.setBackground(azul);
             }
+
             public void mouseExited(MouseEvent e) {
                 botoninvoice.setBackground(fondo);
             }
+
             public void mouseClicked(MouseEvent e) {
-                botoninvoice.setBackground(new Color(46,51,73));
+                botoninvoice.setBackground(new Color(46, 51, 73));
             }
 
         });
         lateralSecundario.add(botoninvoice);
-
 
         JPanel botonexit = new JPanel(null);
         botonexit.setBounds(0, 675, lateralSecundario.getWidth(), 45);
@@ -300,11 +310,13 @@ public class Principal extends JFrame {
             public void mouseEntered(MouseEvent e) {
                 botonexit.setBackground(azul);
             }
+
             public void mouseExited(MouseEvent e) {
                 botonexit.setBackground(fondo);
             }
+
             public void mouseClicked(MouseEvent e) {
-                botonexit.setBackground(new Color(46,51,73));
+                botonexit.setBackground(new Color(46, 51, 73));
             }
 
         });
@@ -317,16 +329,15 @@ public class Principal extends JFrame {
 
         lateralSecundario.add(botonexit);
 
-
     }
 
     void setSuperior() {
         superior = new JPanel(null);
-        superior.setBounds(0, 0,900, 100 );
+        superior.setBounds(0, 0, 900, 100);
         superior.setBackground(Principal.getBackground());
         superior.setForeground(textoSecundario);
         Principal.add(superior);
-        JLabel txtTitle = new JLabel("Usuarios");
+        JLabel txtTitle = new JLabel("Bienvenido");
         txtTitle.setBounds(60, 30, 200, 40);
         txtTitle.setForeground(textoSecundario);
         txtTitle.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 30));
@@ -342,9 +353,11 @@ public class Principal extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
             }
+
             public void mouseEntered(MouseEvent e) {
                 exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 19));
             }
+
             public void mouseExited(MouseEvent e) {
                 exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
             }
@@ -352,18 +365,15 @@ public class Principal extends JFrame {
         });
         superior.add(exit);
 
-
-
     }
-    void setCRUD(){
+
+    void setCRUD() {
         CRUD = new JPanel(null);
         CRUD.setBackground(azul);
-        CRUD.setBounds(1,100,898,620);
+        CRUD.setBounds(1, 100, 898, 620);
 
         Principal.add(CRUD);
 
-
     }
-
 
 }
