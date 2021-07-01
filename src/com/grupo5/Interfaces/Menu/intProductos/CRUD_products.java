@@ -132,7 +132,8 @@ public class CRUD_products extends JPanel {
                             System.out.println(producto);
                         }
                         if (btn.getName().equals("e")) {
-                            producto.eliminarProducto((int) table.getValueAt(row, 0));
+                            int idProd = Integer.parseInt((String)table.getValueAt(row, 0));
+                            producto.eliminarProducto(idProd);
                             model.removeRow(row);
                             producto.printProductos();
                             System.out.println("Eliminar");
