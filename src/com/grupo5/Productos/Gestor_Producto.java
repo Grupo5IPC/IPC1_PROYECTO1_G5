@@ -6,17 +6,22 @@ import java.util.ArrayList;
 public class Gestor_Producto implements Serializable {
 
     ArrayList<Producto> productos = new ArrayList();
+    ArrayList<Ingrediente> ingredientes = new ArrayList();
 
     public Ingrediente createIngrediente(String nombre, int cantidad, String unidades) {
         Ingrediente ingrediente = new Ingrediente(nombre, cantidad, unidades);
-        return ingrediente;
+
+        if (ingredientes.add(ingrediente)) {
+            return ingrediente;
+        }
+        return null;
     }
 
     public ArrayList<Producto> getProductos() {
         return productos;
     }
 
-    public boolean insertarProducto(int id, String nombre, String descripcion, double costo, double precio, Ingrediente ingredientes) {
+    public boolean insertarProducto(int id, String nombre, String descripcion, double costo, double precio, ArrayList<Ingrediente> ingredientes) {
         // usar antes de crear un producto el crear ingrediente y luego usar como parametro el ingrediente devuelto
         // esto para ahorrar el tener que crear arreglos temporales y para que la extraccion de datos se haga mas facil
         Producto producto = new Producto(id, nombre, descripcion, costo, precio, ingredientes);
@@ -29,9 +34,9 @@ public class Gestor_Producto implements Serializable {
 // lo hice rapido se puede usar el metodo .forEach si lo prefieren
 
     public void printProductos() {
-if (productos.isEmpty()){
-    System.out.println("No existen productos");
-}
+        if (productos.isEmpty()) {
+            System.out.println("No existen productos");
+        }
         for (int i = 0; i < productos.size(); i++) {
             System.out.print(productos.get(i).getId() + ",");
             System.out.print(productos.get(i).getName() + ",");
@@ -40,9 +45,24 @@ if (productos.isEmpty()){
             System.out.print(productos.get(i).getPrice());
             System.out.println("");
             System.out.println("Ingredientes del producto " + productos.get(i).getId());
-            System.out.print(productos.get(i).getIngredients().getName() + ",");
-            System.out.print(productos.get(i).getIngredients().getQuantity() + ",");
-            System.out.print(productos.get(i).getIngredients().getUnits());
+            for (int j = 0; j < productos.get(i).getIngredientes().size(); j++) {
+                System.out.print(productos.get(i).getIngredientes().get(j).getName() + ",");
+                System.out.print(productos.get(i).getIngredientes().get(j).getQuantity() + ",");
+                System.out.print(productos.get(i).getIngredientes().get(j).getUnits());
+                System.out.println("");
+            }
+            System.out.println("\n");
+        }
+    }
+
+    public void printIngredientes() {
+        if (ingredientes.isEmpty()) {
+            System.out.println("No existen productos");
+        }
+        for (int i = 0; i < ingredientes.size(); i++) {
+            System.out.print(ingredientes.get(i).getName() + ",");
+            System.out.print(ingredientes.get(i).getQuantity() + ",");
+            System.out.print(ingredientes.get(i).getUnits());
             System.out.println("");
 
         }
@@ -110,10 +130,13 @@ if (productos.isEmpty()){
         System.out.print(productos.get(aux).getPrice());
         System.out.println("");
         System.out.println("Ingredientes del producto " + productos.get(aux).getId());
-        System.out.print(productos.get(aux).getIngredients().getName() + ",");
-        System.out.print(productos.get(aux).getIngredients().getQuantity() + ",");
-        System.out.print(productos.get(aux).getIngredients().getUnits());
-        System.out.println("");
+        for (int j = 0; j < productos.get(aux).getIngredientes().size(); j++) {
+            System.out.print(productos.get(aux).getIngredientes().get(j).getName() + ",");
+            System.out.print(productos.get(aux).getIngredientes().get(j).getQuantity() + ",");
+            System.out.print(productos.get(aux).getIngredientes().get(j).getUnits());
+            System.out.println("");
+        }
+        System.out.println("\n");
     }
 
     public String getNombre_id(int id) {
@@ -140,22 +163,20 @@ if (productos.isEmpty()){
         while (state == false && i < productos.size()) {
             if (productos.get(i).getId() == id) {
                 state = true;
-                System.out.println("");
                 System.out.print(productos.get(i).getId() + ",");
                 System.out.print(productos.get(i).getName() + ",");
                 System.out.print(productos.get(i).getDescription() + ",");
                 System.out.print(productos.get(i).getCost() + ",");
                 System.out.print(productos.get(i).getPrice());
                 System.out.println("");
-                System.out.println("Ingredientes del producto " + productos.get(i).getId());
-                System.out.println(productos.get(i).getIngredients().getName().length());
-                for (int j = 0; j < productos.get(i).getIngredients().getName().length(); j++) {
-                    System.out.print(productos.get(i).getIngredients().getName() + ",");
-                    System.out.print(productos.get(i).getIngredients().getQuantity() + ",");
-                    System.out.print(productos.get(i).getIngredients().getUnits());
+                System.out.println("Ingredientes del producto " + productos.get(id).getId());
+                for (int j = 0; j < productos.get(i).getIngredientes().size(); j++) {
+                    System.out.print(productos.get(i).getIngredientes().get(j).getName() + ",");
+                    System.out.print(productos.get(i).getIngredientes().get(j).getQuantity() + ",");
+                    System.out.print(productos.get(i).getIngredientes().get(j).getUnits());
+                    System.out.println("");
                 }
-
-                System.out.println("");
+                System.out.println("\n");
                 return true;
             } else {
                 i++;
