@@ -1,6 +1,8 @@
 package com.grupo5.Interfaces.Menu;
 
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.Facturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
 import com.grupo5.Productos.Gestor_Producto;
@@ -27,8 +29,9 @@ public class Principal extends JFrame {
 
     public static Gestor_usuario usuario;
     public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura factura) {
         usuario = usuarios;
         producto = productos;
         this.setSize(1080, 720);
@@ -316,7 +319,14 @@ public class Principal extends JFrame {
             }
 
             public void mouseClicked(MouseEvent e) {
-                botonexit.setBackground(new Color(46, 51, 73));
+                botonVer.setBackground(new Color(46, 51, 73));
+                CRUD_factura u = new CRUD_factura(factura);
+                u.setVisible(true);
+                u.setForeground(textoSecundario);
+                u.setBounds(2, 0, 898, 620);
+                CRUD.add(u);
+                revalidate();
+                repaint();
             }
 
         });

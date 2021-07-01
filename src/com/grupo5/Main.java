@@ -55,7 +55,7 @@ public class Main {
         }
         usuario.print_usu();
 
-        Principal p = new Principal(usuario, producto);
+        Principal p = new Principal(usuario, producto, factura);
         p.setVisible(true);
 
 
