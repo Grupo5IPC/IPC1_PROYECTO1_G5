@@ -1,6 +1,8 @@
 package com.grupo5.Interfaces.Menu;
 
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Usuarios.Gestor_usuario;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -19,22 +21,24 @@ public class Principal extends JFrame {
     public Color texto = new Color(0, 126, 249);
     public Color textoSecundario = new Color(158, 161, 176);
 
+    public static Gestor_usuario usuario;
 
-    public Principal() {
+
+    public Principal(Gestor_usuario usuarios) {
+        usuario = usuarios;
         this.setSize(1080, 720);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().setLayout(null);
         setUndecorated(true);
-        this.setVisible(true);
+
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 20, 20));
             }
         });
-
 
         //Menu lateral
         user = new JPanel();
@@ -56,10 +60,14 @@ public class Principal extends JFrame {
         Principal.setBackground(azul);
         Principal.setLayout(new GroupLayout(Principal));
         this.add(Principal);
+        setCRUD();
         setUser();
         setSuperior();
-        setCRUD();
+
         menu();
+       repaint();
+       revalidate();
+
     }
 
 
@@ -140,6 +148,12 @@ public class Principal extends JFrame {
             }
             public void mouseClicked(MouseEvent e) {
                 botonVer.setBackground(new Color(46,51,73));
+                CRUD_user u = new CRUD_user(usuario);
+                u.setVisible(true);
+                CRUD.add(u);
+                revalidate();
+                repaint();
+
             }
 
         });
@@ -218,6 +232,8 @@ public class Principal extends JFrame {
             }
             public void mouseClicked(MouseEvent e) {
                 botonproduct.setBackground(new Color(46,51,73));
+
+
             }
 
         });
@@ -346,13 +362,5 @@ public class Principal extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
 
-            @Override
-            public void run() {
-                new Principal();
-            }
-        });
-    }
 }

@@ -6,6 +6,7 @@ import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Detalle;
 import com.grupo5.Facturas.Factura;
 import com.grupo5.Facturas.Gestor_Factura;
+import com.grupo5.Interfaces.Menu.Principal;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Productos.Ingrediente;
 import com.grupo5.Productos.Producto;
@@ -52,7 +53,10 @@ public class Main {
         } else {
             System.out.println("ERROR: La carga no es un archivo json o binario");
         }
-        menuPrincipal();
+        usuario.print_usu();
+
+        Principal p = new Principal(usuario);
+        p.setVisible(true);
 
     }
 
