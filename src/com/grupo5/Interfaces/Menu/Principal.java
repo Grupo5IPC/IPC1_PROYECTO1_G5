@@ -151,6 +151,8 @@ public class Principal extends JFrame {
                 botonVer.setBackground(new Color(46,51,73));
                 CRUD_user u = new CRUD_user(usuario);
                 u.setVisible(true);
+                u.setForeground(textoSecundario);
+                u.setBounds(2,0,898,620);
                 CRUD.add(u);
                 revalidate();
                 repaint();
@@ -355,7 +357,7 @@ public class Principal extends JFrame {
     }
     void setCRUD(){
         CRUD = new JPanel(null);
-        CRUD.setBackground(fondo);
+        CRUD.setBackground(azul);
         CRUD.setBounds(1,100,898,620);
 
         Principal.add(CRUD);
