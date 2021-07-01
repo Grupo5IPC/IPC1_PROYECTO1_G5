@@ -118,6 +118,8 @@ public class CRUD_user extends JPanel {
                         JButton btn = (JButton) valor;
                         if (btn.getName().equals("m")) {
                             System.out.println("Modificar");
+                            String usuario = (String) table.getValueAt(row,0);
+                            System.out.println(usuario);
                         }
                         if (btn.getName().equals("e")) {
                             System.out.println("Eliminar");
