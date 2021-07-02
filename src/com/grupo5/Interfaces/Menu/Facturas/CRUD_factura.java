@@ -1,13 +1,10 @@
-package com.grupo5.Interfaces.Menu.intProductos;
+package com.grupo5.Interfaces.Menu.Facturas;
 
+import com.grupo5.Facturas.Factura;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
-import static com.grupo5.Interfaces.Menu.intProductos.CRUD_products.producto;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
-import com.grupo5.Productos.Gestor_Producto;
-import com.grupo5.Productos.Producto;
-import com.grupo5.Usuarios.Gestor_usuario;
-import com.grupo5.Usuarios.Usuario;
 import com.sun.istack.internal.NotNull;
 
 import javax.swing.*;
@@ -18,8 +15,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 
-public class CRUD_products extends JPanel {
-    public static Gestor_Producto producto;
+public class CRUD_factura extends JPanel {
+    public static Gestor_Factura factura;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -30,8 +27,8 @@ public class CRUD_products extends JPanel {
 
     public Color textoSecundario = new Color(158, 161, 176);
    
-    public CRUD_products(Gestor_Producto product) {
-        producto = product;
+    public CRUD_factura(Gestor_Factura invoice) {
+        factura = invoice;
         JPanel aux = new JPanel();
         Fuentes fuente = new Fuentes();
         setSize(898, 620);
@@ -40,15 +37,15 @@ public class CRUD_products extends JPanel {
         setLayout(null);
         setForeground(textoSecundario);
 
-        producto.printProductos();
+        factura.printFacturas();
 
 
-        ArrayList<Producto> data = producto.getProductos();
+        ArrayList<Factura> data = factura.getFacturas();
 
-        Object[] header = new Object[]{"   Id", "   Nombre", "   Descripción",
-            "   Costo", "   Precio", "", ""};
+        Object[] header = new Object[]{"   id", "   cliente", "   fecha", "", ""};
+        //modificar
 
-        Object matriz[][] = new Object[data.size()][7];
+        Object matriz[][] = new Object[data.size()][5];
          modificar = new JButton("Modificar");
         modificar.setName("m");
         modificar.setForeground(textoSecundario);
@@ -72,13 +69,10 @@ public class CRUD_products extends JPanel {
         for (int i = 0; i < data.size(); i++) {
 
             matriz[i][0] = Integer.toString(data.get(i).getId());
-            matriz[i][1] = data.get(i).getName();
-            matriz[i][2] = data.get(i).getDescription();
-            matriz[i][3] = Double.toString(data.get(i).getCost());
-            matriz[i][4] = Double.toString(data.get(i).getPrice());
-            matriz[i][5] = modificar;
-            matriz[i][6] = eliminar;
-
+            matriz[i][1] = data.get(i).getClient().getName();
+            matriz[i][2] = data.get(i).getDate();
+            matriz[i][3] = modificar;
+            matriz[i][4] = eliminar;
         }
 
        model = new DefaultTableModel(matriz, header) {
@@ -128,14 +122,14 @@ public class CRUD_products extends JPanel {
                         JButton btn = (JButton) valor;
                         if (btn.getName().equals("m")) {
                             System.out.println("Modificar");
-                            String producto = (String) table.getValueAt(row, 0);
-                            System.out.println(producto);
+                            String factura = (String) table.getValueAt(row, 0);
+                            System.out.println(factura);
                         }
                         if (btn.getName().equals("e")) {
-                            int idProd = Integer.parseInt((String)table.getValueAt(row, 0));
-                            producto.eliminarProducto(idProd);
+                            int idFactura = Integer.parseInt((String)table.getValueAt(row, 0));
+                            factura.eliminarFactura(idFactura);
                             model.removeRow(row);
-                            producto.printProductos();
+                            factura.printFacturas();
                             System.out.println("Eliminar");
                         }
                     }
@@ -149,7 +143,7 @@ public class CRUD_products extends JPanel {
         pane.setOpaque(true);
         pane.setBorder(BorderFactory.createEmptyBorder());
         pane.getViewport().setBackground(azul);
-        pane.setBounds(50, 50, 600, 400);
+        pane.setBounds(150, 100, 600, 400);
 
         add(pane);
 
@@ -163,4 +157,6 @@ public class CRUD_products extends JPanel {
         ImageIcon scale = new ImageIcon(imgs);
         return scale;
     }
+
+
 }

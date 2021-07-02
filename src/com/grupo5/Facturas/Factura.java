@@ -3,18 +3,28 @@ package com.grupo5.Facturas;
 import com.grupo5.Clientes.Cliente;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Factura implements Serializable {
-    // e
+
     private int id;
     private Cliente client;
     private String date;
-    private Detalle products;
-    public Factura(int id, Cliente cliente, String fecha, Detalle detalle){
-        setId(id);
-        setClient(cliente);
-        setDate(fecha);
-        setProducts(detalle);
+    private ArrayList<Detalle> detalles = new ArrayList();
+
+    public Factura(int id, Cliente client, String date, ArrayList detalles) {
+        this.id = id;
+        this.client = client;
+        this.date = date;
+        this.detalles = detalles;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Cliente getClient() {
@@ -33,19 +43,12 @@ public class Factura implements Serializable {
         this.date = date;
     }
 
-    public com.grupo5.Facturas.Detalle getProducts() {
-        return products;
+    public ArrayList<Detalle> getDetalles() {
+        return detalles;
     }
 
-    public void setProducts(com.grupo5.Facturas.Detalle products) {
-        this.products = products;
+    public void setDetalles(ArrayList<Detalle> detalles) {
+        this.detalles = detalles;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    
 }

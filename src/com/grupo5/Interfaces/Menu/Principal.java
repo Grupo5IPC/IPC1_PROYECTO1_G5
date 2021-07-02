@@ -1,26 +1,22 @@
 package com.grupo5.Interfaces.Menu;
 
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.Facturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Aceptar;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.RoundRectangle2D;
-
-//import org.jetbrains.annotations.NotNull;
+import java.awt.geom.*;
+import java.awt.event.*;
 
 public class Principal extends JFrame {
-    public JButton aceptar;
-    public CRUD_user Crud_usuario;
+
     public JPanel user;
     public JPanel lateralSecundario;
     public JPanel Principal;
@@ -33,12 +29,13 @@ public class Principal extends JFrame {
 
     public static Gestor_usuario usuario;
     public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas) {
         usuario = usuarios;
         producto = productos;
+        factura = facturas;
         this.setSize(1080, 720);
-        setName("Parent del CRUD");
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,7 +145,6 @@ public class Principal extends JFrame {
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
         botonVer.add(txtVer);
-
         botonVer.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -157,23 +153,17 @@ public class Principal extends JFrame {
 
             public void mouseExited(MouseEvent e) {
                 botonVer.setBackground(fondo);
-
             }
 
             public void mouseClicked(MouseEvent e) {
                 botonVer.setBackground(new Color(46, 51, 73));
-                Crud_usuario = new CRUD_user(usuario);
-                Crud_usuario.setVisible(true);
-                Crud_usuario.setForeground(textoSecundario);
-                Crud_usuario.setBounds(2, 0, 898, 550);
-                CRUD.add(Crud_usuario);
-                aceptar.setVisible(true);
-
-
+                CRUD_user u = new CRUD_user(usuario);
+                u.setVisible(true);
+                u.setForeground(textoSecundario);
+                u.setBounds(2, 0, 898, 620);
+                CRUD.add(u);
                 revalidate();
                 repaint();
-
-
             }
 
         });
@@ -259,7 +249,6 @@ public class Principal extends JFrame {
                 p.setForeground(textoSecundario);
                 p.setBounds(2, 0, 898, 620);
                 CRUD.add(p);
-
                 revalidate();
                 repaint();
             }
@@ -300,8 +289,14 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botoninvoice.setBackground(new Color(46, 51, 73));
+                CRUD_factura f = new CRUD_factura(factura);
+                f.setVisible(true);
+                f.setForeground(textoSecundario);
+                f.setBounds(2, 0, 898, 620);
+                CRUD.add(f);
+                revalidate();
+                repaint();
             }
-
         });
         lateralSecundario.add(botoninvoice);
 
@@ -330,7 +325,7 @@ public class Principal extends JFrame {
             }
 
             public void mouseClicked(MouseEvent e) {
-
+                botonexit.setBackground(texto);
             }
 
         });
@@ -382,23 +377,12 @@ public class Principal extends JFrame {
     }
 
     void setCRUD() {
-        Fuentes fuente = new Fuentes();
         CRUD = new JPanel(null);
         CRUD.setBackground(azul);
-        CRUD.setBounds(1, 100, 898, 650);
-        aceptar = new JButton("Agregar");
-        aceptar.setBackground(azul);
-        aceptar.setBounds(650, 550, 140, 45);
-        aceptar.setFont(fuente.fuente(fuente.RobotoBold, 0, 16));
-        aceptar.setForeground(textoSecundario);
-        aceptar.setBorder(BorderFactory.createLineBorder(textoSecundario));
-        aceptar.setVisible(false);
-        aceptar.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                Aceptar a = new Aceptar(usuario, true);
-                a.setVisible(true);
-            }
-        });
+        CRUD.setBounds(1, 100, 898, 620);
+
+        Principal.add(CRUD);
+
     }
+
 }

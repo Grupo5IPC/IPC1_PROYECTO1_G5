@@ -55,11 +55,8 @@ public class Main {
         }
         usuario.print_usu();
 
-        Principal p = new Principal(usuario, producto);
+        Principal p = new Principal(usuario, producto, factura);
         p.setVisible(true);
-
-
-
     }
 
     public static void menuPrincipal() {
@@ -638,7 +635,7 @@ public class Main {
                     double precio = GsonObj.get("price").getAsInt();
 
                     JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
-                    ArrayList <Ingrediente> aux = new ArrayList(Ingred.size());
+                    ArrayList<Ingrediente> aux = new ArrayList(Ingred.size());
 
                     for (int j = 0; j < Ingred.size(); j++) {
                         JsonObject GsonObj2 = Ingred.get(j).getAsJsonObject();
@@ -647,7 +644,7 @@ public class Main {
                         String unidadesIng = GsonObj2.get("units").getAsString();
                         //----------------------------1----------------------------
                         Ingrediente auxIng = new Ingrediente(nombreIng, cantidadIng, unidadesIng);
-                        aux.add(auxIng); 
+                        aux.add(auxIng);
                     }
                     if (producto.verificarProducto(id) == false) {
                         //----------------------------2----------------------------
@@ -717,12 +714,12 @@ public class Main {
                     Cliente auxclient = cliente.getCliente(idcliente);
                     String fecha = GsonObj.get("date").getAsString();
 
-                    JsonArray Ingred = GsonObj.get("products").getAsJsonArray();
-                    Detalle auxdetalle = null;
+                    JsonArray Prod = GsonObj.get("products").getAsJsonArray();
+                    ArrayList<Detalle> auxdetalle = new ArrayList(Prod.size());
 
-                    for (int j = 0; j < Ingred.size(); j++) {
+                    for (int j = 0; j < Prod.size(); j++) {
                         try {
-                            JsonObject GsonObj2 = Ingred.get(i).getAsJsonObject();
+                            JsonObject GsonObj2 = Prod.get(j).getAsJsonObject();
                             String nombreProd = GsonObj2.get("name").getAsString();
                             //Encontrar Id con el Nombre
                             //Encontrar un Prodcuto con el Id
@@ -734,7 +731,8 @@ public class Main {
                                     encontrado = true;
                                     int auxProductId = producto.getId_nombre(nombreProd);
                                     Producto auxProduct = producto.getProductos(auxProductId);
-                                    auxdetalle = factura.crearDetalle(auxProductId, auxProduct);
+                                    Detalle detail = new Detalle(id, auxProduct);
+                                    auxdetalle.add(detail);
                                 } else {
                                     i++;
                                 }
