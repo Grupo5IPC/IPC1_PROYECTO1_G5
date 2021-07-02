@@ -71,7 +71,7 @@ public class CRUD_cliente extends JPanel {
             matriz[i][0] = Integer.toString(data.get(i).getId());
             matriz[i][1] = data.get(i).getName();
             matriz[i][2] = data.get(i).getAddress();
-            matriz[i][3] = Integer.toString(data.get(i).getPhone());
+            matriz[i][3] = data.get(i).getPhone();
             matriz[i][4] = data.get(i).getNit();
             matriz[i][5] = modificar;
             matriz[i][6] = eliminar;
