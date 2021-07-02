@@ -7,58 +7,49 @@ import com.grupo5.Usuarios.Gestor_usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.RoundRectangle2D;
 
-public class updateUser extends JDialog {
+public class Aceptar extends JDialog {
     public static Gestor_usuario usuario;
 
     public JLabel title;
     public CRUD_user Crud_usuario;
     public JButton acep;
     public JPanel Parent;
-    public String nombreUsuario;
-    public int index;
     public Colors c = new Colors();
     public Color azul = new Color(42, 52, 67);
-    public Color fondo = new Color(157, 207, 255);
 
-    public updateUser(Gestor_usuario user, boolean modal, String username) {
-        nombreUsuario = username;
-
+    public Aceptar(Gestor_usuario user, boolean modal) {
         Parent = new JPanel();
         usuario = user;
-        index = usuario.getindex(nombreUsuario);
         setUndecorated(true);
-
-        this.addComponentListener(new ComponentAdapter() {
+        /*
+        addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 10, 10));
             }
         });
-
+        */
 
 
         //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        setSize(550, 350);
-        setBounds(0, 0, 550 , 350);
+        setSize(600, 400);
+        setBounds(0, 0, 600, 450);
         setAlwaysOnTop(true);
 
         //this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setModal(modal);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setBackground(fondo);
+        this.setBackground(azul);
         setLayout(null);
         setLocationRelativeTo(null);
         labels();
         Parent.setBounds(0,0, this.getWidth(),this.getHeight() );
         Parent.setLayout(null);
-        Parent.setBackground(fondo);
+        Parent.setBackground(c.fondo);
         add(Parent);
 
 
@@ -66,35 +57,35 @@ public class updateUser extends JDialog {
 
     void labels() {
         Fuentes fuente = new Fuentes();
-        title = new JLabel("Modificar Usuario: "+nombreUsuario);
-        title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
-        title.setBounds(160,30,200,60);
-        title.setForeground(c.fondo);
-        Parent.add(title);
+        title = new JLabel("Agregar Usuario");
+
+
+
+
         JLabel cerrar = new JLabel("x");
-        cerrar.setFont(fuente.fuente(fuente.RobotoBold, 1,14));
-        cerrar.setForeground(c.fondo);
-        cerrar.setBounds((int)this.getSize().getWidth()-15,0,30,30);
+        cerrar.setFont(fuente.fuente(fuente.RobotoBold, 0,12));
+        cerrar.setForeground(c.textoSecundario);
+        cerrar.setBounds((int)this.getSize().getWidth()-20,20,30,30);
         Parent.add(cerrar);
         JLabel nombre = new JLabel("Username");
         nombre.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
 
         nombre.setBounds(100, 100, 100, 60);
-        nombre.setForeground(c.fondo);
+        nombre.setForeground(c.textoSecundario);
         Parent.add(nombre);
         JLabel password = new JLabel("Password");
         password.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
 
         password.setBounds(100, 190, 100, 60);
-        password.setForeground(c.fondo);
+        password.setForeground(c.textoSecundario);
         Parent.add(password);
 
         JTextField username = new JTextField(" Nombre de usuario");
-        username.setBackground(fondo);
-        username.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
+        username.setBackground(c.azul);
+        username.setFont(fuente.fuente(fuente.RobotoBold, 0, 15));
         username.setBorder(BorderFactory.createEmptyBorder());
         username.setBounds(210, 110, 200, 40);
-        username.setForeground(c.fondo);
+        username.setForeground(c.textoSecundario);
         username.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -103,16 +94,16 @@ public class updateUser extends JDialog {
         });
         Parent.add(username);
         JSeparator separador = new JSeparator();
-        separador.setBackground(c.fondo);
+        separador.setBackground(c.azul);
         separador.setOrientation(0);
-        separador.setForeground(c.fondo);
+        separador.setForeground(c.textoSecundario);
         separador.setBounds(210, 155, 200, 5);
         Parent.add(separador);
 
         JTextField txtpass = new JTextField(" Password");
-        txtpass.setBackground(fondo);
-        txtpass.setForeground(c.fondo);
-        txtpass.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
+        txtpass.setBackground(c.azul);
+        txtpass.setForeground(c.textoSecundario);
+        txtpass.setFont(fuente.fuente(fuente.RobotoBold, 0, 15));
         txtpass.setBorder(BorderFactory.createEmptyBorder());
         txtpass.setBounds(210, 200, 200, 40);
         txtpass.addMouseListener(new MouseAdapter() {
@@ -125,7 +116,7 @@ public class updateUser extends JDialog {
         JSeparator separador2 = new JSeparator();
         separador2.setBackground(c.azul);
         separador2.setOrientation(0);
-        separador2.setForeground(c.fondo);
+        separador2.setForeground(c.textoSecundario);
         separador2.setBounds(210, 245, 200, 5);
         Parent.add(separador2);
 
@@ -156,21 +147,9 @@ public class updateUser extends JDialog {
                 aceptar.setBackground(azul);
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                if (nombreUsuario.equals(username.getText())){
-
-                    JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
-                }else{
-
-                    usuario.Ins_usu(username.getText(), txtpass.getText());
-                    JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                    cerrar2();
-                }
 
             }
         });
         Parent.add(aceptar);
-    }
-    void cerrar2(){
-        this.dispose();
     }
 }

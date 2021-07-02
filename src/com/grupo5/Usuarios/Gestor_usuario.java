@@ -99,10 +99,6 @@ public class Gestor_usuario implements Serializable {
             }
         }
     }
-    public boolean modificarUsuario(int index, Usuario usu){
-        usuarios.set(index, usu);
-        return true;
-    }
             
     public int eliminarUsuario(String nombre) {
         int i = 0;

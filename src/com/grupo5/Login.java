@@ -1,44 +1,63 @@
-package com.grupo5.Interfaces.Menu;
+package com.grupo5;
 
 import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.Principal;
+import static com.grupo5.Interfaces.Menu.Principal.cliente;
+import static com.grupo5.Interfaces.Menu.Principal.factura;
+import static com.grupo5.Interfaces.Menu.Principal.producto;
+import static com.grupo5.Interfaces.Menu.Principal.usuario;
 import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
 import com.grupo5.Interfaces.Menu.intFacturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import static com.grupo5.Interfaces.Menu.intUsuario.CRUD_user.usuario;
+import static com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Aceptar.usuario;
+import static com.grupo5.Interfaces.Menu.intUsuario.Dialogs.AddUser.usuario;
+import static com.grupo5.Login.usuario;
+import static com.grupo5.Main.cliente;
+import static com.grupo5.Main.factura;
+import static com.grupo5.Main.producto;
+import static com.grupo5.Main.usuario;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
-//import org.jetbrains.annotations.NotNull;
-
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
 
-public class Principal extends JFrame {
+public class Login extends JFrame {
 
     public JPanel user;
     public JPanel lateralSecundario;
-    public JPanel Principal;
+//    public JPanel Principal;
     public JPanel superior;
     public JPanel CRUD;
-    public CRUD_user u;
-    public CRUD_cliente c;
-    public CRUD_factura f;
-    public  CRUD_products p;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
     public Color textoSecundario = new Color(158, 161, 176);
+    JLabel titulo = new JLabel("CARGAR ARCHIVOS");
+    JLabel info = new JLabel("Ingresa el nombre de la carpeta");
+    JTextField textUser = new JTextField();
+    JTextField textPass = new JTextField();
+    JButton boton = new JButton("Cargar");
+    JButton aceptar = new JButton("Aceptar");
 
     public static Gestor_usuario usuario;
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes) {
+    public Login(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes) {
         usuario = usuarios;
         producto = productos;
         factura = facturas;
@@ -59,27 +78,26 @@ public class Principal extends JFrame {
 
         //Menu lateral
         user = new JPanel();
-        user.setSize(200, 180);
+        user.setSize(500, 180);
         user.setBounds(0, 0, 200, 180);
         user.setBackground(fondo);
         lateralSecundario = new JPanel();
-        lateralSecundario.setSize(200, 720);
-        lateralSecundario.setBounds(0, 0, 200, 720);
+        lateralSecundario.setSize(1200, 720);
+        lateralSecundario.setBounds(0, 0, 1200, 720);
         lateralSecundario.setBackground(fondo);
         lateralSecundario.setLayout(new GroupLayout(lateralSecundario));
         this.add(lateralSecundario);
         user.setLayout(null);
         lateralSecundario.add(user);
 
-        Principal = new JPanel();
-        Principal.setSize(900, 720);
-        Principal.setBounds(180, 0, 900, 720);
-        Principal.setBackground(azul);
-        Principal.setLayout(new GroupLayout(Principal));
-        this.add(Principal);
-        setCRUD();
+//        Principal = new JPanel();
+//        Principal.setSize(900, 720);
+//        Principal.setBounds(180, 0, 900, 720);
+//        Principal.setBackground(azul);
+//        Principal.setLayout(new GroupLayout(Principal));
+//        this.add(Principal);
         setUser();
-        setSuperior();
+        Componentes();
 
         menu();
         repaint();
@@ -93,23 +111,11 @@ public class Principal extends JFrame {
         profile.setHorizontalAlignment(0);
         profile.setForeground(Color.white);
 
-        profile.setSize(100, 100);
-        profile.setBounds(40, 20, 110, 110);
+        profile.setSize(1050, 100);
+        profile.setBounds(100, 20, 110, 110);
         profile.setIcon(getIcon2("iconos\\profile.png", profile));
 
         user.add(profile);
-
-        // users
-        JLabel users = new JLabel("Darwin Arevalo");
-        users.setHorizontalAlignment(0);
-        users.setForeground(Color.white);
-        users.setVerticalAlignment(0);
-        users.setSize(180, 30);
-        users.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 12));
-        users.setForeground(texto);
-        users.setBounds(0, 140, 180, 20);
-
-        user.add(users);
 
     }
 
@@ -142,13 +148,13 @@ public class Principal extends JFrame {
 
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
-        iconVer.setBounds(150, 8, 30, 30);
+        iconVer.setBounds(250, 8, 30, 30);
         iconVer.setIcon(getIcon2("iconos\\user.png", iconVer));
 
         botonVer.add(iconVer);
 
-        JLabel txtVer = new JLabel("Usuarios");
-        txtVer.setBounds(20, 15, 80, 20);
+        JLabel txtVer = new JLabel("Nombre del Usuario");
+        txtVer.setBounds(300, 15, 2000, 20);
 
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
@@ -163,70 +169,19 @@ public class Principal extends JFrame {
                 botonVer.setBackground(fondo);
             }
 
-            public void mouseClicked(MouseEvent e) {
-                closeOthers();
-                botonVer.setBackground(new Color(46, 51, 73));
-                u = new CRUD_user(usuario);
-                u.setVisible(true);
-                u.setForeground(textoSecundario);
-                u.setBounds(2, 0, 898, 620);
-                CRUD.add(u);
-                u.revalidate();
-                u.repaint();
-            }
-
+////            public void mouseClicked(MouseEvent e) {
+////                botonVer.setBackground(new Color(46, 51, 73));
+////                CRUD_user u = new CRUD_user(usuario);
+////                u.setVisible(true);
+////                u.setForeground(textoSecundario);
+////                u.setBounds(2, 0, 898, 620);
+////                CRUD.add(u);
+////                u.revalidate();
+////                u.repaint();
+////            }
         });
 
         lateralSecundario.add(botonVer);
-
-        //boton listar clientes
-        JPanel botonclient = new JPanel(null);
-        botonclient.setBounds(0, 245, lateralSecundario.getWidth(), 45);
-        botonclient.setBackground(fondo);
-        // botonclient.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
-
-        iconVer = new JLabel();
-        iconVer.setHorizontalAlignment(0);
-
-        iconVer.setVerticalAlignment(0);
-        iconVer.setSize(30, 30);
-        iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("iconos\\clients.png", iconVer));
-
-        botonclient.add(iconVer);
-
-        txtVer = new JLabel("Clientes");
-        txtVer.setBounds(20, 15, 80, 20);
-
-        txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
-        txtVer.setForeground(texto);
-        botonclient.add(txtVer);
-        botonclient.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                botonclient.setBackground(azul);
-            }
-
-            public void mouseExited(MouseEvent e) {
-                botonclient.setBackground(fondo);
-            }
-
-            public void mouseClicked(MouseEvent e) {
-                botonclient.setBackground(new Color(46, 51, 73));
-                botonclient.setBackground(new Color(46, 51, 73));
-                closeOthers();
-                c = new CRUD_cliente(cliente);
-                c.setVisible(true);
-                c.setForeground(textoSecundario);
-                c.setBounds(2, 0, 898, 620);
-                CRUD.add(c);
-
-                revalidate();
-                repaint() ;
-            }
-        });
-
-        lateralSecundario.add(botonclient);
 
         //boton listar product
         JPanel botonproduct = new JPanel(null);
@@ -239,13 +194,13 @@ public class Principal extends JFrame {
 
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
-        iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("iconos\\products.png", iconVer));
+        iconVer.setBounds(250, 8, 30, 30);
+        iconVer.setIcon(getIcon2("iconos\\pass.png", iconVer));
 
         botonproduct.add(iconVer);
 
-        txtVer = new JLabel("Productos   ");
-        txtVer.setBounds(20, 15, 80, 20);
+        txtVer = new JLabel("Contraseña");
+        txtVer.setBounds(300, 15, 80, 20);
 
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
@@ -259,26 +214,12 @@ public class Principal extends JFrame {
             public void mouseExited(MouseEvent e) {
                 botonproduct.setBackground(fondo);
             }
-
-            public void mouseClicked(MouseEvent e) {
-
-                botonproduct.setBackground(new Color(46, 51, 73));
-                closeOthers();
-
-                p = new CRUD_products(producto);
-                p.setVisible(true);
-                p.setForeground(textoSecundario);
-                p.setBounds(2, 0, 898, 620);
-                CRUD.add(p);
-                revalidate();
-                repaint();
-            }
         });
         lateralSecundario.add(botonproduct);
 
         //boton listar invoice
         JPanel botoninvoice = new JPanel(null);
-        botoninvoice.setBounds(0, 335, lateralSecundario.getWidth(), 45);
+        botoninvoice.setBounds(0, 400, lateralSecundario.getWidth(), 45);
         botoninvoice.setBackground(fondo);
         //botoninvoice.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
 
@@ -287,13 +228,13 @@ public class Principal extends JFrame {
 
         iconVer.setVerticalAlignment(0);
         iconVer.setSize(30, 30);
-        iconVer.setBounds(150, 8, 30, 30);
-        iconVer.setIcon(getIcon2("iconos\\invoice.png", iconVer));
+        iconVer.setBounds(450, 8, 30, 30);
+        iconVer.setIcon(getIcon2("iconos\\confirmacion.png", iconVer));
 
         botoninvoice.add(iconVer);
 
-        txtVer = new JLabel("Facturas");
-        txtVer.setBounds(20, 15, 80, 20);
+        txtVer = new JLabel("Aceptar");
+        txtVer.setBounds(500, 15, 80, 20);
 
         txtVer.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
         txtVer.setForeground(texto);
@@ -310,15 +251,13 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botoninvoice.setBackground(new Color(46, 51, 73));
-                closeOthers();
+                if (usuario.verificar(textUser.getText(), textPass.getText())) {
+                    Principal p = new Principal(usuario, producto, factura, cliente);
+                    p.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "ERROR: Datos incorrectos");
+                }
 
-                f = new CRUD_factura(factura);
-                f.setVisible(true);
-                f.setForeground(textoSecundario);
-                f.setBounds(2, 0, 898, 620);
-                CRUD.add(f);
-                revalidate();
-                repaint();
             }
         });
         lateralSecundario.add(botoninvoice);
@@ -363,62 +302,69 @@ public class Principal extends JFrame {
 
     }
 
-    void setSuperior() {
-        superior = new JPanel(null);
-        superior.setBounds(0, 0, 900, 100);
-        superior.setBackground(Principal.getBackground());
-        superior.setForeground(textoSecundario);
-        Principal.add(superior);
-        JLabel txtTitle = new JLabel("Bienvenido");
-        txtTitle.setBounds(60, 30, 200, 40);
-        txtTitle.setForeground(textoSecundario);
-        txtTitle.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 30));
-        superior.add(txtTitle);
+    public void Componentes() {
+        //TITULO
+        titulo.setBounds(250, 20, 300, 50);
+        titulo.setFont(new Font("Monserrat", Font.BOLD, 18));
+        titulo.setVisible(true);
+        this.add(titulo);
 
-        JLabel exit = new JLabel("x");
-        exit.setBounds(875, 0, 200, 40);
-        exit.setForeground(textoSecundario);
-        exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
-        exit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        exit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
+        //TEXTFIELD
+        textUser.setBounds(400, 200, 450, 30);
+        textUser.setVisible(true);
+        this.add(textUser);
 
-            public void mouseEntered(MouseEvent e) {
-                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 19));
-            }
-
-            public void mouseExited(MouseEvent e) {
-                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
-            }
-
-        });
-        superior.add(exit);
+        //TEXTFIELD
+        textPass.setBounds(450, 300, 450, 30);
+        textPass.setVisible(true);
+        this.add(textPass);
 
     }
 
-    void setCRUD() {
-        CRUD = new JPanel(null);
-        CRUD.setBackground(azul);
-        CRUD.setBounds(1, 100, 898, 620);
+    {
+//    void setSuperior() {
+//        superior = new JPanel(null);
+//        superior.setBounds(0, 0, 900, 100);
+//        superior.setBackground(Principal.getBackground());
+//        superior.setForeground(textoSecundario);
+//        Principal.add(superior);
+//        JLabel txtTitle = new JLabel("Bienvenido");
+//        txtTitle.setBounds(60, 30, 200, 40);
+//        txtTitle.setForeground(textoSecundario);
+//        txtTitle.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 30));
+//        superior.add(txtTitle);
+//
+//        JLabel exit = new JLabel("x");
+//        exit.setBounds(875, 0, 200, 40);
+//        exit.setForeground(textoSecundario);
+//        exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
+//        exit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//        exit.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent e) {
+//                System.exit(0);
+//            }
+//
+//            public void mouseEntered(MouseEvent e) {
+//                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 19));
+//            }
+//
+//            public void mouseExited(MouseEvent e) {
+//                exit.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 17));
+//            }
+//
+//        });
+//        superior.add(exit);
+//
+//    }
 
-        Principal.add(CRUD);
-
+//    void setCRUD() {
+//        CRUD = new JPanel(null);
+//        CRUD.setBackground(azul);
+//        CRUD.setBounds(1, 100, 898, 620);
+//
+//        Principal.add(CRUD);
+//
+//    }
     }
-    void closeOthers(){
-        try{
-            CRUD.remove(u);
-            CRUD.remove(c);
-            CRUD.remove(p);
-            CRUD.remove(f);
-            revalidate();
-            repaint();
-
-        }catch (Exception e){
-
-        }
-    }
-
 }
