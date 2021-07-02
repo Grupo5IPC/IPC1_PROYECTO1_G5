@@ -160,7 +160,7 @@ public class updateUser extends JDialog {
 
                     JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
                 }else{
-                    
+
                     usuario.Ins_usu(username.getText(), txtpass.getText());
                     JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     cerrar2();
