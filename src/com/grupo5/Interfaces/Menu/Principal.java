@@ -30,11 +30,13 @@ public class Principal extends JFrame {
     public static Gestor_usuario usuario;
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
+    public static Gestor_cliente cliente;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes) {
         usuario = usuarios;
         producto = productos;
         factura = facturas;
+        cliente = clientes;
         this.setSize(1080, 720);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -204,6 +206,13 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botonclient.setBackground(new Color(46, 51, 73));
+                CRUD_cliente c = new CRUD_cliente(cliente);
+                c.setVisible(true);
+                c.setForeground(textoSecundario);
+                c.setBounds(2, 0, 898, 620);
+                CRUD.add(c);
+                revalidate();
+                repaint();
             }
 
         });
