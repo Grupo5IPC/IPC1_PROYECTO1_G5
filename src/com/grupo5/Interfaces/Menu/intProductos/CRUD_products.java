@@ -23,6 +23,7 @@ public class CRUD_products extends JPanel implements MouseListener {
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
+    public Color amarillo = new Color(66, 155,245);
     public JTable table;
     public JTable table2;
     JButton eliminar;
@@ -170,8 +171,20 @@ public class CRUD_products extends JPanel implements MouseListener {
         pane.setBounds(50, 50, 800, 300);
         add(pane);
 
+        //LABEL INFO
+        JLabel InfoLabel = new JLabel("*Presione el Id del producto para ver sus ingredientes");
+        InfoLabel.setVisible(true);
+        InfoLabel.setHorizontalAlignment(0);
+        InfoLabel.setForeground(Color.white);
+        InfoLabel.setVerticalAlignment(0);
+        InfoLabel.setSize(180, 30);
+        InfoLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 12));
+        InfoLabel.setForeground(texto);
+        InfoLabel.setBounds(210, 370, 380, 20);
+        this.add(InfoLabel);
+        
         //LABEL INGREDIENTES
-        JLabel IngredientesLabel = new JLabel("INGREDIENTES");
+        JLabel IngredientesLabel = new JLabel("INGREDIENTES  |");
         IngredientesLabel.setVisible(true);
         IngredientesLabel.setHorizontalAlignment(0);
         IngredientesLabel.setForeground(Color.white);
@@ -179,7 +192,7 @@ public class CRUD_products extends JPanel implements MouseListener {
         IngredientesLabel.setSize(180, 30);
         IngredientesLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 18));
         IngredientesLabel.setForeground(texto);
-        IngredientesLabel.setBounds(20, 370, 180, 20);
+        IngredientesLabel.setBounds(40, 370, 180, 20);
         this.add(IngredientesLabel);
     }
 
@@ -306,7 +319,7 @@ public class CRUD_products extends JPanel implements MouseListener {
                 pane2.setOpaque(true);
                 pane2.setBorder(BorderFactory.createEmptyBorder());
                 pane2.getViewport().setBackground(azul);
-                pane2.setBounds(50, 450, 800, 300);
+                pane2.setBounds(50, 400, 800, 200);
                 add(pane2);
             } catch (Exception e) {
             }

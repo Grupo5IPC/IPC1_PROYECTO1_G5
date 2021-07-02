@@ -46,8 +46,7 @@ public class CRUD_factura extends JPanel implements MouseListener {
 
         ArrayList<Factura> data = factura.getFacturas();
 
-        Object[] header = new Object[]{"   id", "   cliente", "   fecha", "", ""};
-        //modificar
+        Object[] header = new Object[]{"Id", "Cliente", "Fecha", "", ""};
 
         Object matriz[][] = new Object[data.size()][5];
         modificar = new JButton("Modificar");
@@ -112,8 +111,9 @@ public class CRUD_factura extends JPanel implements MouseListener {
 
         //table.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
         table.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        table.setBounds(80, 100, 400, 400);
+        table.setBounds(80, 100, 400, 300);
         table.addMouseListener(this);
+        this.setLayout(null);
         table.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
@@ -142,6 +142,17 @@ public class CRUD_factura extends JPanel implements MouseListener {
                 }
             }
         });
+        
+        //TABLA 1
+        JScrollPane pane = new JScrollPane();
+        pane.setViewportView(table);
+        pane.setBackground(azul);
+        pane.setOpaque(true);
+        pane.setBorder(BorderFactory.createEmptyBorder());
+        pane.getViewport().setBackground(azul);
+        pane.setBounds(50, 50, 800, 300);
+        add(pane);
+        
         //LABEL PRODUCTOS
         JLabel FacturasLabel = new JLabel("FACTURAS");
         FacturasLabel.setVisible(true);
@@ -154,27 +165,29 @@ public class CRUD_factura extends JPanel implements MouseListener {
         FacturasLabel.setBounds(20, 10, 180, 20);
         this.add(FacturasLabel);
 
-        //TABLA 1
-        JScrollPane pane = new JScrollPane();
-        pane.setViewportView(table);
-        pane.setBackground(azul);
-        pane.setOpaque(true);
-        pane.setBorder(BorderFactory.createEmptyBorder());
-        pane.getViewport().setBackground(azul);
-        pane.setBounds(50, 50, 800, 300);
-        add(pane);
+        //LABEL INFO
+        JLabel InfoLabel = new JLabel("*Presione el Id de la factura para ver sus productos a comprar");
+        InfoLabel.setVisible(true);
+        InfoLabel.setHorizontalAlignment(0);
+        InfoLabel.setForeground(Color.white);
+        InfoLabel.setVerticalAlignment(0);
+        InfoLabel.setSize(180, 30);
+        InfoLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 12));
+        InfoLabel.setForeground(texto);
+        InfoLabel.setBounds(180, 370, 480, 20);
+        this.add(InfoLabel);
 
-        //LABEL INGREDIENTES
-        JLabel ProductosLabel = new JLabel("PRODUCTOS A COMPRAR");
-        ProductosLabel.setVisible(true);
-        ProductosLabel.setHorizontalAlignment(0);
-        ProductosLabel.setForeground(Color.white);
-        ProductosLabel.setVerticalAlignment(0);
-        ProductosLabel.setSize(180, 30);
-        ProductosLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 18));
-        ProductosLabel.setForeground(texto);
-        ProductosLabel.setBounds(20, 370, 280, 20);
-        this.add(ProductosLabel);
+        //LABEL DETALLES
+        JLabel IngredientesLabel = new JLabel("PRODUCTOS  |");
+        IngredientesLabel.setVisible(true);
+        IngredientesLabel.setHorizontalAlignment(0);
+        IngredientesLabel.setForeground(Color.white);
+        IngredientesLabel.setVerticalAlignment(0);
+        IngredientesLabel.setSize(180, 30);
+        IngredientesLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 18));
+        IngredientesLabel.setForeground(texto);
+        IngredientesLabel.setBounds(40, 370, 180, 20);
+        this.add(IngredientesLabel);
 
     }
 
