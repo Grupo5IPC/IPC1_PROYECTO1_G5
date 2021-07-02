@@ -1,12 +1,12 @@
 package com.grupo5.Interfaces.Menu;
 
-import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
-import com.grupo5.Interfaces.Menu.Facturas.CRUD_factura;
+import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
+import com.grupo5.Interfaces.Menu.intFacturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
-import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
@@ -24,7 +24,6 @@ public class Principal extends JFrame {
     public JPanel Principal;
     public JPanel superior;
     public JPanel CRUD;
-
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -167,8 +166,8 @@ public class Principal extends JFrame {
                 u.setForeground(textoSecundario);
                 u.setBounds(2, 0, 898, 620);
                 CRUD.add(u);
-                revalidate();
-                repaint();
+                u.revalidate();
+                u.repaint();
             }
 
         });
@@ -209,15 +208,15 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botonclient.setBackground(new Color(46, 51, 73));
+                botonclient.setBackground(new Color(46, 51, 73));
                 CRUD_cliente c = new CRUD_cliente(cliente);
                 c.setVisible(true);
                 c.setForeground(textoSecundario);
                 c.setBounds(2, 0, 898, 620);
                 CRUD.add(c);
-                revalidate();
-                repaint();
+                c.revalidate();
+                c.repaint();
             }
-
         });
 
         lateralSecundario.add(botonclient);
@@ -255,14 +254,15 @@ public class Principal extends JFrame {
             }
 
             public void mouseClicked(MouseEvent e) {
+
                 botonproduct.setBackground(new Color(46, 51, 73));
                 CRUD_products p = new CRUD_products(producto);
                 p.setVisible(true);
                 p.setForeground(textoSecundario);
                 p.setBounds(2, 0, 898, 620);
                 CRUD.add(p);
-                revalidate();
-                repaint();
+                p.revalidate();
+                p.repaint();
             }
         });
         lateralSecundario.add(botonproduct);
@@ -306,8 +306,8 @@ public class Principal extends JFrame {
                 f.setForeground(textoSecundario);
                 f.setBounds(2, 0, 898, 620);
                 CRUD.add(f);
-                revalidate();
-                repaint();
+                f.revalidate();
+                f.repaint();
             }
         });
         lateralSecundario.add(botoninvoice);

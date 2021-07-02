@@ -198,4 +198,26 @@ public class Gestor_Producto implements Serializable {
             }
         }
     }
+
+    public void eliminarIngrediente(int idProducto, String nombre) {
+        boolean state = false;
+        boolean state2 = false;
+        int i = 0;
+        int j = 0;
+        while (state == false && i < productos.size()) {
+            if (productos.get(i).getId() == idProducto) {
+                state = true;
+                while (state2 == false && j < productos.get(i).getIngredientes().size()) {
+                    if (nombre.equals(productos.get(i).getIngredientes().get(j).getName())) {
+                        state2 = true;
+                        productos.get(i).getIngredientes().remove(j);
+                    } else {
+                        j++;
+                    }
+                }
+            } else {
+                i++;
+            }
+        }
+    }
 }
