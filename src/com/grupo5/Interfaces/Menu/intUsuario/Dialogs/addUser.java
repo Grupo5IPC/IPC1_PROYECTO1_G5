@@ -9,8 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.*;
+import java.awt.geom.*;
 
-public class AddUser extends JPanel {
+public class addUser extends JDialog {
     public static Gestor_usuario usuario;
 
     public JLabel title;
@@ -19,68 +21,92 @@ public class AddUser extends JPanel {
     public JPanel Parent;
     public Colors c = new Colors();
     public Color azul = new Color(42, 52, 67);
+    public Color fondo = new Color(157, 207, 255);
 
-    public AddUser(Gestor_usuario user, JPanel parent) {
-
-        Parent = parent;
+    public addUser(Gestor_usuario user, boolean modal) {
+        Parent = new JPanel();
         usuario = user;
+        setUndecorated(true);
+
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 10, 10));
+            }
+        });
+
+
+
+        //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        setSize(550, 350);
+        setBounds(0, 0, 550 , 350);
+        setAlwaysOnTop(true);
+
+        //this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        setModal(modal);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setBackground(fondo);
         setLayout(null);
-        //this.setSize( (int) this.getParent().getSize().getWidth(), (int) this.getParent().getSize().getHeight());
-        setBounds(0, 0, 898, 300);
-
+        setLocationRelativeTo(null);
         labels();
-        this.setBackground(azul);
-
-
-        System.out.println(parent.getName());
-
-        this.setVisible(true);
-
-        //setBackground(Color.cyan);
+        Parent.setBounds(0,0, this.getWidth(),this.getHeight() );
+        Parent.setLayout(null);
+        Parent.setBackground(fondo);
+        add(Parent);
 
 
     }
 
     void labels() {
         Fuentes fuente = new Fuentes();
-
+        title = new JLabel("Agregar Usuario");
+        title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
+        title.setBounds(160,30,200,60);
+        title.setForeground(c.fondo);
+        Parent.add(title);
+        JLabel cerrar = new JLabel("x");
+        cerrar.setFont(fuente.fuente(fuente.RobotoBold, 1,14));
+        cerrar.setForeground(c.fondo);
+        cerrar.setBounds((int)this.getSize().getWidth()-15,0,30,30);
+        Parent.add(cerrar);
         JLabel nombre = new JLabel("Username");
         nombre.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
-        ;
+
         nombre.setBounds(100, 100, 100, 60);
-        nombre.setForeground(c.textoSecundario);
-        add(nombre);
+        nombre.setForeground(c.fondo);
+        Parent.add(nombre);
         JLabel password = new JLabel("Password");
         password.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
-        ;
+
         password.setBounds(100, 190, 100, 60);
-        password.setForeground(c.textoSecundario);
-        add(password);
+        password.setForeground(c.fondo);
+        Parent.add(password);
 
         JTextField username = new JTextField(" Nombre de usuario");
-        username.setBackground(c.azul);
-        username.setFont(fuente.fuente(fuente.RobotoBold, 0, 15));
+        username.setBackground(fondo);
+        username.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
         username.setBorder(BorderFactory.createEmptyBorder());
         username.setBounds(210, 110, 200, 40);
-        username.setForeground(c.textoSecundario);
+        username.setForeground(c.fondo);
         username.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 username.setText("");
             }
         });
-        add(username);
+        Parent.add(username);
         JSeparator separador = new JSeparator();
-        separador.setBackground(c.azul);
+        separador.setBackground(c.fondo);
         separador.setOrientation(0);
-        separador.setForeground(c.textoSecundario);
+        separador.setForeground(c.fondo);
         separador.setBounds(210, 155, 200, 5);
-        add(separador);
+        Parent.add(separador);
 
         JTextField txtpass = new JTextField(" Password");
-        txtpass.setBackground(c.azul);
-        txtpass.setForeground(c.textoSecundario);
-        txtpass.setFont(fuente.fuente(fuente.RobotoBold, 0, 15));
+        txtpass.setBackground(fondo);
+        txtpass.setForeground(c.fondo);
+        txtpass.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
         txtpass.setBorder(BorderFactory.createEmptyBorder());
         txtpass.setBounds(210, 200, 200, 40);
         txtpass.addMouseListener(new MouseAdapter() {
@@ -89,13 +115,13 @@ public class AddUser extends JPanel {
                 txtpass.setText("");
             }
         });
-        add(txtpass);
+        Parent.add(txtpass);
         JSeparator separador2 = new JSeparator();
         separador2.setBackground(c.azul);
         separador2.setOrientation(0);
-        separador2.setForeground(c.textoSecundario);
+        separador2.setForeground(c.fondo);
         separador2.setBounds(210, 245, 200, 5);
-        add(separador2);
+        Parent.add(separador2);
 
         JButton aceptar = new JButton("Agregar");
         aceptar.setBackground(azul);
@@ -124,37 +150,19 @@ public class AddUser extends JPanel {
                 aceptar.setBackground(azul);
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                cerrar();
+                if (usuario.verificarExistencia(username.getText()) == true){
+                    JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
+                }else{
+                    usuario.Ins_usu(username.getText(), txtpass.getText());
+                    JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    cerrar2();
+                }
+
             }
         });
-        add(aceptar);
-
+        Parent.add(aceptar);
     }
-
-    void cerrar() {
-        Crud_usuario = new CRUD_user(usuario);
-        Crud_usuario.setVisible(true);
-        Crud_usuario.setForeground(c.textoSecundario);
-        Crud_usuario.setBounds(2, 0, 898, 550);
-        System.out.println(Parent.getName());
-        System.out.println(Parent.getParent().getName());
-        Parent.remove(this);
-        Parent.revalidate();
-        Parent.repaint();
+    void cerrar2(){
+        this.dispose();
     }
-
-/*
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new AddUser();
-            }
-        });
-    }
-    */
-
 }
-
-
