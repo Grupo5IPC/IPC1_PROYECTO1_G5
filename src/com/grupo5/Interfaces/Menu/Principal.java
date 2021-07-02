@@ -1,10 +1,12 @@
 package com.grupo5.Interfaces.Menu;
 
 import com.grupo5.Facturas.Gestor_Factura;
+import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.Facturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
