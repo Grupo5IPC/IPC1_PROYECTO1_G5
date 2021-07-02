@@ -1,7 +1,7 @@
 package com.grupo5.Interfaces.Menu.intProductos;
 
 import com.grupo5.Fuentes.Fuentes;
-import static com.grupo5.Interfaces.Menu.intProductos.CRUD_products1.producto;
+import static com.grupo5.Interfaces.Menu.intProductos.CRUD_products.producto;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.grupo5.Productos.Gestor_Producto;
@@ -149,7 +149,7 @@ public class CRUD_products extends JPanel {
         pane.setOpaque(true);
         pane.setBorder(BorderFactory.createEmptyBorder());
         pane.getViewport().setBackground(azul);
-        pane.setBounds(150, 100, 600, 400);
+        pane.setBounds(50, 50, 600, 400);
 
         add(pane);
 
@@ -163,6 +163,4 @@ public class CRUD_products extends JPanel {
         ImageIcon scale = new ImageIcon(imgs);
         return scale;
     }
-
-
 }

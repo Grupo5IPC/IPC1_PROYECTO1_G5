@@ -31,9 +31,10 @@ public class Principal extends JFrame {
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura factura) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas) {
         usuario = usuarios;
         producto = productos;
+        factura = facturas;
         this.setSize(1080, 720);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -163,7 +164,6 @@ public class Principal extends JFrame {
                 CRUD.add(u);
                 revalidate();
                 repaint();
-
             }
 
         });
@@ -289,8 +289,14 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botoninvoice.setBackground(new Color(46, 51, 73));
+                CRUD_factura f = new CRUD_factura(factura);
+                f.setVisible(true);
+                f.setForeground(textoSecundario);
+                f.setBounds(2, 0, 898, 620);
+                CRUD.add(f);
+                revalidate();
+                repaint();
             }
-
         });
         lateralSecundario.add(botoninvoice);
 
@@ -319,14 +325,7 @@ public class Principal extends JFrame {
             }
 
             public void mouseClicked(MouseEvent e) {
-                botonVer.setBackground(new Color(46, 51, 73));
-                CRUD_factura u = new CRUD_factura(factura);
-                u.setVisible(true);
-                u.setForeground(textoSecundario);
-                u.setBounds(2, 0, 898, 620);
-                CRUD.add(u);
-                revalidate();
-                repaint();
+                botonexit.setBackground(texto);
             }
 
         });
