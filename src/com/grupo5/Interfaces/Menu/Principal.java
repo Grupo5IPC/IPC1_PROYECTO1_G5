@@ -24,6 +24,10 @@ public class Principal extends JFrame {
     public JPanel Principal;
     public JPanel superior;
     public JPanel CRUD;
+    public CRUD_user u;
+    public CRUD_cliente c;
+    public CRUD_factura f;
+    public  CRUD_products p;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -160,8 +164,9 @@ public class Principal extends JFrame {
             }
 
             public void mouseClicked(MouseEvent e) {
+                closeOthers();
                 botonVer.setBackground(new Color(46, 51, 73));
-                CRUD_user u = new CRUD_user(usuario);
+                u = new CRUD_user(usuario);
                 u.setVisible(true);
                 u.setForeground(textoSecundario);
                 u.setBounds(CRUD.getX(), 0, 898, 620);
@@ -209,13 +214,15 @@ public class Principal extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 botonclient.setBackground(new Color(46, 51, 73));
                 botonclient.setBackground(new Color(46, 51, 73));
-                CRUD_cliente c = new CRUD_cliente(cliente);
+                closeOthers();
+                c = new CRUD_cliente(cliente);
                 c.setVisible(true);
                 c.setForeground(textoSecundario);
                 c.setBounds(2, 0, 898, 620);
                 CRUD.add(c);
-                c.revalidate();
-                c.repaint();
+
+                revalidate();
+                repaint() ;
             }
         });
 
@@ -256,13 +263,15 @@ public class Principal extends JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 botonproduct.setBackground(new Color(46, 51, 73));
-                CRUD_products p = new CRUD_products(producto);
+                closeOthers();
+
+                p = new CRUD_products(producto);
                 p.setVisible(true);
                 p.setForeground(textoSecundario);
                 p.setBounds(2, 0, 898, 620);
                 CRUD.add(p);
-                p.revalidate();
-                p.repaint();
+                revalidate();
+                repaint();
             }
         });
         lateralSecundario.add(botonproduct);
@@ -301,13 +310,15 @@ public class Principal extends JFrame {
 
             public void mouseClicked(MouseEvent e) {
                 botoninvoice.setBackground(new Color(46, 51, 73));
-                CRUD_factura f = new CRUD_factura(factura);
+                closeOthers();
+
+                f = new CRUD_factura(factura);
                 f.setVisible(true);
                 f.setForeground(textoSecundario);
                 f.setBounds(2, 0, 898, 620);
                 CRUD.add(f);
-                f.revalidate();
-                f.repaint();
+                revalidate();
+                repaint();
             }
         });
         lateralSecundario.add(botoninvoice);
@@ -395,6 +406,19 @@ public class Principal extends JFrame {
 
         Principal.add(CRUD);
 
+    }
+    void closeOthers(){
+        try{
+            CRUD.remove(u);
+            CRUD.remove(c);
+            CRUD.remove(p);
+            CRUD.remove(f);
+            revalidate();
+            repaint();
+
+        }catch (Exception e){
+
+        }
     }
 
 }
