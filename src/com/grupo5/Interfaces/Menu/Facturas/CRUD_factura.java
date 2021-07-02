@@ -33,7 +33,7 @@ public class CRUD_factura extends JPanel {
         Fuentes fuente = new Fuentes();
         setSize(898, 620);
         setBounds(0, 0, getWidth(), getHeight());
-        setBackground(azul);
+        setBackground(texto);
         setLayout(null);
         setForeground(textoSecundario);
 

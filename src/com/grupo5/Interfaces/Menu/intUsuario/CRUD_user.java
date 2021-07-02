@@ -1,6 +1,7 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Aceptar;
 import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Confirmacion;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
@@ -23,6 +24,7 @@ public class CRUD_user extends JPanel {
     public Color texto = new Color(0, 126, 249);
     public JTable table;
     JButton eliminar;
+    public JButton nuevo;
     JButton modificar;
     DefaultTableModel model;
 
@@ -47,7 +49,7 @@ public class CRUD_user extends JPanel {
 
 
         Object matriz[][] = new Object[data.size()][4];
-         modificar = new JButton("Modificar");
+        modificar = new JButton("Modificar");
         modificar.setName("m");
         modificar.setForeground(textoSecundario);
         modificar.setBorder(null);
@@ -76,7 +78,7 @@ public class CRUD_user extends JPanel {
 
         }
 
-       model = new DefaultTableModel(matriz, header) {
+        model = new DefaultTableModel(matriz, header) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -150,6 +152,40 @@ public class CRUD_user extends JPanel {
 
         add(pane);
 
+        nuevo = new JButton("Nuevo usuario");
+        nuevo.setForeground(textoSecundario);
+        nuevo.setBackground(azul);
+        nuevo.setBounds(600, 520, 140, 45);
+        nuevo.setFont(fuente.fuente(fuente.RobotoBold,0,16));
+        nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
+        nuevo.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("si");
+                Aceptar a = new Aceptar(usuario, true);
+                a.setVisible(true);
+                //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
+                System.out.println(a.getSize().getWidth());
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                nuevo.setBackground(fondo);
+                nuevo.setForeground(texto);
+                nuevo.setBorder(BorderFactory.createLineBorder(texto));
+                nuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                nuevo.setBackground(azul);
+                nuevo.setForeground(textoSecundario);
+                nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
+                nuevo.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+        add(nuevo);
+
 
     }
 
@@ -160,7 +196,8 @@ public class CRUD_user extends JPanel {
         ImageIcon scale = new ImageIcon(imgs);
         return scale;
     }
-    void openDialog(){
+
+    void openDialog() {
         Confirmacion c = new Confirmacion(this, true);
         c.setVisible(true);
     }

@@ -34,13 +34,13 @@ public class Aceptar extends JDialog {
         */
 
 
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
         setSize(600, 400);
-        setBounds(0, 0, dim.width, 450);
+        setBounds(0, 0, 600, 450);
         setAlwaysOnTop(true);
 
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
+        //this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setModal(modal);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setBackground(azul);

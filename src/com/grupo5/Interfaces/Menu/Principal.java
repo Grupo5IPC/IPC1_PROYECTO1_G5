@@ -22,6 +22,7 @@ public class Principal extends JFrame {
     public JPanel Principal;
     public JPanel superior;
     public JPanel CRUD;
+
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
