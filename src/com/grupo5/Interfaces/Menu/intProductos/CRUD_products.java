@@ -1,13 +1,10 @@
 package com.grupo5.Interfaces.Menu.intProductos;
 
 import com.grupo5.Fuentes.Fuentes;
-import static com.grupo5.Interfaces.Menu.intProductos.CRUD_products1.producto;
-import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
+import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Productos.Producto;
-import com.grupo5.Usuarios.Gestor_usuario;
-import com.grupo5.Usuarios.Usuario;
 import com.sun.istack.internal.NotNull;
 
 import javax.swing.*;

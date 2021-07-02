@@ -1,6 +1,7 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Confirmacion;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.grupo5.Usuarios.Gestor_usuario;
@@ -31,7 +32,7 @@ public class CRUD_user extends JPanel {
         usuario = user;
         JPanel aux = new JPanel();
         Fuentes fuente = new Fuentes();
-        setSize(898, 620);
+        setSize(898, 300);
         setBounds(0, 0, getWidth(), getHeight());
         setBackground(azul);
         setLayout(null);
@@ -124,6 +125,7 @@ public class CRUD_user extends JPanel {
                             System.out.println("Modificar");
                             String usuario = (String) table.getValueAt(row, 0);
                             System.out.println(usuario);
+                            openDialog();
                         }
                         if (btn.getName().equals("e")) {
 
@@ -145,6 +147,7 @@ public class CRUD_user extends JPanel {
         pane.getViewport().setBackground(azul);
         pane.setBounds(150, 100, 600, 400);
 
+
         add(pane);
 
 
@@ -156,6 +159,10 @@ public class CRUD_user extends JPanel {
         Image imgs = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scale = new ImageIcon(imgs);
         return scale;
+    }
+    void openDialog(){
+        Confirmacion c = new Confirmacion(this, true);
+        c.setVisible(true);
     }
 
 
