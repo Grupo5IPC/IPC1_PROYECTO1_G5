@@ -129,20 +129,13 @@ public class CRUD_user extends JPanel {
                             String usuario = (String) table.getValueAt(row, 0);
                             System.out.println(usuario);
                             openDialog(usuario);
-                            Refresh();
                         }
                         if (btn.getName().equals("e")) {
-                            String usuariow = (String) table.getValueAt(row, 0);
 
-                            int respuesta = JOptionPane.showConfirmDialog(table, "¿Desea eliminar al usuario: " + usuariow + "?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            if (respuesta == JOptionPane.YES_OPTION){
-                                usuario.eliminarUsuario((String) table.getValueAt(row, 0));
-                                model.removeRow(row);
-                                usuario.print_usu();
-                            }else{
-                                JOptionPane.showConfirmDialog(table, "No se elimino al usuario", "Confirmar", JOptionPane.DEFAULT_OPTION);
-                            }
-
+                            usuario.eliminarUsuario((String) table.getValueAt(row, 0));
+                            model.removeRow(row);
+                            usuario.print_usu();
+                            System.out.println("Eliminar");
                         }
                     }
                 }
@@ -164,7 +157,7 @@ public class CRUD_user extends JPanel {
         nuevo.setForeground(textoSecundario);
         nuevo.setBackground(azul);
         nuevo.setBounds(600, 520, 140, 45);
-        nuevo.setFont(fuente.fuente(fuente.RobotoBold, 0, 16));
+        nuevo.setFont(fuente.fuente(fuente.RobotoBold,0,16));
         nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
         nuevo.addMouseListener(new MouseAdapter() {
             @Override
@@ -208,11 +201,9 @@ public class CRUD_user extends JPanel {
     }
 
     void openDialog(String username) {
-        updateUser c = new updateUser(usuario, true, username);
-        c.setVisible(true);
+        updateUser c = new updateUser(usuario,true, username);
     }
-
-    void Refresh() {
+    void Refresh(){
         Fuentes fuente = new Fuentes();
         ArrayList<Usuario> data = usuario.getArray();
 
