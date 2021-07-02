@@ -16,10 +16,9 @@ import com.grupo5.Usuarios.Usuario;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 public class Main {
-    
+
     public static Restaurante Nuevo;
     public static String tipoDeCarga;
     public static Gestor_usuario usuario;
@@ -32,8 +31,7 @@ public class Main {
     public static Ingrediente ingrediente = new Ingrediente();
     public static String ruta;
     public static int modo = 0;
-    public static Login login;
-    
+
     public static void main(String[] args) {
         // write your code here
         // Aqui ira el menu, la carga de los jsons iniciales, etc. ver el grupo xd
@@ -56,14 +54,11 @@ public class Main {
             System.out.println("ERROR: La carga no es un archivo json o binario");
         }
         usuario.print_usu();
-        //-------------LOGIN NO TOCAR
-//        Login log = new Login(usuario, producto, factura, cliente);
-//        log.setVisible(true);
-        //------------------
-            Principal p = new Principal(usuario, producto, factura, cliente);
-            p.setVisible(true);
+
+        Principal p = new Principal(usuario, producto, factura, cliente);
+        p.setVisible(true);
     }
-    
+
     public static void menuPrincipal() {
         Scanner login = new Scanner(System.in);
         Scanner MenuPrincipal = new Scanner(System.in);
@@ -79,7 +74,7 @@ public class Main {
             String pass = login.nextLine();
             System.out.println("*******************************");
             int Opciones = 0;
-            
+
             if (usuario.verificar(user, pass)) {
                 usuarioLog = user;
                 logdeacciones.addlog(user + ": Inicio de sesión exitoso");
@@ -124,7 +119,7 @@ public class Main {
                                             usuario.print_usu();
                                             System.out.println("");
                                             break;
-                                        
+
                                         case 2:
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a eliminar: ");
@@ -147,23 +142,23 @@ public class Main {
                                                 System.out.println("El usuario ingresado no existe");
                                             }
                                             break;
-                                        
+
                                         case 3:
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el username del usuario a buscar: ");
                                             String buscarUser = buscar.nextLine();
                                             System.out.println(buscarUser);
                                             if (usuario.buscarUsuario(buscarUser) == true) {
-                                                
+
                                             } else {
                                                 System.out.println("No se ha encontrado el usuario");
                                             }
                                             break;
-                                        
+
                                         case 4:
                                             //VUELTA AL MENU PRINCIPAL
                                             break;
-                                        
+
                                         default:
                                             System.out.println("Seleccione una opcion");
                                             break;
@@ -190,7 +185,7 @@ public class Main {
                                         case 1:
                                             producto.printProductos();
                                             break;
-                                        
+
                                         case 2:
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a eliminar: ");
@@ -198,15 +193,15 @@ public class Main {
                                             String nombre = producto.getNombre_id(eliminarId);
                                             if (producto.verificarProducto(eliminarId)) {
                                                 producto.eliminarProducto(eliminarId);
-                                                
+
                                                 serializarObjetos(modo);
                                                 logdeacciones.addlog(user + ": Eliminó el producto \"" + nombre + "\" con id " + eliminarId);
                                             } else {
                                                 log.addCuerpo("PRODUCTS: No existe el id " + eliminarId + ", no se elimino");
                                             }
-                                            
+
                                             break;
-                                        
+
                                         case 3:
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del producto a buscar: ");
@@ -217,17 +212,17 @@ public class Main {
                                                 System.out.println("No se encontro el producto");
                                             }
                                             break;
-                                        
+
                                         case 4:
                                             //VUELTA AL MENU PRINCIPAL
                                             break;
-                                        
+
                                         default:
                                             System.out.println("Seleccione una opcion");
                                             break;
                                     }
                                 } while (Opciones != 4);
-                                
+
                                 break;
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -251,14 +246,14 @@ public class Main {
                                             cliente.printClientes();
                                             System.out.println("");
                                             break;
-                                        
+
                                         case 2:
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del cliente a eliminar: ");
                                             int eliminarId = eliminar.nextInt();
                                             String nombre = cliente.getNombre_id(eliminarId);
                                             int res = cliente.eliminarCliente(eliminarId);
-                                            
+
                                             if (res == 1) {
                                                 log.addCuerpo("CLIENTS: No existen clientes ingresados, no se elimino");
                                             } else if (res == 2) {
@@ -268,24 +263,24 @@ public class Main {
                                             } else if (res == 0) {
                                                 log.addCuerpo("CLIENTS: No existe el id " + eliminarId + ", no se elimino");
                                             }
-                                            
+
                                             break;
-                                        
+
                                         case 3:
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id del cliente a buscar: ");
                                             int buscarId = buscar.nextInt();
                                             if (cliente.buscarCliente(buscarId)) {
-                                                
+
                                             } else {
                                                 System.out.println("no se ha encontrado el cliente");
                                             }
                                             break;
-                                        
+
                                         case 4:
                                             //VUELTA AL MENU PRINCIPAL
                                             break;
-                                        
+
                                         default:
                                             System.out.println("Seleccione una opcion");
                                             break;
@@ -314,7 +309,7 @@ public class Main {
                                             factura.printFacturas();
                                             System.out.println("");
                                             break;
-                                        
+
                                         case 2:
                                             Scanner eliminar = new Scanner(System.in);
                                             System.out.println("Ingrese el id de la factura a eliminar: ");
@@ -330,22 +325,22 @@ public class Main {
                                                 log.addCuerpo("INVOICES: No existe el id " + eliminarId + ", no se elimino");
                                             }
                                             break;
-                                        
+
                                         case 3:
                                             Scanner buscar = new Scanner(System.in);
                                             System.out.println("Ingrese el id de la factura a buscar: ");
                                             int buscarId = buscar.nextInt();
                                             if (factura.buscarFactura(buscarId)) {
-                                                
+
                                             } else {
                                                 System.out.println("No se ha encontrado la factura");
                                             }
                                             break;
-                                        
+
                                         case 4:
                                             //VUELTA AL MENU PRINCIPAL
                                             break;
-                                        
+
                                         default:
                                             System.out.println("Seleccione una opcion");
                                             break;
@@ -373,18 +368,18 @@ public class Main {
                                             serializarObjetos(Opciones);
                                             System.out.println("Serializacion correcta");
                                             break;
-                                        
+
                                         case 2:
                                             //BINARIO
                                             serializarObjetos(Opciones);
                                             System.out.println("Serializacion correcta");
-                                            
+
                                             break;
-                                        
+
                                         case 3:
                                             //VUELTA AL MENU PRINCIPAL
                                             break;
-                                        
+
                                         default:
                                             System.out.println("Seleccione una opcion");
                                             break;
@@ -415,7 +410,7 @@ public class Main {
                 System.out.println("Datos incorrectos, prueba de nuevo");
                 System.out.println("\n");
                 menuPrincipal();
-                
+
                 logdeacciones.addlog(user + ": Inicio de sesión fallido" + "\t");
             }
         } catch (Exception e) {
@@ -423,9 +418,9 @@ public class Main {
             System.out.println("Vuelve a intentarlo");
         }
     }
-    
+
     public static void leerConfig() {
-        
+
         File archivo;
         FileReader fr = null;
         BufferedReader br;
@@ -435,14 +430,14 @@ public class Main {
             fr = new FileReader(archivo);
             br = new BufferedReader(fr);
             String Linea;
-            
+
             while ((Linea = br.readLine()) != null) {
                 Contenido += Linea;
             }
-            
+
             JsonParser Parser = new JsonParser();
             JsonObject GsonObj = (JsonObject) Parser.parse(Contenido);
-            
+
             String nombre = GsonObj.get("name").getAsString();
             String direccion = GsonObj.get("address").getAsString();
             int numero = GsonObj.get("phone").getAsInt();
@@ -453,7 +448,7 @@ public class Main {
                 modo = 2;
             }
             Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
-            
+
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -466,7 +461,7 @@ public class Main {
             }
         }
     }
-    
+
     public static void leerClientes() {
         if (tipoDeCarga.equals("json")) {
             File archivo;
@@ -478,7 +473,7 @@ public class Main {
                 fr = new FileReader(archivo);
                 br = new BufferedReader(fr);
                 String Linea;
-                
+
                 while ((Linea = br.readLine()) != null) {
                     Contenido += Linea;
                 }
@@ -490,10 +485,10 @@ public class Main {
                 }
                 JsonParser Parser = new JsonParser();
                 JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
-                
+
                 for (int i = 0; i < GsonArr.size(); i++) {
                     JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
-                    
+
                     int id = GsonObj.get("id").getAsInt();
                     String nombre = GsonObj.get("name").getAsString();
                     String direccion = GsonObj.get("address").getAsString();
@@ -505,7 +500,7 @@ public class Main {
                         log.addCuerpo("CLIENTS: El id " + id + " ya existe, no se registro");
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println(e);
             } finally {
@@ -523,7 +518,7 @@ public class Main {
                 File archivo1 = new File("Guardado/BIN/clients.ipcrm");
                 System.out.println("La ruta del fichero es:Guardado/BIN/");
                 if (archivo1.exists()) {
-                    
+
                     try {
                         ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo1));
                         cliente = (Gestor_cliente) entrada.readObject();
@@ -533,16 +528,16 @@ public class Main {
                         // e.printStackTrace();
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
     }
-    
+
     public static void leerUsuarios() {
         if (tipoDeCarga.equals("json")) {
-            
+
             File archivo;
             FileReader fr = null;
             BufferedReader br;
@@ -552,7 +547,7 @@ public class Main {
                 fr = new FileReader(archivo);
                 br = new BufferedReader(fr);
                 String Linea;
-                
+
                 while ((Linea = br.readLine()) != null) {
                     Contenido += Linea;
                 }
@@ -561,10 +556,10 @@ public class Main {
                 }
                 JsonParser Parser = new JsonParser();
                 JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
-                
+
                 for (int i = 0; i < GsonArr.size(); i++) {
                     JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
-                    
+
                     String nombre = GsonObj.get("username").getAsString();
                     String password = GsonObj.get("password").getAsString();
                     if (usuario.verificarExistencia(nombre) == false) {
@@ -573,7 +568,7 @@ public class Main {
                         log.addCuerpo("USERS: El nombre de usuario " + nombre + " ya existe, no se registro");
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println("user");
                 System.out.println(e);
@@ -593,7 +588,7 @@ public class Main {
                 File archivo2 = new File("Guardado/BIN/users.ipcrm");
                 // System.out.println("La ruta del fichero es: " + archivo1.getAbsolutePath());
                 if (archivo2.exists()) {
-                    
+
                     try {
                         ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo2));
                         usuario = (Gestor_usuario) entrada.readObject();
@@ -602,13 +597,13 @@ public class Main {
                         // e.printStackTrace();
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
     }
-    
+
     public static void leerProductos() {
         if (tipoDeCarga.equals("json")) {
             File archivo;
@@ -620,7 +615,7 @@ public class Main {
                 fr = new FileReader(archivo);
                 br = new BufferedReader(fr);
                 String Linea;
-                
+
                 while ((Linea = br.readLine()) != null) {
                     Contenido += Linea;
                 }
@@ -629,19 +624,19 @@ public class Main {
                 }
                 JsonParser Parser = new JsonParser();
                 JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
-                
+
                 for (int i = 0; i < GsonArr.size(); i++) {
                     JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
-                    
+
                     int id = GsonObj.get("id").getAsInt();
                     String nombre = GsonObj.get("name").getAsString();
                     String descripcion = GsonObj.get("description").getAsString();
                     double costo = GsonObj.get("cost").getAsInt();
                     double precio = GsonObj.get("price").getAsInt();
-                    
+
                     JsonArray Ingred = GsonObj.get("ingredients").getAsJsonArray();
                     ArrayList<Ingrediente> aux = new ArrayList(Ingred.size());
-                    
+
                     for (int j = 0; j < Ingred.size(); j++) {
                         JsonObject GsonObj2 = Ingred.get(j).getAsJsonObject();
                         String nombreIng = GsonObj2.get("name").getAsString();
@@ -658,7 +653,7 @@ public class Main {
                         log.addCuerpo("PRODUCTOS: El id " + id + " ya existe, no se registro");
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println(e);
             } finally {
@@ -675,7 +670,7 @@ public class Main {
                 File archivo3 = new File("Guardado/BIN/products.ipcrm");
                 //System.out.println("La ruta del fichero es: " + archivo1.getAbsolutePath());
                 if (archivo3.exists()) {
-                    
+
                     try {
                         ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo3));
                         producto = (Gestor_Producto) entrada.readObject();
@@ -685,11 +680,11 @@ public class Main {
                     }
                 }
             } catch (Exception e) {
-                
+
             }
         }
     }
-    
+
     public static void leerFacturas() {
         if (tipoDeCarga.equals("json")) {
             File archivo;
@@ -701,7 +696,7 @@ public class Main {
                 fr = new FileReader(archivo);
                 br = new BufferedReader(fr);
                 String Linea;
-                
+
                 while ((Linea = br.readLine()) != null) {
                     Contenido += Linea;
                 }
@@ -710,18 +705,18 @@ public class Main {
                 }
                 JsonParser Parser = new JsonParser();
                 JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
-                
+
                 for (int i = 0; i < GsonArr.size(); i++) {
                     JsonObject GsonObj = GsonArr.get(i).getAsJsonObject();
-                    
+
                     int id = GsonObj.get("id").getAsInt();
                     int idcliente = GsonObj.get("client").getAsInt();
                     Cliente auxclient = cliente.getCliente(idcliente);
                     String fecha = GsonObj.get("date").getAsString();
-                    
+
                     JsonArray Prod = GsonObj.get("products").getAsJsonArray();
                     ArrayList<Detalle> auxdetalle = new ArrayList(Prod.size());
-                    
+
                     for (int j = 0; j < Prod.size(); j++) {
                         try {
                             JsonObject GsonObj2 = Prod.get(j).getAsJsonObject();
@@ -746,15 +741,15 @@ public class Main {
                         } catch (Exception e) {
                             System.out.println(e);
                         }
-                        
+
                     }
                     if (factura.verificarFactura(id) == false) {
-                        //factura.insertarFactura(id, auxclient, fecha, auxdetalle);
+                        factura.insertarFactura(id, auxclient, fecha, auxdetalle);
                     } else {
                         log.addCuerpo("INVOICES: El id" + id + " ya existe, no se registro");
                     }
                 }
-                
+
             } catch (Exception e) {
             } finally {
                 try {
@@ -771,7 +766,7 @@ public class Main {
                 File archivo4 = new File("Guardado/BIN/invoices.ipcrm");
                 //System.out.println("La ruta del fichero es: " + archivo1.getAbsolutePath());
                 if (archivo4.exists()) {
-                    
+
                     try {
                         ObjectInputStream entrada = new ObjectInputStream(new FileInputStream(archivo4));
                         factura = (Gestor_Factura) entrada.readObject();
@@ -780,16 +775,16 @@ public class Main {
                         // e.printStackTrace();
                     }
                 }
-                
+
             } catch (Exception e) {
                 System.out.println(e);
             }
         }
     }
-    
+
     public static void desserializarObjetos() {
         if (tipoDeCarga.equals("json")) {
-            
+
             try {
                 File directorio = new File("Guardado/JSON");
                 if (!directorio.exists()) {
@@ -837,24 +832,24 @@ public class Main {
         } else {
             try {
                 File directorio = new File("Guardado/BIN");
-                
+
                 if (!directorio.exists()) {
                     if (directorio.mkdirs()) {
-                        
+
                     } else {
-                        
+
                     }
                 }
             } catch (Exception e) {
-                
+
             }
             File archivo1 = new File("Guardado/BIN/clients.ipcrm");
-            
+
             try {
                 if (!archivo1.exists()) {
                     archivo1.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo1));
                 salida.writeObject(cliente);
                 salida.close();
@@ -866,7 +861,7 @@ public class Main {
                 if (!archivo2.exists()) {
                     archivo2.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo2));
                 salida.writeObject(usuario);
                 salida.close();
@@ -878,7 +873,7 @@ public class Main {
                 if (!archivo3.exists()) {
                     archivo3.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo3));
                 salida.writeObject(producto);
                 salida.close();
@@ -890,27 +885,27 @@ public class Main {
                 if (!archivo4.exists()) {
                     archivo4.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo4));
                 salida.writeObject(factura);
                 salida.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }
-    
+
     public static void serializarObjetos(int modo) {
         if (modo == 0 || modo == 1) {
-            
+
             try {
 
                 // Serializar usuarios
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 ArrayList<Usuario> array = usuario.getArray();
                 String g = gson.toJson(array);
-                
+
                 FileWriter writer1 = new FileWriter("users.json", false);
                 writer1.write(g);
                 writer1.close();
@@ -946,24 +941,24 @@ public class Main {
         } else {
             try {
                 File directorio = new File("Guardado/BIN");
-                
+
                 if (!directorio.exists()) {
                     if (directorio.mkdirs()) {
-                        
+
                     } else {
-                        
+
                     }
                 }
             } catch (Exception e) {
-                
+
             }
             File archivo1 = new File("Guardado/BIN/clients.ipcrm");
-            
+
             try {
                 if (!archivo1.exists()) {
                     archivo1.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo1));
                 salida.writeObject(cliente);
                 salida.close();
@@ -975,7 +970,7 @@ public class Main {
                 if (!archivo2.exists()) {
                     archivo2.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo2));
                 salida.writeObject(usuario);
                 salida.close();
@@ -987,7 +982,7 @@ public class Main {
                 if (!archivo3.exists()) {
                     archivo3.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo3));
                 salida.writeObject(producto);
                 salida.close();
@@ -999,14 +994,14 @@ public class Main {
                 if (!archivo4.exists()) {
                     archivo4.createNewFile();
                 }
-                
+
                 ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(archivo4));
                 salida.writeObject(factura);
                 salida.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }
 }
