@@ -749,7 +749,7 @@ public class Main {
                         
                     }
                     if (factura.verificarFactura(id) == false) {
-                        factura.insertarFactura(id, auxclient, fecha, auxdetalle);
+                        //factura.insertarFactura(id, auxclient, fecha, auxdetalle);
                     } else {
                         log.addCuerpo("INVOICES: El id" + id + " ya existe, no se registro");
                     }

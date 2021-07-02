@@ -1,10 +1,12 @@
 package com.grupo5.Interfaces.Menu.intFacturas;
 
+import com.grupo5.Facturas.Detalle;
 import com.grupo5.Facturas.Factura;
 import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
+import com.grupo5.Productos.Ingrediente;
 import com.sun.istack.internal.NotNull;
 
 import javax.swing.*;
@@ -12,21 +14,24 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+public class CRUD_factura extends JPanel implements MouseListener {
 
-public class CRUD_factura extends JPanel {
     public static Gestor_Factura factura;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
     public JTable table;
+    public JTable table2;
     JButton eliminar;
     JButton modificar;
     DefaultTableModel model;
+    DefaultTableModel model2;
 
     public Color textoSecundario = new Color(158, 161, 176);
-   
+
     public CRUD_factura(Gestor_Factura invoice) {
         factura = invoice;
         JPanel aux = new JPanel();
@@ -39,14 +44,13 @@ public class CRUD_factura extends JPanel {
 
         factura.printFacturas();
 
-
         ArrayList<Factura> data = factura.getFacturas();
 
         Object[] header = new Object[]{"   id", "   cliente", "   fecha", "", ""};
         //modificar
 
         Object matriz[][] = new Object[data.size()][5];
-         modificar = new JButton("Modificar");
+        modificar = new JButton("Modificar");
         modificar.setName("m");
         modificar.setForeground(textoSecundario);
         modificar.setBorder(null);
@@ -75,7 +79,7 @@ public class CRUD_factura extends JPanel {
             matriz[i][4] = eliminar;
         }
 
-       model = new DefaultTableModel(matriz, header) {
+        model = new DefaultTableModel(matriz, header) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -104,12 +108,12 @@ public class CRUD_factura extends JPanel {
         table.setShowHorizontalLines(true);
         table.setGridColor(texto);
 
-
         UIManager.getDefaults().put("TableHeader.cellBorder", BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         //table.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
         table.setCursor(new Cursor(Cursor.HAND_CURSOR));
         table.setBounds(80, 100, 400, 400);
+        table.addMouseListener(this);
         table.addMouseListener(new MouseAdapter() {
 
             public void mouseClicked(MouseEvent e) {
@@ -126,27 +130,51 @@ public class CRUD_factura extends JPanel {
                             System.out.println(factura);
                         }
                         if (btn.getName().equals("e")) {
-                            int idFactura = Integer.parseInt((String)table.getValueAt(row, 0));
+                            int idFactura = Integer.parseInt((String) table.getValueAt(row, 0));
                             factura.eliminarFactura(idFactura);
                             model.removeRow(row);
                             factura.printFacturas();
                             System.out.println("Eliminar");
+                            table.repaint();
+                            table.revalidate();
                         }
                     }
                 }
             }
         });
+        //LABEL PRODUCTOS
+        JLabel FacturasLabel = new JLabel("FACTURAS");
+        FacturasLabel.setVisible(true);
+        FacturasLabel.setHorizontalAlignment(0);
+        FacturasLabel.setForeground(Color.white);
+        FacturasLabel.setVerticalAlignment(0);
+        FacturasLabel.setSize(180, 30);
+        FacturasLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 18));
+        FacturasLabel.setForeground(texto);
+        FacturasLabel.setBounds(20, 10, 180, 20);
+        this.add(FacturasLabel);
+
+        //TABLA 1
         JScrollPane pane = new JScrollPane();
         pane.setViewportView(table);
         pane.setBackground(azul);
-
         pane.setOpaque(true);
         pane.setBorder(BorderFactory.createEmptyBorder());
         pane.getViewport().setBackground(azul);
-        pane.setBounds(150, 100, 600, 400);
-
+        pane.setBounds(50, 50, 800, 300);
         add(pane);
 
+        //LABEL INGREDIENTES
+        JLabel ProductosLabel = new JLabel("PRODUCTOS A COMPRAR");
+        ProductosLabel.setVisible(true);
+        ProductosLabel.setHorizontalAlignment(0);
+        ProductosLabel.setForeground(Color.white);
+        ProductosLabel.setVerticalAlignment(0);
+        ProductosLabel.setSize(180, 30);
+        ProductosLabel.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 18));
+        ProductosLabel.setForeground(texto);
+        ProductosLabel.setBounds(20, 370, 280, 20);
+        this.add(ProductosLabel);
 
     }
 
@@ -158,5 +186,140 @@ public class CRUD_factura extends JPanel {
         return scale;
     }
 
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        System.out.println("Se le dió click a a la tabla");
+        int col = table.getColumnModel().getColumnIndexAtX(me.getX());
+        int row = me.getY() / table.getRowHeight();
+        if (row < table.getRowCount() && row >= 0 && col < table.getColumnCount() && col >= 0) {
+            try {
+                Object valorObtenido = table.getValueAt(row, col);
+                int valorParseado = Integer.parseInt((String) valorObtenido);
+                System.out.println("valorParseado = " + valorParseado);
 
+                //-----------------------------TABLA2--------------------------------
+                Factura data = factura.getFactura(valorParseado);
+                ArrayList<Detalle> detArray = data.getDetalles();
+
+                Object[] header = new Object[]{"Nombre", "Precio", "", ""};
+                Object matriz[][] = new Object[detArray.size()][4];
+                Fuentes fuente = new Fuentes();
+                modificar = new JButton("Modificar");
+                modificar.setName("m");
+                modificar.setForeground(textoSecundario);
+                modificar.setBorder(null);
+                modificar.setBackground(azul);
+                modificar.setBounds(0, 0, 30, 30);
+                modificar.setIcon(getIcon2("iconos\\update.png", modificar));
+                modificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                modificar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+
+                eliminar = new JButton("Eliminar");
+                eliminar.setName("e");
+                eliminar.setForeground(textoSecundario);
+                eliminar.setBorder(null);
+                eliminar.setBackground(azul);
+                eliminar.setBounds(0, 0, 30, 30);
+                eliminar.setForeground(textoSecundario);
+                eliminar.setIcon(getIcon2("iconos\\delete2.png", modificar));
+                eliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                eliminar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+                for (int i = 0; i < detArray.size(); i++) {
+                    matriz[i][0] = detArray.get(i).getProducto().getName();
+                    matriz[i][1] = Double.toString(detArray.get(i).getProducto().getCost());
+                    matriz[i][2] = modificar;
+                    matriz[i][3] = eliminar;
+                }
+                model2 = new DefaultTableModel(matriz, header) {
+                    public boolean isCellEditable(int row, int column) {
+                        return false;
+                    }
+                };
+
+                table2 = new JTable(model2);
+                table2.setForeground(textoSecundario);
+                table2.getTableHeader().setForeground(textoSecundario);
+                table2.getTableHeader().setDefaultRenderer(new HeaderRenderer(table2));
+                table2.setDefaultRenderer(Object.class, new Render());
+                table2.setFocusable(false);
+                table2.setBackground(azul);
+                table2.setIntercellSpacing(new Dimension(0, 1));
+                table2.setRowHeight(50);
+                table2.setSelectionBackground(texto);
+                table2.setShowVerticalLines(false);
+                table2.setBorder(BorderFactory.createEmptyBorder());
+                table2.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+
+                table2.getTableHeader().setFont(fuente.fuente(fuente.OpensansBold, 0, 17));
+                table2.getTableHeader().setOpaque(true);
+
+                table2.getTableHeader().setBorder(BorderFactory.createEmptyBorder());
+                table2.getTableHeader().setBackground(azul);
+                table2.getTableHeader().setResizingAllowed(false);
+                table2.setShowHorizontalLines(true);
+                table2.setGridColor(texto);
+
+                UIManager.getDefaults().put("TableHeader.cellBorder", BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+                //table.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
+                table2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                table2.setBounds(80, 100, 400, 300);
+                table2.addMouseListener(new MouseAdapter() {
+
+                    public void mouseClicked(MouseEvent e) {
+                        int col = table2.getColumnModel().getColumnIndexAtX(e.getX());
+                        int row = e.getY() / table2.getRowHeight();
+                        if (row < table2.getRowCount() && row >= 0 && col < table2.getColumnCount() && col > 0) {
+                            Object valor = table2.getValueAt(row, col);
+                            if (valor instanceof JButton) {
+                                ((JButton) valor).doClick();
+                                JButton btn = (JButton) valor;
+                                if (btn.getName().equals("m")) {
+                                    System.out.println("Modificar");
+                                    String Ingrediente = (String) table2.getValueAt(row, 0);
+                                    System.out.println(Ingrediente);
+                                }
+                                if (btn.getName().equals("e")) {
+                                    String NomProd = (String) table2.getValueAt(row, 0);
+                                    factura.eliminarProductoFact(valorParseado, NomProd);
+                                    model2.removeRow(row);
+                                    factura.printFacturas();
+                                    System.out.println("Eliminar");
+                                    table2.repaint();
+                                    table2.revalidate();
+                                }
+                            }
+                        }
+                    }
+                });
+
+                //TABLA 2
+                JScrollPane pane2 = new JScrollPane();
+                pane2.setViewportView(table2);
+                pane2.setBackground(azul);
+                pane2.setOpaque(true);
+                pane2.setBorder(BorderFactory.createEmptyBorder());
+                pane2.getViewport().setBackground(azul);
+                pane2.setBounds(50, 450, 800, 300);
+                add(pane2);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+    }
 }

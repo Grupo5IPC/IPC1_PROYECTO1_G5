@@ -1,9 +1,9 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
 import com.grupo5.Fuentes.Fuentes;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Aceptar;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Confirmacion;
-import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.addUser;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.updateUser;
+import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.grupo5.Usuarios.Usuario;
@@ -124,10 +124,11 @@ public class CRUD_user extends JPanel {
                         ((JButton) valor).doClick();
                         JButton btn = (JButton) valor;
                         if (btn.getName().equals("m")) {
-                            System.out.println("Modificar");
+                            System.out.println(row);
+                            //System.out.println("Modificar");
                             String usuario = (String) table.getValueAt(row, 0);
                             System.out.println(usuario);
-                            openDialog();
+                            openDialog(usuario);
                         }
                         if (btn.getName().equals("e")) {
 
@@ -162,10 +163,12 @@ public class CRUD_user extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("si");
-                Aceptar a = new Aceptar(usuario, true);
+                addUser a = new addUser(usuario, true);
                 a.setVisible(true);
                 //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
-                System.out.println(a.getSize().getWidth());
+                //System.out.println(a.getSize().getWidth());
+                Refresh();
+
             }
 
             @Override
@@ -197,9 +200,54 @@ public class CRUD_user extends JPanel {
         return scale;
     }
 
-    void openDialog() {
-        Confirmacion c = new Confirmacion(this, true);
-        c.setVisible(true);
+    void openDialog(String username) {
+        updateUser c = new updateUser(usuario,true, username);
+    }
+    void Refresh(){
+        Fuentes fuente = new Fuentes();
+        ArrayList<Usuario> data = usuario.getArray();
+
+        Object[] header = new Object[]{"   Usuario", "   Password", "", ""};
+
+
+        Object matriz[][] = new Object[data.size()][4];
+        modificar = new JButton("Modificar");
+        modificar.setName("m");
+        modificar.setForeground(textoSecundario);
+        modificar.setBorder(null);
+        modificar.setBackground(azul);
+        modificar.setBounds(0, 0, 30, 30);
+        modificar.setIcon(getIcon2("iconos\\update.png", modificar));
+        modificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        modificar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+
+        eliminar = new JButton("Eliminar");
+        eliminar.setName("e");
+        eliminar.setForeground(textoSecundario);
+        eliminar.setBorder(null);
+        eliminar.setBackground(azul);
+        eliminar.setBounds(0, 0, 30, 30);
+        eliminar.setForeground(textoSecundario);
+        eliminar.setIcon(getIcon2("iconos\\delete2.png", modificar));
+        eliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        eliminar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+        for (int i = 0; i < data.size(); i++) {
+
+            matriz[i][0] = data.get(i).getUsername();
+            matriz[i][1] = data.get(i).getPassword();
+            matriz[i][2] = modificar;
+            matriz[i][3] = eliminar;
+
+        }
+
+        model = new DefaultTableModel(matriz, header) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+
+
     }
 
 

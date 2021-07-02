@@ -76,6 +76,19 @@ public class Gestor_usuario implements Serializable {
         return false;
     }
 
+    public int getindex(String nombre) {
+        boolean state = false;
+        int i = 0;
+        while (state == false && i < usuarios.size()) {
+            if (usuarios.get(i).getUsername().equals(nombre) ) {
+                state = true;
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
     public void printUsuarioSolo(String nombre) {
         int i = 0;
         for (i = 0; i < usuarios.size(); i++){

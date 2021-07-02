@@ -132,4 +132,40 @@ public class Gestor_Factura implements Serializable {
         }
         return false;
     }
+
+    public Factura getFactura(int id) {
+        boolean state = false;
+        int i = 0;
+        while (state == false && i < facturas.size()) {
+            if (facturas.get(i).getId() == id) {
+                state = true;
+                return facturas.get(i);
+            } else {
+                i++;
+            }
+        }
+        return null;
+    }
+
+    public void eliminarProductoFact(int idFactura, String nombreProd) {
+        boolean state = false;
+        boolean state2 = false;
+        int i = 0;
+        int j = 0;
+        while (state == false && i < facturas.size()) {
+            if (facturas.get(i).getId() == idFactura) {
+                state = true;
+                while (state2 == false && j < facturas.get(i).getDetalles().size()) {
+                    if (nombreProd.equals(facturas.get(i).getDetalles().get(j).getProducto().getName())) {
+                        state2 = true;
+                        facturas.get(i).getDetalles().remove(j);
+                    } else {
+                        j++;
+                    }
+                }
+            } else {
+                i++;
+            }
+        }
+    }
 }

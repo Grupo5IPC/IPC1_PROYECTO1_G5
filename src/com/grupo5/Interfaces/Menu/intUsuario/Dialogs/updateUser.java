@@ -7,25 +7,31 @@ import com.grupo5.Usuarios.Gestor_usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.*;
-import java.awt.geom.*;
+import java.awt.geom.RoundRectangle2D;
 
-public class AddUser extends JDialog {
+public class updateUser extends JDialog {
     public static Gestor_usuario usuario;
 
     public JLabel title;
     public CRUD_user Crud_usuario;
     public JButton acep;
     public JPanel Parent;
+    public String nombreUsuario;
+    public int index;
     public Colors c = new Colors();
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public AddUser(Gestor_usuario user, boolean modal) {
+    public updateUser(Gestor_usuario user, boolean modal, String username) {
+        nombreUsuario = username;
+
         Parent = new JPanel();
         usuario = user;
+        index = usuario.getindex(nombreUsuario);
         setUndecorated(true);
 
         this.addComponentListener(new ComponentAdapter() {
@@ -60,7 +66,7 @@ public class AddUser extends JDialog {
 
     void labels() {
         Fuentes fuente = new Fuentes();
-        title = new JLabel("Agregar Usuario");
+        title = new JLabel("Modificar Usuario: "+nombreUsuario);
         title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
         title.setBounds(160,30,200,60);
         title.setForeground(c.fondo);
@@ -150,9 +156,11 @@ public class AddUser extends JDialog {
                 aceptar.setBackground(azul);
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                if (usuario.verificarExistencia(username.getText()) == true){
+                if (nombreUsuario.equals(username.getText())){
+
                     JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
                 }else{
+
                     usuario.Ins_usu(username.getText(), txtpass.getText());
                     JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     cerrar2();
