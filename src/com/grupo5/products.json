@@ -15,6 +15,11 @@
                 "name": "Manzana",
                 "quantity": 2,
                 "units": "Unidadestl"
+            },
+	    {
+                "name": "Pera",
+                "quantity": 3,
+                "units": "Unidadestl"
             }
         ]
     }
