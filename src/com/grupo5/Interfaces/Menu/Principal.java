@@ -164,10 +164,10 @@ public class Principal extends JFrame {
                 CRUD_user u = new CRUD_user(usuario);
                 u.setVisible(true);
                 u.setForeground(textoSecundario);
-                u.setBounds(2, 0, 898, 620);
+                u.setBounds(CRUD.getX(), 0, 898, 620);
                 CRUD.add(u);
-                u.revalidate();
-                u.repaint();
+                revalidate();
+                repaint();
             }
 
         });
