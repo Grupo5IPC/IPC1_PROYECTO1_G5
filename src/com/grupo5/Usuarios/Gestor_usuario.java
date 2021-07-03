@@ -125,7 +125,9 @@ public class Gestor_usuario implements Serializable {
         }
         return modo = 3;
     }
-
+public int getSize(){
+        return usuarios.size();
+}
     /*
     public boolean verificar_exis(String usu) {
         for (int i = 0; i < 10; i++) {

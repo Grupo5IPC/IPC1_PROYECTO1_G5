@@ -20,6 +20,7 @@ public class Login extends JFrame {
 
     public JPanel user;
     public JPanel lateralSecundario;
+    public static Gestor_restaurante Nuevo;
 //    public JPanel Principal;
     public JPanel superior;
     public JPanel CRUD;
@@ -39,7 +40,8 @@ public class Login extends JFrame {
     public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
 
-    public Login(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes) {
+    public Login(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante res) {
+        Nuevo = res;
         usuario = usuarios;
         producto = productos;
         factura = facturas;
@@ -234,7 +236,7 @@ public class Login extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 botoninvoice.setBackground(new Color(46, 51, 73));
                 if (usuario.verificar(textUser.getText(), textPass.getText())) {
-                    Principal p = new Principal(usuario, producto, factura, cliente);
+                    Principal p = new Principal(usuario, producto, factura, cliente, Nuevo);
                     p.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "ERROR: Datos incorrectos");

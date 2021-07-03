@@ -19,7 +19,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static Restaurante Nuevo;
+    public static Gestor_restaurante Nuevo;
     public static String tipoDeCarga;
     public static Gestor_usuario usuario;
     public static Gestor_cliente cliente;
@@ -55,7 +55,7 @@ public class Main {
         }
         usuario.print_usu();
 
-        Principal p = new Principal(usuario, producto, factura, cliente);
+        Principal p = new Principal(usuario, producto, factura, cliente,Nuevo);
         p.setVisible(true);
     }
 
@@ -95,7 +95,7 @@ public class Main {
                         Opciones = MenuPrincipal.nextInt();
                         switch (Opciones) {
                             case 1:
-                                Nuevo.printRestaurante();
+                                //Nuevo.printRestaurante();
                                 break;
 
 //-------------------------------------------------------------------------------------------------------------------
@@ -447,7 +447,8 @@ public class Main {
                 tipoDeCarga = "ipcrm";
                 modo = 2;
             }
-            Nuevo = new Restaurante(nombre, direccion, numero, tipoDeCarga);
+            Nuevo = new Gestor_restaurante();
+            Nuevo.inicializar(nombre,direccion,numero,tipoDeCarga);
 
         } catch (Exception e) {
             System.out.println(e);
