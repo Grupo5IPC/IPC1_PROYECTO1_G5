@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.awt.geom.*;
 
-public class addUser extends JDialog {
+public class AddUser extends JDialog {
     public static Gestor_usuario usuario;
 
     public JLabel title;
@@ -23,7 +23,7 @@ public class addUser extends JDialog {
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public addUser(Gestor_usuario user, boolean modal) {
+    public AddUser(Gestor_usuario user, boolean modal) {
         Parent = new JPanel();
         usuario = user;
         setUndecorated(true);

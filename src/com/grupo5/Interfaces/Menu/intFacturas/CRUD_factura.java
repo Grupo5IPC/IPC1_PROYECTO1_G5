@@ -4,9 +4,8 @@ import com.grupo5.Facturas.Detalle;
 import com.grupo5.Facturas.Factura;
 import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
-import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
+import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
-import com.grupo5.Productos.Ingrediente;
 import com.sun.istack.internal.NotNull;
 
 import javax.swing.*;

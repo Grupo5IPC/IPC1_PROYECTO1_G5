@@ -4,6 +4,7 @@ import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.Colors;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
 import com.grupo5.Usuarios.Gestor_usuario;
+import com.grupo5.Usuarios.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,7 +69,7 @@ public class updateUser extends JDialog {
         Fuentes fuente = new Fuentes();
         title = new JLabel("Modificar Usuario: "+nombreUsuario);
         title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
-        title.setBounds(160,30,200,60);
+        title.setBounds(50,30,420,60);
         title.setForeground(c.fondo);
         Parent.add(title);
         JLabel cerrar = new JLabel("x");
@@ -157,13 +158,22 @@ public class updateUser extends JDialog {
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 if (nombreUsuario.equals(username.getText())){
-
-                    JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
-                }else{
-
-                    usuario.Ins_usu(username.getText(), txtpass.getText());
-                    JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    Usuario user = new Usuario(username.getText(), txtpass.getText());
+                    usuario.updateUsuario(index, user);
+                    JOptionPane.showConfirmDialog(Parent,  "El usuario se modifico correctamente","Usuario modificado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     cerrar2();
+                }else{
+                    if (usuario.verificarExistencia(username.getText()) == true){
+                        JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
+
+                    }else {
+                        Usuario user = new Usuario(username.getText(), txtpass.getText());
+                        usuario.updateUsuario(index, user);
+                        JOptionPane.showConfirmDialog(Parent,  "El usuario se modifico correctamente","Usuario modificado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                        cerrar2();
+                    }
+
+
                 }
 
             }

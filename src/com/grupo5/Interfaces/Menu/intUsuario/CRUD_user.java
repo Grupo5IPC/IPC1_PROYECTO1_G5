@@ -1,7 +1,7 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
 import com.grupo5.Fuentes.Fuentes;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.addUser;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.AddUser;
 import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.updateUser;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
@@ -126,16 +126,27 @@ public class CRUD_user extends JPanel {
                         if (btn.getName().equals("m")) {
                             System.out.println(row);
                             //System.out.println("Modificar");
-                            String usuario = (String) table.getValueAt(row, 0);
-                            System.out.println(usuario);
-                            openDialog(usuario);
+                            String usuarios = (String) table.getValueAt(row, 0);
+                            System.out.println(usuarios);
+                            openDialog(usuarios);
+                            Refresh();
                         }
                         if (btn.getName().equals("e")) {
+                            String usuarios = (String) table.getValueAt(row, 0);
+                            System.out.println(usuarios);
+                            int opcion = JOptionPane.showConfirmDialog(table, "¿Esta seguro de elimnar el usuario: "+ usuarios+"?","Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE );
+                            if (opcion == JOptionPane.YES_OPTION){
+                                usuario.eliminarUsuario((String) table.getValueAt(row, 0));
+                                model.removeRow(row);
+                                usuario.print_usu();
+                                System.out.println("Eliminar");
+                                Refresh();
+                            }
+                            if (opcion == JOptionPane.NO_OPTION){
 
-                            usuario.eliminarUsuario((String) table.getValueAt(row, 0));
-                            model.removeRow(row);
-                            usuario.print_usu();
-                            System.out.println("Eliminar");
+                            }
+
+
                         }
                     }
                 }
@@ -163,7 +174,7 @@ public class CRUD_user extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("si");
-                addUser a = new addUser(usuario, true);
+                AddUser a = new AddUser(usuario, true);
                 a.setVisible(true);
                 //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
                 //System.out.println(a.getSize().getWidth());
@@ -202,6 +213,7 @@ public class CRUD_user extends JPanel {
 
     void openDialog(String username) {
         updateUser c = new updateUser(usuario,true, username);
+        c.setVisible(true);
     }
     void Refresh(){
         Fuentes fuente = new Fuentes();

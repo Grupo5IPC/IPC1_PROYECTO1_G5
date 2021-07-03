@@ -23,11 +23,13 @@ public class Principal extends JFrame {
     public JPanel lateralSecundario;
     public JPanel Principal;
     public JPanel superior;
+    public JLabel txtTitle;
     public JPanel CRUD;
     public CRUD_user u;
     public CRUD_cliente c;
     public CRUD_factura f;
     public  CRUD_products p;
+    public Dashboard dash;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -132,8 +134,61 @@ public class Principal extends JFrame {
     void menu() {
         //boton listar usuarios
         Fuentes fuente = new Fuentes();
+        JPanel Dashboard = new JPanel(null);
+        Dashboard.setBounds(0, 200, lateralSecundario.getWidth(), 45);
+        Dashboard.setBackground(fondo);
+        // botonVer.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
+
+        JLabel icondash = new JLabel();
+        icondash.setHorizontalAlignment(0);
+
+        icondash.setVerticalAlignment(0);
+        icondash.setSize(30, 30);
+        icondash.setBounds(150, 8, 30, 30);
+        icondash.setIcon(getIcon2("iconos\\home.png", icondash));
+
+        Dashboard.add(icondash);
+
+        JLabel txtdash = new JLabel("Dashboard");
+        txtdash.setBounds(20, 15, 80, 20);
+
+        txtdash.setFont(fuente.fuente(fuente.RobotoRegular, 0, 14));
+        txtdash.setForeground(texto);
+        Dashboard.add(txtdash);
+        Dashboard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Dashboard.setBackground(azul);
+            }
+
+            public void mouseExited(MouseEvent e) {
+                Dashboard.setBackground(fondo);
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                closeOthers();
+                Dashboard.setBackground(new Color(46, 51, 73));
+                dash = new Dashboard();
+                dash.setVisible(true);
+                dash.setForeground(textoSecundario);
+                dash.setBounds(2, 0, 898, 620);
+                CRUD.add(dash);
+                txtTitle.setText("Dashboard");
+                revalidate();
+                repaint();
+            }
+
+        });
+
+        lateralSecundario.add(Dashboard);
+
+
+
+
+
+
         JPanel botonVer = new JPanel(null);
-        botonVer.setBounds(0, 200, lateralSecundario.getWidth(), 45);
+        botonVer.setBounds(0, 245, lateralSecundario.getWidth(), 45);
         botonVer.setBackground(fondo);
         // botonVer.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
 
@@ -171,8 +226,9 @@ public class Principal extends JFrame {
                 u.setForeground(textoSecundario);
                 u.setBounds(2, 0, 898, 620);
                 CRUD.add(u);
-                u.revalidate();
-                u.repaint();
+                txtTitle.setText("Usuarios");
+                revalidate();
+                repaint();
             }
 
         });
@@ -181,7 +237,7 @@ public class Principal extends JFrame {
 
         //boton listar clientes
         JPanel botonclient = new JPanel(null);
-        botonclient.setBounds(0, 245, lateralSecundario.getWidth(), 45);
+        botonclient.setBounds(0, 290, lateralSecundario.getWidth(), 45);
         botonclient.setBackground(fondo);
         // botonclient.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
 
@@ -220,7 +276,7 @@ public class Principal extends JFrame {
                 c.setForeground(textoSecundario);
                 c.setBounds(2, 0, 898, 620);
                 CRUD.add(c);
-
+                txtTitle.setText("Clientes");
                 revalidate();
                 repaint() ;
             }
@@ -230,7 +286,7 @@ public class Principal extends JFrame {
 
         //boton listar product
         JPanel botonproduct = new JPanel(null);
-        botonproduct.setBounds(0, 290, lateralSecundario.getWidth(), 45);
+        botonproduct.setBounds(0, 335, lateralSecundario.getWidth(), 45);
         botonproduct.setBackground(fondo);
         //botonproduct.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
 
@@ -270,6 +326,7 @@ public class Principal extends JFrame {
                 p.setForeground(textoSecundario);
                 p.setBounds(2, 0, 898, 620);
                 CRUD.add(p);
+                txtTitle.setText("Productos");
                 revalidate();
                 repaint();
             }
@@ -278,7 +335,7 @@ public class Principal extends JFrame {
 
         //boton listar invoice
         JPanel botoninvoice = new JPanel(null);
-        botoninvoice.setBounds(0, 335, lateralSecundario.getWidth(), 45);
+        botoninvoice.setBounds(0, 380, lateralSecundario.getWidth(), 45);
         botoninvoice.setBackground(fondo);
         //botoninvoice.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90)));
 
@@ -317,6 +374,7 @@ public class Principal extends JFrame {
                 f.setForeground(textoSecundario);
                 f.setBounds(2, 0, 898, 620);
                 CRUD.add(f);
+                txtTitle.setText("Facturas");
                 revalidate();
                 repaint();
             }
@@ -369,7 +427,7 @@ public class Principal extends JFrame {
         superior.setBackground(Principal.getBackground());
         superior.setForeground(textoSecundario);
         Principal.add(superior);
-        JLabel txtTitle = new JLabel("Bienvenido");
+         txtTitle= new JLabel("Dashboard");
         txtTitle.setBounds(60, 30, 200, 40);
         txtTitle.setForeground(textoSecundario);
         txtTitle.setFont(new Font("Microsoft Sans Serif", Font.BOLD, 30));
@@ -405,19 +463,30 @@ public class Principal extends JFrame {
         CRUD.setBounds(1, 100, 898, 620);
 
         Principal.add(CRUD);
+        dash = new Dashboard();
+
+        dash.setVisible(true);
+        dash.setForeground(textoSecundario);
+        dash.setBounds(2, 0, 898, 620);
+        CRUD.add(dash);
+        repaint();
+        revalidate();
+
 
     }
     void closeOthers(){
         try{
+            CRUD.remove(dash);
             CRUD.remove(u);
             CRUD.remove(c);
             CRUD.remove(p);
             CRUD.remove(f);
+
             revalidate();
             repaint();
 
         }catch (Exception e){
-
+            System.out.println(e);
         }
     }
 

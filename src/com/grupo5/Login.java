@@ -4,35 +4,17 @@ import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.Principal;
-import static com.grupo5.Interfaces.Menu.Principal.cliente;
-import static com.grupo5.Interfaces.Menu.Principal.factura;
-import static com.grupo5.Interfaces.Menu.Principal.producto;
-import static com.grupo5.Interfaces.Menu.Principal.usuario;
-import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
-import com.grupo5.Interfaces.Menu.intFacturas.CRUD_factura;
-import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
-import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
-import static com.grupo5.Interfaces.Menu.intUsuario.CRUD_user.usuario;
-import static com.grupo5.Interfaces.Menu.intUsuario.Dialogs.Aceptar.usuario;
-import static com.grupo5.Interfaces.Menu.intUsuario.Dialogs.AddUser.usuario;
-import static com.grupo5.Login.usuario;
-import static com.grupo5.Main.cliente;
-import static com.grupo5.Main.factura;
-import static com.grupo5.Main.producto;
-import static com.grupo5.Main.usuario;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Image;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
-import javax.swing.*;
 
 public class Login extends JFrame {
 

@@ -75,6 +75,10 @@ public class Gestor_usuario implements Serializable {
         }
         return false;
     }
+    public boolean updateUsuario(int index, Usuario user){
+        usuarios.set(index,user);
+        return true;
+    }
 
     public int getindex(String nombre) {
         boolean state = false;
