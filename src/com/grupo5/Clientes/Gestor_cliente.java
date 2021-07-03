@@ -83,6 +83,20 @@ public class Gestor_cliente implements Serializable {
         return null;
     }
 
+    public int getindex(int Id) {
+        boolean state = false;
+        int i = 0;
+        while (state == false && i < clientes.size()) {
+            if (clientes.get(i).getId() == Id ) {
+                state = true;
+                return i;
+            } else {
+                i++;
+            }
+        }
+        return i;
+    }
+    
     public String getNombre_id(int id) {
         boolean state = false;
         String nombre = "";
@@ -98,6 +112,11 @@ public class Gestor_cliente implements Serializable {
             }
         }
         return nombre;
+    }
+    
+    public boolean updateCliente(int index, Cliente client){
+        clientes.set(index,client);
+        return true;
     }
 
     public void printClienteSolo(int id) {
