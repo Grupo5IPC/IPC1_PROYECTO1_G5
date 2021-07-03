@@ -3,6 +3,8 @@ package com.grupo5.Interfaces.Menu.intCliente;
 import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Interfaces.Menu.intCliente.Dialogs.AddClient;
+import com.grupo5.Interfaces.Menu.intCliente.Dialogs.updateClient;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.sun.istack.internal.NotNull;
@@ -14,8 +16,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-
 public class CRUD_cliente extends JPanel {
+
     public static Gestor_cliente cliente;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
@@ -39,11 +41,9 @@ public class CRUD_cliente extends JPanel {
 
         cliente.printClientes();
 
-
         ArrayList<Cliente> data = cliente.getClientes();
 
         Object[] header = new Object[]{"Id", "Nombre        ", "Direccion         ", "Telefono   ", "   NIT   ", "", ""};
-        //modificar
 
         Object matriz[][] = new Object[data.size()][7];
         modificar = new JButton("Modificar");
@@ -106,7 +106,6 @@ public class CRUD_cliente extends JPanel {
         table.setShowHorizontalLines(true);
         table.setGridColor(texto);
 
-
         UIManager.getDefaults().put("TableHeader.cellBorder", BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         //table.getColumnModel().getColumn(2).setCellRenderer(new ButtonRenderer());
@@ -124,35 +123,97 @@ public class CRUD_cliente extends JPanel {
                         JButton btn = (JButton) valor;
                         if (btn.getName().equals("m")) {
                             System.out.println("Modificar");
-                            String cliente = (String) table.getValueAt(row, 0);
+                            int cliente = Integer.parseInt((String) table.getValueAt(row, 0));
                             System.out.println(cliente);
+                            openDialog(cliente);
+                            Refresh();
                         }
                         if (btn.getName().equals("e")) {
-                            int idCliente = Integer.parseInt((String) table.getValueAt(row, 0));
-                            cliente.eliminarCliente(idCliente);
-                            model.removeRow(row);
-                            cliente.printClientes();
-                            System.out.println("Eliminar");
+                            String clienteP = (String) table.getValueAt(row, 1);
+                            System.out.println(clienteP);
+                            int opcion = JOptionPane.showConfirmDialog(table, "¿Esta seguro de elimnar el cliente: " + clienteP + "?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if (opcion == JOptionPane.YES_OPTION) {
+                                int idCliente = Integer.parseInt((String) table.getValueAt(row, 0));
+                                cliente.eliminarCliente(idCliente);
+                                model.removeRow(row);
+                                cliente.printClientes();
+                                System.out.println("Eliminar");
+                            }
+                            if (opcion == JOptionPane.NO_OPTION) {
+
+                            }
                         }
                     }
                 }
             }
-        });
+        }
+        );
         JScrollPane pane = new JScrollPane();
+
         pane.setViewportView(table);
+
         pane.setBackground(azul);
 
-        pane.setOpaque(true);
+        pane.setOpaque(
+                true);
         pane.setBorder(BorderFactory.createEmptyBorder());
-        pane.getViewport().setBackground(azul);
-        pane.setBounds(150, 100, 600, 400);
+        pane.getViewport()
+                .setBackground(azul);
+        pane.setBounds(
+                50, 100, 800, 400);
 
         add(pane);
 
+        JButton nuevo = new JButton("Nuevo cliente");
+
+        nuevo.setForeground(textoSecundario);
+
+        nuevo.setBackground(azul);
+
+        nuevo.setBounds(
+                600, 520, 140, 45);
+        nuevo.setFont(fuente.fuente(fuente.RobotoBold, 0, 16));
+        nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
+        nuevo.addMouseListener(
+                new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e
+            ) {
+                System.out.println("si");
+                AddClient a = new AddClient(cliente, true);
+                a.setVisible(true);
+                //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
+                //System.out.println(a.getSize().getWidth());
+                Refresh();
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e
+            ) {
+                nuevo.setBackground(fondo);
+                nuevo.setForeground(texto);
+                nuevo.setBorder(BorderFactory.createLineBorder(texto));
+                nuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e
+            ) {
+                nuevo.setBackground(azul);
+                nuevo.setForeground(textoSecundario);
+                nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
+                nuevo.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            }
+        }
+        );
+        add(nuevo);
 
     }
 
-    ImageIcon getIcon2(String ruta, @NotNull JButton label) {
+    ImageIcon getIcon2(String ruta,
+            @NotNull JButton label
+    ) {
         ImageIcon icon = new ImageIcon(ruta);
         Image img = icon.getImage();
         Image imgs = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
@@ -160,5 +221,57 @@ public class CRUD_cliente extends JPanel {
         return scale;
     }
 
+    void openDialog(int Id
+    ) {
+        updateClient c = new updateClient(cliente, true, Id);
+        c.setVisible(true);
+    }
+
+    void Refresh() {
+        Fuentes fuente = new Fuentes();
+        ArrayList<Cliente> data = cliente.getClientes();
+
+        Object[] header = new Object[]{"Id", "Nombre        ", "Direccion         ", "Telefono   ", "   NIT   ", "", ""};
+
+        Object matriz[][] = new Object[data.size()][7];
+        modificar = new JButton("Modificar");
+        modificar.setName("m");
+        modificar.setForeground(textoSecundario);
+        modificar.setBorder(null);
+        modificar.setBackground(azul);
+        modificar.setBounds(0, 0, 30, 30);
+        modificar.setIcon(getIcon2("iconos\\update.png", modificar));
+        modificar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        modificar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+
+        eliminar = new JButton("Eliminar");
+        eliminar.setName("e");
+        eliminar.setForeground(textoSecundario);
+        eliminar.setBorder(null);
+        eliminar.setBackground(azul);
+        eliminar.setBounds(0, 0, 30, 30);
+        eliminar.setForeground(textoSecundario);
+        eliminar.setIcon(getIcon2("iconos\\delete2.png", modificar));
+        eliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        eliminar.setFont(fuente.fuente(fuente.OpensansBold, 0, 13));
+        for (int i = 0; i < data.size(); i++) {
+
+            matriz[i][0] = Integer.toString(data.get(i).getId());
+            matriz[i][1] = data.get(i).getName();
+            matriz[i][2] = data.get(i).getAddress();
+            matriz[i][3] = data.get(i).getPhone();
+            matriz[i][4] = data.get(i).getNit();
+            matriz[i][5] = modificar;
+            matriz[i][6] = eliminar;
+        }
+
+        model = new DefaultTableModel(matriz, header) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table.setModel(model);
+
+    }
 
 }
