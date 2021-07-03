@@ -1,5 +1,7 @@
 package com.grupo5.Interfaces.Menu.intUsuario.Dialogs;
 
+import javax.swing.*;
+
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.Colors;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
@@ -12,7 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.awt.geom.*;
 
-public class AddUser extends JDialog {
+public class addUser extends JDialog {
     public static Gestor_usuario usuario;
 
     public JLabel title;
@@ -23,7 +25,7 @@ public class AddUser extends JDialog {
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public AddUser(Gestor_usuario user, boolean modal) {
+    public addUser(Gestor_usuario user, boolean modal) {
         Parent = new JPanel();
         usuario = user;
         setUndecorated(true);

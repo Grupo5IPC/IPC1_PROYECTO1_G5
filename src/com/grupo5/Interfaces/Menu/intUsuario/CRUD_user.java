@@ -1,7 +1,7 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
 import com.grupo5.Fuentes.Fuentes;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.AddUser;
+import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.updateUser;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
@@ -174,7 +174,7 @@ public class CRUD_user extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("si");
-                AddUser a = new AddUser(usuario, true);
+                addUser a = new addUser(usuario, true);
                 a.setVisible(true);
                 //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
                 //System.out.println(a.getSize().getWidth());
