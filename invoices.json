@@ -18,16 +18,11 @@
           "description": "Pizza Hawaiana con queso",
           "cost": 40.0,
           "price": 50.0,
-          "ingredientes": [
+          "ingredients": [
             {
               "name": "Piña",
               "quantity": 1,
               "units": "Unidades"
-            },
-            {
-              "name": "Peperonni",
-              "quantity": 5,
-              "units": "Docenas"
             }
           ]
         }

@@ -2,55 +2,55 @@ package com.grupo5;
 
 public class Restaurante {
 
-    private String nombre;
-    private String direccion;
-    private int numero;
-    private String tipoDeCarga;
+    private String name;
+    private String address;
+    private int phone;
+    private String load;
 
-    public Restaurante(String nombre, String direccion, int numero, String tipoDeCarga) {
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.numero = numero;
-        this.tipoDeCarga = tipoDeCarga;
+    public Restaurante(String name, String address, int phone, String load) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.load = load;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDireccion() {
-        return direccion;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getPhone() {
+        return phone;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
-    public String getTipoDeCarga() {
-        return tipoDeCarga;
+    public String getLoad() {
+        return load;
     }
 
-    public void setTipoDeCarga(String tipoDeCarga) {
-        this.tipoDeCarga = tipoDeCarga;
+    public void setLoad(String load) {
+        this.load = load;
     }
 
     public void printRestaurante() {
         System.out.println("");
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Dirección: " + direccion);
-        System.out.println("Número de teléfono: " + numero);
+        System.out.println("Nombre: " + name);
+        System.out.println("Dirección: " + address);
+        System.out.println("Número de teléfono: " + phone);
         System.out.println("");
     }
 }

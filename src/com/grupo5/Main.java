@@ -1,6 +1,7 @@
 package com.grupo5;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Detalle;
@@ -16,11 +17,12 @@ import com.grupo5.Usuarios.Usuario;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.List;
 
 public class Main {
 
     public static Gestor_restaurante Nuevo;
-    public static String tipoDeCarga;
+    public static String tipoDeCarga = "json";
     public static Gestor_usuario usuario;
     public static Gestor_cliente cliente;
     public static Gestor_Producto producto;
@@ -434,24 +436,38 @@ public class Main {
             while ((Linea = br.readLine()) != null) {
                 Contenido += Linea;
             }
-
             JsonParser Parser = new JsonParser();
-            JsonObject GsonObj = (JsonObject) Parser.parse(Contenido);
-
-            String nombre = GsonObj.get("name").getAsString();
-            String direccion = GsonObj.get("address").getAsString();
-            int numero = GsonObj.get("phone").getAsInt();
-            tipoDeCarga = GsonObj.get("load").getAsString();
-            //System.out.println(tipoDeCarga);
-            if (tipoDeCarga.equals("bin")) {
-                tipoDeCarga = "ipcrm";
-                modo = 2;
-            }
+            System.out.println(Contenido);
+            JsonArray GsonArr = Parser.parse(Contenido).getAsJsonArray();
+            JsonObject GsonObj = GsonArr.get(0).getAsJsonObject();
+            System.out.println(GsonObj.get("name"));
+            Restaurante r = new Restaurante(GsonObj.get("name").getAsString(),GsonObj.get("address").getAsString(), GsonObj.get("phone").getAsInt(), GsonObj.get("load").getAsString() );
             Nuevo = new Gestor_restaurante();
-            Nuevo.inicializar(nombre,direccion,numero,tipoDeCarga);
+            Nuevo.inicializar2(r);
+            System.out.println(r.getAddress());
 
         } catch (Exception e) {
-            System.out.println(e);
+            try {
+                archivo = new File("config.json");
+                fr = new FileReader(archivo);
+                br = new BufferedReader(fr);
+                String Linea;
+
+                while ((Linea = br.readLine()) != null) {
+                    Contenido += Linea;
+                }
+
+                Gson gson = new Gson();
+                Nuevo = new Gestor_restaurante();
+                Restaurante r = gson.fromJson(Contenido, Restaurante.class);
+                Nuevo.inicializar2(r);
+
+
+
+                System.out.println(e);
+            }catch (Exception e4){
+
+            }
         } finally {
             try {
                 if (null != fr) {

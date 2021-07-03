@@ -1,7 +1,6 @@
 package com.grupo5.Interfaces.Menu.intProductos;
 
 import com.grupo5.Fuentes.Fuentes;
-import static com.grupo5.Interfaces.Menu.intProductos.CRUD_products.producto;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
 import com.grupo5.Productos.Gestor_Producto;
@@ -217,7 +216,7 @@ public class CRUD_products extends JPanel implements MouseListener {
 
                 //-----------------------------TABLA2--------------------------------
                 Producto data = producto.getProductos(valorParseado);
-                ArrayList<Ingrediente> ingArray = data.getIngredientes();
+                ArrayList<Ingrediente> ingArray = data.getIngredients();
 
                 Object[] header = new Object[]{"Nombre", "Cantidad", "Unidades", "", ""};
                 Object matriz[][] = new Object[ingArray.size()][5];

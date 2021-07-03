@@ -2,6 +2,7 @@ package com.grupo5;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Factura;
@@ -10,6 +11,7 @@ import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Productos.Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.grupo5.Usuarios.Usuario;
+import java.lang.reflect.*;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -27,10 +29,12 @@ public class Serializacion {
         this.producto = producto;
         this.factura = factura;
         try {
-
+            Type listType = new TypeToken<ArrayList<Restaurante>>() {}.getType();
             Gson gson7 = new GsonBuilder().setPrettyPrinting().create();
-            ArrayList<Usuario> array7 = usuario.getArray();
-            String g7 = gson7.toJson(array7);
+            ArrayList<Restaurante> array7 = restaurante.getRes();
+            String g7 = gson7.toJson(array7.toArray());
+
+            System.out.println(g7);
 
             FileWriter writer7 = new FileWriter("config.json", false);
             writer7.write(g7);
@@ -64,7 +68,7 @@ public class Serializacion {
 
             // Serializar facturas
             ArrayList<Factura> array4 = factura.getFacturas();
-            String g4 = gson.toJson(array4);
+            String g4 = gson.toJson(array4.toArray());
             FileWriter writer4 = new FileWriter("invoices.json", false);
             writer4.write(g4);
             writer4.close();
@@ -72,6 +76,7 @@ public class Serializacion {
 
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("Serializacion");
         }
     }
 }

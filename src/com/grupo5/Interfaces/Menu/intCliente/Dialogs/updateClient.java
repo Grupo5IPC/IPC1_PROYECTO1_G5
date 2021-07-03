@@ -2,9 +2,16 @@ package com.grupo5.Interfaces.Menu.intCliente.Dialogs;
 
 import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Gestor_restaurante;
 import com.grupo5.Interfaces.Menu.Colors;
 import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
+import com.grupo5.Log;
+import com.grupo5.Logdeacciones;
+import com.grupo5.Productos.Gestor_Producto;
+import com.grupo5.Usuarios.Gestor_usuario;
+
 import static com.grupo5.Interfaces.Menu.intCliente.Dialogs.AddClient.cliente;
 
 import javax.swing.*;
@@ -16,8 +23,13 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
 public class updateClient extends JDialog {
-
+    public static Gestor_restaurante Nuevo;
+    public static Gestor_usuario usuario;
+    public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
+    public static Log log;
+    public static Logdeacciones logdeacciones;
 
     public JLabel title;
     public CRUD_cliente Crud_cliente;
@@ -29,10 +41,16 @@ public class updateClient extends JDialog {
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public updateClient(Gestor_cliente client, boolean modal, int Id) {
+    public updateClient(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, boolean modal, int Id, Log log, Logdeacciones logdeacciones) {
         ID = Id;
         Parent = new JPanel();
-        cliente = client;
+        this.log = log;
+        this.logdeacciones = logdeacciones;
+        Nuevo = nuev;
+        usuario = usuarios;
+        producto = productos;
+        factura = facturas;
+        cliente = clientes;
         index = cliente.getindex(Id);
         setUndecorated(true);
 
@@ -238,15 +256,21 @@ public class updateClient extends JDialog {
                 int TelParse = Integer.parseInt((String) TelClient.getText());
                 if (ID == parseId) {
                     Cliente client = new Cliente(parseId, NombreClient.getText(), DirClient.getText(), TelParse, NitClient.getText());
+                    logdeacciones.addlog(usuario.getSesion()+": Actualizo Cliente "+NombreClient.getText());
+
                     cliente.updateCliente(index, client);
                     JOptionPane.showConfirmDialog(Parent, "El cliente se modifico correctamente", "Cliente modificado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     cerrar2();
                 } else {
                     if (cliente.buscarCliente(parseId) == true) {
+                        log.addCuerpo("CLIENT: El Cliente "+ NombreClient.getText()+" ");
+
                         JOptionPane.showConfirmDialog(Parent, "El cliente ya existe, intente con otro Id", "Cliente Incorrecto", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                     } else {
                         Cliente client = new Cliente(parseId, NombreClient.getText(), DirClient.getText(), TelParse, NitClient.getText());
                         cliente.updateCliente(index, client);
+                        logdeacciones.addlog(usuario.getSesion()+": Se modifico el CLIENTE"+ parseId);
+
                         JOptionPane.showConfirmDialog(Parent, "El cliente se modifico correctamente", "Cliente modificado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                         cerrar2();
                     }

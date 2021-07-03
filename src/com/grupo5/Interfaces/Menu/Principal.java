@@ -280,7 +280,7 @@ public class Principal extends JFrame {
                 botonclient.setBackground(new Color(46, 51, 73));
                 botonclient.setBackground(new Color(46, 51, 73));
                 closeOthers();
-                c = new CRUD_cliente(cliente);
+                c = new CRUD_cliente(usuario,producto,factura,cliente,Nuevo, log,logdeacciones);
                 c.setVisible(true);
                 c.setForeground(textoSecundario);
                 c.setBounds(2, 0, 898, 620);

@@ -4,7 +4,6 @@ import com.grupo5.Clientes.Gestor_cliente;
 import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Gestor_restaurante;
-import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.updateUser;
 import com.grupo5.Log;
 import com.grupo5.Logdeacciones;
 import com.grupo5.Productos.Gestor_Producto;
@@ -62,18 +61,18 @@ public class Dashboard extends JPanel {
         infoRes.setBackground(paneles);
         add(infoRes);
 
-        nombre = new JLabel(Nuevo.restaurante.get(0).getNombre());
+        nombre = new JLabel(Nuevo.restaurante.get(0).getName());
         nombre.setForeground(Color.lightGray);
         nombre.setFont(new Font("Nirmala UI", 0, 14));
         nombre.setBounds(20, 5, 260, 30);
         nombre.setHorizontalAlignment(SwingConstants.LEFT);
         infoRes.add(nombre);
-        direccion = new JLabel(Nuevo.restaurante.get(0).getDireccion());
+        direccion = new JLabel(Nuevo.restaurante.get(0).getAddress());
         direccion.setForeground(nombre.getForeground());
         direccion.setFont(nombre.getFont());
         direccion.setBounds(20, 40, 140, 30);
         infoRes.add(direccion);
-        telefono = new JLabel(String.valueOf(Nuevo.restaurante.get(0).getNumero()));
+        telefono = new JLabel(String.valueOf(Nuevo.restaurante.get(0).getPhone()));
         telefono.setForeground(texto);
         telefono.setFont(new Font("Nirmala UI", 1, 20));
         telefono.setBounds(20, 60, 140, 60);
@@ -197,9 +196,9 @@ public class Dashboard extends JPanel {
     }
 
     void reset() {
-        nombre.setText(Nuevo.restaurante.get(0).getNombre());
-        direccion.setText(Nuevo.restaurante.get(0).getDireccion());
-        telefono.setText(String.valueOf(Nuevo.restaurante.get(0).getNumero()));
+        nombre.setText(Nuevo.restaurante.get(0).getName());
+        direccion.setText(Nuevo.restaurante.get(0).getAddress());
+        telefono.setText(String.valueOf(Nuevo.restaurante.get(0).getPhone()));
 
     }
 }

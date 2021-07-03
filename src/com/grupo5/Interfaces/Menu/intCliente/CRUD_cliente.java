@@ -2,11 +2,18 @@ package com.grupo5.Interfaces.Menu.intCliente;
 
 import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Gestor_restaurante;
 import com.grupo5.Interfaces.Menu.intCliente.Dialogs.AddClient;
 import com.grupo5.Interfaces.Menu.intCliente.Dialogs.updateClient;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
+import com.grupo5.Log;
+import com.grupo5.Logdeacciones;
+import com.grupo5.Productos.Gestor_Producto;
+import com.grupo5.Serializacion;
+import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
 
 import javax.swing.*;
@@ -17,8 +24,13 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class CRUD_cliente extends JPanel {
-
+    public static Gestor_restaurante Nuevo;
+    public static Gestor_usuario usuario;
+    public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
+    public static Log log;
+    public static Logdeacciones logdeacciones;
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -29,8 +41,14 @@ public class CRUD_cliente extends JPanel {
 
     public Color textoSecundario = new Color(158, 161, 176);
 
-    public CRUD_cliente(Gestor_cliente invoice) {
-        cliente = invoice;
+    public CRUD_cliente(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, Log log, Logdeacciones logdeacciones) {
+        this.log = log;
+        this.logdeacciones = logdeacciones;
+        Nuevo = nuev;
+        usuario = usuarios;
+        producto = productos;
+        factura = facturas;
+        cliente = clientes;
         JPanel aux = new JPanel();
         Fuentes fuente = new Fuentes();
         setSize(898, 620);
@@ -113,40 +131,46 @@ public class CRUD_cliente extends JPanel {
         table.setBounds(80, 100, 400, 400);
         table.addMouseListener(new MouseAdapter() {
 
-            public void mouseClicked(MouseEvent e) {
-                int col = table.getColumnModel().getColumnIndexAtX(e.getX());
-                int row = e.getY() / table.getRowHeight();
-                if (row < table.getRowCount() && row >= 0 && col < table.getColumnCount() && col > 0) {
-                    Object valor = table.getValueAt(row, col);
-                    if (valor instanceof JButton) {
-                        ((JButton) valor).doClick();
-                        JButton btn = (JButton) valor;
-                        if (btn.getName().equals("m")) {
-                            System.out.println("Modificar");
-                            int cliente = Integer.parseInt((String) table.getValueAt(row, 0));
-                            System.out.println(cliente);
-                            openDialog(cliente);
-                            Refresh();
-                        }
-                        if (btn.getName().equals("e")) {
-                            String clienteP = (String) table.getValueAt(row, 1);
-                            System.out.println(clienteP);
-                            int opcion = JOptionPane.showConfirmDialog(table, "¿Esta seguro de elimnar el cliente: " + clienteP + "?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                            if (opcion == JOptionPane.YES_OPTION) {
-                                int idCliente = Integer.parseInt((String) table.getValueAt(row, 0));
-                                cliente.eliminarCliente(idCliente);
-                                model.removeRow(row);
-                                cliente.printClientes();
-                                System.out.println("Eliminar");
-                            }
-                            if (opcion == JOptionPane.NO_OPTION) {
+                                   public void mouseClicked(MouseEvent e) {
+                                       int col = table.getColumnModel().getColumnIndexAtX(e.getX());
+                                       int row = e.getY() / table.getRowHeight();
+                                       if (row < table.getRowCount() && row >= 0 && col < table.getColumnCount() && col > 0) {
+                                           Object valor = table.getValueAt(row, col);
+                                           if (valor instanceof JButton) {
+                                               ((JButton) valor).doClick();
+                                               JButton btn = (JButton) valor;
+                                               if (btn.getName().equals("m")) {
+                                                   System.out.println("Modificar");
+                                                   int cliente = Integer.parseInt((String) table.getValueAt(row, 0));
+                                                   System.out.println(cliente);
+                                                   openDialog(cliente);
+                                                   Serializacion serializacion = new Serializacion();
+                                                   serializacion.serializar(Nuevo, usuarios, productos, clientes, facturas);
+                                                   Refresh();
+                                               }
+                                               if (btn.getName().equals("e")) {
+                                                   String clienteP = (String) table.getValueAt(row, 1);
+                                                   System.out.println(clienteP);
+                                                   int opcion = JOptionPane.showConfirmDialog(table, "¿Esta seguro de elimnar el cliente: " + clienteP + "?", "Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                                                   if (opcion == JOptionPane.YES_OPTION) {
+                                                       int idCliente = Integer.parseInt((String) table.getValueAt(row, 0));
+                                                       cliente.eliminarCliente(idCliente);
+                                                       model.removeRow(row);
+                                                       cliente.printClientes();
+                                                       logdeacciones.addlog(usuario.getSesion() + ": Elimino el cliente +" + idCliente);
 
-                            }
-                        }
-                    }
-                }
-            }
-        }
+                                                       Serializacion serializacion = new Serializacion();
+                                                       serializacion.serializar(Nuevo, usuarios, productos, clientes, facturas);
+                                                       System.out.println("Eliminar");
+                                                   }
+                                                   if (opcion == JOptionPane.NO_OPTION) {
+
+                                                   }
+                                               }
+                                           }
+                                       }
+                                   }
+                               }
         );
         JScrollPane pane = new JScrollPane();
 
@@ -176,43 +200,45 @@ public class CRUD_cliente extends JPanel {
         nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
         nuevo.addMouseListener(
                 new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e
-            ) {
-                System.out.println("si");
-                AddClient a = new AddClient(cliente, true);
-                a.setVisible(true);
-                //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
-                //System.out.println(a.getSize().getWidth());
-                Refresh();
+                    @Override
+                    public void mouseClicked(MouseEvent e
+                    ) {
+                        System.out.println("si");
+                        AddClient a = new AddClient(usuarios, productos, facturas, clientes, Nuevo, true, log, logdeacciones);
+                        Serializacion serializacion = new Serializacion();
+                        serializacion.serializar(Nuevo, usuarios, productos, clientes, facturas);
+                        a.setVisible(true);
+                        //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
+                        //System.out.println(a.getSize().getWidth());
+                        Refresh();
 
-            }
+                    }
 
-            @Override
-            public void mouseEntered(MouseEvent e
-            ) {
-                nuevo.setBackground(fondo);
-                nuevo.setForeground(texto);
-                nuevo.setBorder(BorderFactory.createLineBorder(texto));
-                nuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            }
+                    @Override
+                    public void mouseEntered(MouseEvent e
+                    ) {
+                        nuevo.setBackground(fondo);
+                        nuevo.setForeground(texto);
+                        nuevo.setBorder(BorderFactory.createLineBorder(texto));
+                        nuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    }
 
-            @Override
-            public void mouseExited(MouseEvent e
-            ) {
-                nuevo.setBackground(azul);
-                nuevo.setForeground(textoSecundario);
-                nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
-                nuevo.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            }
-        }
+                    @Override
+                    public void mouseExited(MouseEvent e
+                    ) {
+                        nuevo.setBackground(azul);
+                        nuevo.setForeground(textoSecundario);
+                        nuevo.setBorder(BorderFactory.createLineBorder(textoSecundario));
+                        nuevo.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
+                }
         );
         add(nuevo);
 
     }
 
     ImageIcon getIcon2(String ruta,
-            @NotNull JButton label
+                       @NotNull JButton label
     ) {
         ImageIcon icon = new ImageIcon(ruta);
         Image img = icon.getImage();
@@ -221,9 +247,8 @@ public class CRUD_cliente extends JPanel {
         return scale;
     }
 
-    void openDialog(int Id
-    ) {
-        updateClient c = new updateClient(cliente, true, Id);
+    void openDialog(int Id) {
+        updateClient c = new updateClient(usuario, producto, factura, cliente, Nuevo, true, Id, log, logdeacciones);
         c.setVisible(true);
     }
 

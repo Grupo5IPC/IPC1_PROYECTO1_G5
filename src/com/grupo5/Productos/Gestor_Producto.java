@@ -45,10 +45,10 @@ public class Gestor_Producto implements Serializable {
             System.out.print(productos.get(i).getPrice());
             System.out.println("");
             System.out.println("Ingredientes del producto " + productos.get(i).getId());
-            for (int j = 0; j < productos.get(i).getIngredientes().size(); j++) {
-                System.out.print(productos.get(i).getIngredientes().get(j).getName() + ",");
-                System.out.print(productos.get(i).getIngredientes().get(j).getQuantity() + ",");
-                System.out.print(productos.get(i).getIngredientes().get(j).getUnits());
+            for (int j = 0; j < productos.get(i).getIngredients().size(); j++) {
+                System.out.print(productos.get(i).getIngredients().get(j).getName() + ",");
+                System.out.print(productos.get(i).getIngredients().get(j).getQuantity() + ",");
+                System.out.print(productos.get(i).getIngredients().get(j).getUnits());
                 System.out.println("");
             }
             System.out.println("\n");
@@ -130,10 +130,10 @@ public class Gestor_Producto implements Serializable {
         System.out.print(productos.get(aux).getPrice());
         System.out.println("");
         System.out.println("Ingredientes del producto " + productos.get(aux).getId());
-        for (int j = 0; j < productos.get(aux).getIngredientes().size(); j++) {
-            System.out.print(productos.get(aux).getIngredientes().get(j).getName() + ",");
-            System.out.print(productos.get(aux).getIngredientes().get(j).getQuantity() + ",");
-            System.out.print(productos.get(aux).getIngredientes().get(j).getUnits());
+        for (int j = 0; j < productos.get(aux).getIngredients().size(); j++) {
+            System.out.print(productos.get(aux).getIngredients().get(j).getName() + ",");
+            System.out.print(productos.get(aux).getIngredients().get(j).getQuantity() + ",");
+            System.out.print(productos.get(aux).getIngredients().get(j).getUnits());
             System.out.println("");
         }
         System.out.println("\n");
@@ -170,10 +170,10 @@ public class Gestor_Producto implements Serializable {
                 System.out.print(productos.get(i).getPrice());
                 System.out.println("");
                 System.out.println("Ingredientes del producto " + productos.get(id).getId());
-                for (int j = 0; j < productos.get(i).getIngredientes().size(); j++) {
-                    System.out.print(productos.get(i).getIngredientes().get(j).getName() + ",");
-                    System.out.print(productos.get(i).getIngredientes().get(j).getQuantity() + ",");
-                    System.out.print(productos.get(i).getIngredientes().get(j).getUnits());
+                for (int j = 0; j < productos.get(i).getIngredients().size(); j++) {
+                    System.out.print(productos.get(i).getIngredients().get(j).getName() + ",");
+                    System.out.print(productos.get(i).getIngredients().get(j).getQuantity() + ",");
+                    System.out.print(productos.get(i).getIngredients().get(j).getUnits());
                     System.out.println("");
                 }
                 System.out.println("\n");
@@ -207,10 +207,10 @@ public class Gestor_Producto implements Serializable {
         while (state == false && i < productos.size()) {
             if (productos.get(i).getId() == idProducto) {
                 state = true;
-                while (state2 == false && j < productos.get(i).getIngredientes().size()) {
-                    if (nombre.equals(productos.get(i).getIngredientes().get(j).getName())) {
+                while (state2 == false && j < productos.get(i).getIngredients().size()) {
+                    if (nombre.equals(productos.get(i).getIngredients().get(j).getName())) {
                         state2 = true;
-                        productos.get(i).getIngredientes().remove(j);
+                        productos.get(i).getIngredients().remove(j);
                     } else {
                         j++;
                     }
