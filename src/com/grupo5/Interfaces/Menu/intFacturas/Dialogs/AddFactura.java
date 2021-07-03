@@ -1,9 +1,13 @@
-package com.grupo5.Interfaces.Menu.intCliente.Dialogs;
+package com.grupo5.Interfaces.Menu.intFacturas.Dialogs;
 
+import com.grupo5.Clientes.Cliente;
 import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Interfaces.Menu.Colors;
+import com.grupo5.Interfaces.Menu.intFacturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Usuarios.Gestor_usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,20 +16,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.*;
 import java.awt.geom.*;
 
-public class AddClient extends JDialog {
+public class AddFactura extends JDialog {
 
+    public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
-
     public JLabel title;
-    public CRUD_user Crud_usuario;
+    public CRUD_factura Crud_factura;
     public JButton acep;
     public JPanel Parent;
     public Colors c = new Colors();
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public AddClient(Gestor_cliente client, boolean modal) {
+    public AddFactura(Gestor_Factura invoice, Gestor_cliente client, boolean modal) {
         Parent = new JPanel();
+        factura = invoice;
         cliente = client;
         setUndecorated(true);
 
@@ -37,7 +42,8 @@ public class AddClient extends JDialog {
         });
 
         //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds(200, 0, 550, 650);
+        setSize(550, 350);
+        setBounds(100, 0, 550, 550);
         setAlwaysOnTop(true);
 
         //this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -56,16 +62,15 @@ public class AddClient extends JDialog {
 
     void labels() {
         Fuentes fuente = new Fuentes();
-        title = new JLabel("Agregar Cliente");
-        title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
-        title.setBounds(160,30,200,60);
+        title = new JLabel("Agregar Factura");
+        title.setFont(fuente.fuente(fuente.RobotoBold, 1, 25));
+        title.setBounds(160, 30, 200, 60);
         title.setForeground(c.fondo);
         Parent.add(title);
-        
         JLabel cerrar = new JLabel("x");
-        cerrar.setFont(fuente.fuente(fuente.RobotoBold, 0, 12));
-        cerrar.setForeground(c.textoSecundario);
-        cerrar.setBounds((int) this.getSize().getWidth() - 20, 20, 30, 30);
+        cerrar.setFont(fuente.fuente(fuente.RobotoBold, 1, 14));
+        cerrar.setForeground(c.fondo);
+        cerrar.setBounds((int) this.getSize().getWidth() - 15, 0, 30, 30);
         Parent.add(cerrar);
 
         JLabel Id = new JLabel("Id");
@@ -74,32 +79,26 @@ public class AddClient extends JDialog {
         Id.setForeground(c.fondo);
         Parent.add(Id);
 
-        JLabel nombre = new JLabel("Nombre");
+        JLabel nombre = new JLabel("Cliente");
         nombre.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
         nombre.setBounds(100, 190, 100, 60);
         nombre.setForeground(c.fondo);
         Parent.add(nombre);
 
-        JLabel Direccion = new JLabel("Dirección");
+        JLabel Direccion = new JLabel("Fecha");
         Direccion.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
         Direccion.setBounds(100, 280, 100, 60);
         Direccion.setForeground(c.fondo);
         Parent.add(Direccion);
 
-        JLabel Telefono = new JLabel("Telefono");
+        JLabel Telefono = new JLabel("Productos");
         Telefono.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
         Telefono.setBounds(100, 370, 100, 60);
         Telefono.setForeground(c.fondo);
         Parent.add(Telefono);
 
-        JLabel Nit = new JLabel("NIT");
-        Nit.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
-        Nit.setBounds(100, 460, 100, 60);
-        Nit.setForeground(c.fondo);
-        Parent.add(Nit);
         //-------------------------------------------------------------------------------------------
-
-        JTextField IdClient = new JTextField(" Id del cliente");
+        JTextField IdClient = new JTextField(" Id de la factura");
         IdClient.setBackground(fondo);
         IdClient.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
         IdClient.setBorder(BorderFactory.createEmptyBorder());
@@ -113,96 +112,72 @@ public class AddClient extends JDialog {
         });
         Parent.add(IdClient);
         JSeparator separador = new JSeparator();
-        separador.setBackground(c.fondo);
+        separador.setBackground(c.azul);
         separador.setOrientation(0);
         separador.setForeground(c.fondo);
         separador.setBounds(210, 155, 200, 5);
         Parent.add(separador);
 
-        JTextField NombreClient = new JTextField(" Nombre");
+        JComboBox NombreClient = new JComboBox(cliente.getClientes().toArray());
+        NombreClient.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String SelectClient = (String) NombreClient.getSelectedItem();
+            }
+        });
+
         NombreClient.setBackground(fondo);
         NombreClient.setForeground(c.fondo);
         NombreClient.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
         NombreClient.setBorder(BorderFactory.createEmptyBorder());
         NombreClient.setBounds(210, 200, 200, 40);
-        NombreClient.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                NombreClient.setText("");
-            }
-        });
+
         Parent.add(NombreClient);
         JSeparator separador2 = new JSeparator();
-        separador2.setBackground(c.fondo);
+        separador2.setBackground(c.azul);
         separador2.setOrientation(0);
         separador2.setForeground(c.fondo);
         separador2.setBounds(210, 245, 200, 5);
         Parent.add(separador2);
 
-        JTextField DirClient = new JTextField(" Dirección");
-        DirClient.setBackground(fondo);
-        DirClient.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
-        DirClient.setBorder(BorderFactory.createEmptyBorder());
-        DirClient.setBounds(210, 290, 200, 40);
-        DirClient.setForeground(c.fondo);
-        DirClient.addMouseListener(new MouseAdapter() {
+        JTextField FechaFact = new JTextField(" Fecha");
+        FechaFact.setBackground(fondo);
+        FechaFact.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
+        FechaFact.setBorder(BorderFactory.createEmptyBorder());
+        FechaFact.setBounds(210, 290, 200, 40);
+        FechaFact.setForeground(c.fondo);
+        FechaFact.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                DirClient.setText("");
+                FechaFact.setText("");
             }
         });
-        Parent.add(DirClient);
+        Parent.add(FechaFact);
         JSeparator separador3 = new JSeparator();
-        separador3.setBackground(c.fondo);
+        separador3.setBackground(c.azul);
         separador3.setOrientation(0);
-        separador3.setForeground(c.fondo);
+        separador3.setForeground(c.textoSecundario);
         separador3.setBounds(210, 335, 200, 5);
         Parent.add(separador3);
 
-        JTextField TelClient = new JTextField(" Teléfono");
-        TelClient.setBackground(fondo);
-        TelClient.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
-        TelClient.setBorder(BorderFactory.createEmptyBorder());
-        TelClient.setBounds(210, 380, 200, 40);
-        TelClient.setForeground(c.fondo);
-        TelClient.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                TelClient.setText("");
-            }
-        });
-        Parent.add(TelClient);
+        JComboBox ProductsFact = new JComboBox(factura.getFacturas().toArray());
+        ProductsFact.setBackground(c.azul);
+        ProductsFact.setForeground(c.textoSecundario);
+        ProductsFact.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
+        ProductsFact.setBorder(BorderFactory.createEmptyBorder());
+        ProductsFact.setBounds(210, 200, 200, 40);
+
+        Parent.add(ProductsFact);
         JSeparator separador4 = new JSeparator();
         separador4.setBackground(c.azul);
         separador4.setOrientation(0);
-        separador4.setForeground(c.fondo);
+        separador4.setForeground(c.textoSecundario);
         separador4.setBounds(210, 425, 200, 5);
         Parent.add(separador4);
-
-        JTextField NitClient = new JTextField(" NIT");
-        NitClient.setBackground(fondo);
-        NitClient.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
-        NitClient.setBorder(BorderFactory.createEmptyBorder());
-        NitClient.setBounds(210, 470, 200, 40);
-        NitClient.setForeground(c.fondo);
-        NitClient.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                NitClient.setText("");
-            }
-        });
-        Parent.add(NitClient);
-        JSeparator separador5 = new JSeparator();
-        separador5.setBackground(c.fondo);
-        separador5.setOrientation(0);
-        separador5.setForeground(c.fondo);
-        separador5.setBounds(210, 515, 200, 5);
-        Parent.add(separador5);
 
         //-------------------------------------------------------------------------------------------
         JButton aceptar = new JButton("Agregar");
         aceptar.setBackground(azul);
-        aceptar.setBounds(Nit.getX() + 130, Nit.getY() + 120, 140, 45);
+        aceptar.setBounds(Telefono.getX() + 130, Telefono.getY() + 110, 140, 45);
         aceptar.setFont(fuente.fuente(fuente.RobotoBold, 0, 16));
         aceptar.setForeground(c.textoSecundario);
         aceptar.setBorder(BorderFactory.createLineBorder(c.textoSecundario));
@@ -227,15 +202,14 @@ public class AddClient extends JDialog {
                 aceptar.setBackground(azul);
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                int Buscar = Integer.parseInt(IdClient.getText());
-                if (cliente.buscarCliente(Buscar) == true) {
-                    JOptionPane.showConfirmDialog(Parent, "El cliente ya existe, intente con otro Id", "Cliente Incorrecto", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+                int Buscar = Integer.parseInt(Id.getText());
+                if (factura.buscarFactura(Buscar) == true) {
+                    JOptionPane.showConfirmDialog(Parent, "La Factura ya existe, intente con otro Id", "Factura Incorrecta", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
                 } else {
                     int IdParse = Integer.parseInt(IdClient.getText());
-                    int TelParse = Integer.parseInt(TelClient.getText());
-                    cliente.insertarCliente(IdParse, NombreClient.getText(), DirClient.getText(), TelParse, NitClient.getText());
+                    /*factura.insertarFactura(IdParse, NombreClient.get, FechaFact.getText(), ProductsFact);
                     JOptionPane.showConfirmDialog(Parent, "El cliente se registro correctamente", "Cliente Ingresado", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                    cerrar2();
+                    cerrar2();*/
                 }
 
             }
