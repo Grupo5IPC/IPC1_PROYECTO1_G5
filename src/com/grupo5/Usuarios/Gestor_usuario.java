@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Gestor_usuario implements Serializable {
-
+public String sesion="";
     ArrayList<Usuario> usuarios = new ArrayList();
 
     public boolean Ins_usu(String nombre, String pass) {
@@ -13,6 +13,12 @@ public class Gestor_usuario implements Serializable {
         // System.out.println("Ingresado");
             return true;
 
+    }
+    public void setSesion(String username){
+        sesion = username;
+    }
+    public String getSesion(){
+        return sesion;
     }
     public boolean buscarUsuario(String username){
         boolean state = false;

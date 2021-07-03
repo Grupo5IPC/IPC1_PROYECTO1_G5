@@ -1,16 +1,11 @@
-package com.grupo5.Interfaces.Menu.intUsuario.Dialogs;
+package com.grupo5.Interfaces.Menu;
 
-import com.grupo5.Clientes.Gestor_cliente;
-import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
 import com.grupo5.Gestor_restaurante;
-import com.grupo5.Interfaces.Menu.Colors;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
 import com.grupo5.Log;
 import com.grupo5.Logdeacciones;
-import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
-import com.grupo5.Usuarios.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,35 +15,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 
-public class updateUser extends JDialog {
-    public static Gestor_restaurante Nuevo;
+public class Editar_restaurante extends JDialog {
+    public static Gestor_restaurante restaurante;
     public static Gestor_usuario usuario;
-    public static Gestor_Producto producto;
-    public static Gestor_Factura factura;
-    public static Gestor_cliente cliente;
     public static Log log;
     public static Logdeacciones logdeacciones;
+
     public JLabel title;
     public CRUD_user Crud_usuario;
     public JButton acep;
     public JPanel Parent;
-    public String nombreUsuario;
-    public int index;
     public Colors c = new Colors();
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public updateUser(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, boolean modal, String username, Log log, Logdeacciones logdeacciones) {
-        nombreUsuario = username;
+    public Editar_restaurante(Gestor_usuario usuario,Gestor_restaurante res, boolean modal, Log log, Logdeacciones logdeacciones) {
+        this.usuario = usuario;
         this.log = log;
         this.logdeacciones = logdeacciones;
         Parent = new JPanel();
-        Nuevo = nuev;
-        usuario = usuarios;
-        producto = productos;
-        factura = facturas;
-        cliente = clientes;
-        index = usuario.getindex(nombreUsuario);
+        restaurante = res;
         setUndecorated(true);
 
         this.addComponentListener(new ComponentAdapter() {
@@ -62,8 +48,8 @@ public class updateUser extends JDialog {
 
         //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 
-        setSize(550, 350);
-        setBounds(0, 0, 550 , 350);
+        setSize(550, 430);
+        setBounds(0, 0, 550 , 430);
         setAlwaysOnTop(true);
 
         //this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -83,9 +69,9 @@ public class updateUser extends JDialog {
 
     void labels() {
         Fuentes fuente = new Fuentes();
-        title = new JLabel("Modificar Usuario: "+nombreUsuario);
-        title.setFont(fuente.fuente(fuente.RobotoBold,1, 25));
-        title.setBounds(50,30,420,60);
+        title = new JLabel("Editar datos del restaurante");
+        title.setFont(fuente.fuente(fuente.RobotoBold,1, 22));
+        title.setBounds(100,30,380,60);
         title.setForeground(c.fondo);
         Parent.add(title);
         JLabel cerrar = new JLabel("x");
@@ -93,20 +79,27 @@ public class updateUser extends JDialog {
         cerrar.setForeground(c.fondo);
         cerrar.setBounds((int)this.getSize().getWidth()-15,0,30,30);
         Parent.add(cerrar);
-        JLabel nombre = new JLabel("Username");
+        JLabel nombre = new JLabel("Nombre:");
         nombre.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
 
         nombre.setBounds(100, 100, 100, 60);
         nombre.setForeground(c.fondo);
         Parent.add(nombre);
-        JLabel password = new JLabel("Password");
+        JLabel password = new JLabel("Direccion:");
         password.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
 
         password.setBounds(100, 190, 100, 60);
         password.setForeground(c.fondo);
         Parent.add(password);
 
-        JTextField username = new JTextField(" Nombre de usuario");
+        JLabel telefono = new JLabel("Telefono:");
+        telefono.setFont(fuente.fuente(fuente.RobotoRegular, 0, 20));
+
+        telefono.setBounds(100, 280, 100, 60);
+        telefono.setForeground(c.fondo);
+        Parent.add(telefono);
+
+        JTextField username = new JTextField("Nombre del restaurante");
         username.setBackground(fondo);
         username.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
         username.setBorder(BorderFactory.createEmptyBorder());
@@ -126,7 +119,7 @@ public class updateUser extends JDialog {
         separador.setBounds(210, 155, 200, 5);
         Parent.add(separador);
 
-        JTextField txtpass = new JTextField(" Password");
+        JTextField txtpass = new JTextField(" Direccion:");
         txtpass.setBackground(fondo);
         txtpass.setForeground(c.fondo);
         txtpass.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
@@ -146,9 +139,32 @@ public class updateUser extends JDialog {
         separador2.setBounds(210, 245, 200, 5);
         Parent.add(separador2);
 
+
+        JTextField txttele = new JTextField(" Telefono:");
+        txttele.setBackground(fondo);
+        txttele.setForeground(c.fondo);
+        txttele.setFont(fuente.fuente(fuente.Opensansreg, 0, 15));
+        txttele.setBorder(BorderFactory.createEmptyBorder());
+        txttele.setBounds(210, 290, 200, 40);
+        txttele.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                txttele.setText("");
+            }
+        });
+        Parent.add(txttele);
+        JSeparator separador3 = new JSeparator();
+        separador3.setBackground(c.azul);
+        separador3.setOrientation(0);
+        separador3.setForeground(c.fondo);
+        separador3.setBounds(210, 335, 200, 5);
+        Parent.add(separador3);
+
+
+
         JButton aceptar = new JButton("Agregar");
         aceptar.setBackground(azul);
-        aceptar.setBounds(username.getX() + 30, 270, 140, 45);
+        aceptar.setBounds(username.getX() + 30, 360, 140, 45);
         aceptar.setFont(fuente.fuente(fuente.RobotoBold, 0, 16));
         aceptar.setForeground(c.textoSecundario);
         aceptar.setBorder(BorderFactory.createLineBorder(c.textoSecundario));
@@ -173,33 +189,33 @@ public class updateUser extends JDialog {
                 aceptar.setBackground(azul);
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                if (nombreUsuario.equals(username.getText())){
-                    Usuario user = new Usuario(username.getText(), txtpass.getText());
-                    logdeacciones.addlog(usuario.getSesion()+": Actualizo usuario "+username.getText());
-                    usuario.updateUsuario(index, user);
-                    JOptionPane.showConfirmDialog(Parent,  "El usuario se modifico correctamente","Usuario modificado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                    cerrar2();
+                if (verifyNum(txttele.getText()) == false){
+                    JOptionPane.showConfirmDialog(Parent,"Alguno de los campos es incorrecto","Numero Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
                 }else{
-                    if (usuario.verificarExistencia(username.getText()) == true){
-                        log.addCuerpo("USERS: El nombre de usuario"+ username.getText()+" ");
-                        JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
+                    restaurante.editar(username.getText(),txtpass.getText(),Integer.parseInt(txttele.getText()), "json");
+                    logdeacciones.addlog(usuario.getSesion()+": Edito restaurante");
 
-                    }else {
-                        Usuario user = new Usuario(username.getText(), txtpass.getText());
-                        logdeacciones.addlog(usuario.getSesion()+": Se modifico el usuario"+ nombreUsuario);
-                        usuario.updateUsuario(index, user);
-                        JOptionPane.showConfirmDialog(Parent,  "El usuario se modifico correctamente","Usuario modificado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
-                        cerrar2();
-                    }
-
-
+                    JOptionPane.showConfirmDialog(Parent,  "Los datos del restaurante fueron actualizados","Actualizacion" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    cerrar2();
                 }
 
             }
         });
         Parent.add(aceptar);
     }
+
     void cerrar2(){
         this.dispose();
     }
+    boolean verifyNum(String txt){
+        try{
+            int res = Integer.parseInt(txt);
+            log.addCuerpo("DASHBOARD: El numero no es valido");
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 }
+
+

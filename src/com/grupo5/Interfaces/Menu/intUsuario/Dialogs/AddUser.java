@@ -2,9 +2,15 @@ package com.grupo5.Interfaces.Menu.intUsuario.Dialogs;
 
 import javax.swing.*;
 
+import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Gestor_restaurante;
 import com.grupo5.Interfaces.Menu.Colors;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Log;
+import com.grupo5.Logdeacciones;
+import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 
 import javax.swing.*;
@@ -16,7 +22,13 @@ import java.awt.geom.*;
 
 public class addUser extends JDialog {
     public static Gestor_usuario usuario;
+    public static Log log;
+    public static Logdeacciones logdeacciones;
+    public static Gestor_restaurante Nuevo;
 
+    public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
+    public static Gestor_cliente cliente;
     public JLabel title;
     public CRUD_user Crud_usuario;
     public JButton acep;
@@ -25,9 +37,16 @@ public class addUser extends JDialog {
     public Color azul = new Color(42, 52, 67);
     public Color fondo = new Color(157, 207, 255);
 
-    public addUser(Gestor_usuario user, boolean modal) {
+    public addUser(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, boolean modal, Log log, Logdeacciones logdeacciones) {
+        this.log = log;
+        this.logdeacciones = logdeacciones;
+        Nuevo = nuev;
+        usuario = usuarios;
+        producto = productos;
+        factura = facturas;
+        cliente = clientes;
         Parent = new JPanel();
-        usuario = user;
+
         setUndecorated(true);
 
         this.addComponentListener(new ComponentAdapter() {
@@ -153,9 +172,11 @@ public class addUser extends JDialog {
                 aceptar.setForeground(c.textoSecundario);
                 aceptar.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 if (usuario.verificarExistencia(username.getText()) == true){
+                    log.addCuerpo("USERS: El usuario "+username.getText()+" ya existe");
                     JOptionPane.showConfirmDialog(Parent,"El nombre de usuario ya existe, seleccione otro","Usuario Incorrecto", JOptionPane.DEFAULT_OPTION,JOptionPane.ERROR_MESSAGE);
                 }else{
                     usuario.Ins_usu(username.getText(), txtpass.getText());
+                   logdeacciones.addlog(usuario.getSesion()+" : Agregar usuario "+ username.getText());
                     JOptionPane.showConfirmDialog(Parent,  "El usuario se registro correctamente","Usuario Ingresado" ,JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     cerrar2();
                 }

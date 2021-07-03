@@ -1,10 +1,17 @@
 package com.grupo5.Interfaces.Menu.intUsuario;
 
+import com.grupo5.Clientes.Gestor_cliente;
+import com.grupo5.Facturas.Gestor_Factura;
 import com.grupo5.Fuentes.Fuentes;
+import com.grupo5.Gestor_restaurante;
 import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.*;
 import com.grupo5.Interfaces.Menu.intUsuario.Dialogs.updateUser;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.HeaderRenderer;
 import com.grupo5.Interfaces.Menu.intUsuario.Renders.Render;
+import com.grupo5.Log;
+import com.grupo5.Logdeacciones;
+import com.grupo5.Productos.Gestor_Producto;
+import com.grupo5.Serializacion;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.grupo5.Usuarios.Usuario;
 import com.sun.istack.internal.NotNull;
@@ -18,7 +25,7 @@ import java.util.ArrayList;
 
 
 public class CRUD_user extends JPanel {
-    public static Gestor_usuario usuario;
+
     public Color fondo = new Color(24, 30, 54);
     public Color azul = new Color(42, 52, 67);
     public Color texto = new Color(0, 126, 249);
@@ -27,11 +34,25 @@ public class CRUD_user extends JPanel {
     public JButton nuevo;
     JButton modificar;
     DefaultTableModel model;
+    public static Log log;
+    public static Logdeacciones logdeacciones;
+    public static Gestor_restaurante Nuevo;
+    public static Gestor_usuario usuario;
+    public static Gestor_Producto producto;
+    public static Gestor_Factura factura;
+    public static Gestor_cliente cliente;
 
     public Color textoSecundario = new Color(158, 161, 176);
 
-    public CRUD_user(Gestor_usuario user) {
-        usuario = user;
+    public CRUD_user(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, Log log, Logdeacciones logdeacciones) {
+        this.log = log;
+        this.logdeacciones = logdeacciones;
+        Nuevo = nuev;
+        usuario = usuarios;
+        producto = productos;
+        factura = facturas;
+        cliente = clientes;
+
         JPanel aux = new JPanel();
         Fuentes fuente = new Fuentes();
         setSize(898, 300);
@@ -126,20 +147,24 @@ public class CRUD_user extends JPanel {
                         if (btn.getName().equals("m")) {
                             System.out.println(row);
                             //System.out.println("Modificar");
-                            String usuarios = (String) table.getValueAt(row, 0);
-                            System.out.println(usuarios);
-                            openDialog(usuarios);
+                            String usuarios2 = (String) table.getValueAt(row, 0);
+                            System.out.println(usuarios2);
+                            openDialog(usuarios2);
+                            Serializacion serializacion = new Serializacion();
+                            serializacion.serializar(Nuevo,usuarios,productos,clientes,facturas);
                             Refresh();
                         }
                         if (btn.getName().equals("e")) {
-                            String usuarios = (String) table.getValueAt(row, 0);
-                            System.out.println(usuarios);
+                            String usuarios2 = (String) table.getValueAt(row, 0);
+                            System.out.println(usuarios2);
                             int opcion = JOptionPane.showConfirmDialog(table, "¿Esta seguro de elimnar el usuario: "+ usuarios+"?","Confirmar", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE );
                             if (opcion == JOptionPane.YES_OPTION){
                                 usuario.eliminarUsuario((String) table.getValueAt(row, 0));
                                 model.removeRow(row);
                                 usuario.print_usu();
-                                System.out.println("Eliminar");
+                                logdeacciones.addlog(usuario.getSesion()+": Elimino el usuario +"+usuarios2);
+                                Serializacion serializacion = new Serializacion();
+                                serializacion.serializar(Nuevo,usuarios,productos,clientes,facturas);
                                 Refresh();
                             }
                             if (opcion == JOptionPane.NO_OPTION){
@@ -174,8 +199,10 @@ public class CRUD_user extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("si");
-                addUser a = new addUser(usuario, true);
+                addUser a = new addUser(usuarios,productos,facturas,clientes,Nuevo,true,log,logdeacciones);
                 a.setVisible(true);
+                Serializacion serializacion = new Serializacion();
+                serializacion.serializar(Nuevo,usuarios,productos,clientes,facturas);
                 //a.setBounds((int)table.getBounds().getX()-20, table.getY(), 600,400  );
                 //System.out.println(a.getSize().getWidth());
                 Refresh();
@@ -212,7 +239,7 @@ public class CRUD_user extends JPanel {
     }
 
     void openDialog(String username) {
-        updateUser c = new updateUser(usuario,true, username);
+        updateUser c = new updateUser(usuario,producto,factura,cliente,Nuevo,true,username,log,logdeacciones);
         c.setVisible(true);
     }
     void Refresh(){

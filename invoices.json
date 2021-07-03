@@ -1,13 +1,37 @@
 [
-    {
-        "id": 1, 
-        "client": 1,
-        "date": "2020-06-13",
-        "products": [
+  {
+    "id": 1,
+    "client": {
+      "id": 1,
+      "name": "Darwin Arevalo",
+      "address": "Ciudad de Guatemala",
+      "phone": 42562365,
+      "nit": "5283282-3"
+    },
+    "date": "2020-06-13",
+    "detalles": [
+      {
+        "idFactura": 1,
+        "Producto": {
+          "id": 1,
+          "name": "Pizza",
+          "description": "Pizza Hawaiana con queso",
+          "cost": 40.0,
+          "price": 50.0,
+          "ingredientes": [
             {
-                "name": "Pizza",
-                "price": 50
+              "name": "Piña",
+              "quantity": 1,
+              "units": "Unidades"
+            },
+            {
+              "name": "Peperonni",
+              "quantity": 5,
+              "units": "Docenas"
             }
-        ]
-    }
+          ]
+        }
+      }
+    ]
+  }
 ]

@@ -8,6 +8,8 @@ import com.grupo5.Interfaces.Menu.intCliente.CRUD_cliente;
 import com.grupo5.Interfaces.Menu.intFacturas.CRUD_factura;
 import com.grupo5.Interfaces.Menu.intProductos.CRUD_products;
 import com.grupo5.Interfaces.Menu.intUsuario.CRUD_user;
+import com.grupo5.Log;
+import com.grupo5.Logdeacciones;
 import com.grupo5.Productos.Gestor_Producto;
 import com.grupo5.Usuarios.Gestor_usuario;
 import com.sun.istack.internal.NotNull;
@@ -41,8 +43,12 @@ public class Principal extends JFrame {
     public static Gestor_Producto producto;
     public static Gestor_Factura factura;
     public static Gestor_cliente cliente;
+    public static Log log;
+    public static Logdeacciones logdeacciones;
 
-    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev) {
+    public Principal(Gestor_usuario usuarios, Gestor_Producto productos, Gestor_Factura facturas, Gestor_cliente clientes, Gestor_restaurante nuev, Log log, Logdeacciones logdeacciones) {
+        this.log = log;
+        this.logdeacciones = logdeacciones;
         Nuevo = nuev;
         usuario = usuarios;
         producto = productos;
@@ -171,7 +177,7 @@ public class Principal extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 closeOthers();
                 Dashboard.setBackground(new Color(46, 51, 73));
-                dash = new Dashboard(usuario,producto,factura,cliente,Nuevo);
+                dash = new Dashboard(usuario,producto,factura,cliente,Nuevo, log, logdeacciones);
                 dash.setVisible(true);
                 dash.setForeground(textoSecundario);
                 dash.setBounds(2, 0, 898, 620);
@@ -224,7 +230,7 @@ public class Principal extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 closeOthers();
                 botonVer.setBackground(new Color(46, 51, 73));
-                u = new CRUD_user(usuario);
+                u = new CRUD_user(usuario,producto,factura,cliente,Nuevo, log,logdeacciones);
                 u.setVisible(true);
                 u.setForeground(textoSecundario);
                 u.setBounds(2, 0, 898, 620);
@@ -466,7 +472,7 @@ public class Principal extends JFrame {
         CRUD.setBounds(1, 100, 898, 620);
 
         Principal.add(CRUD);
-        dash = new Dashboard(usuario,producto,factura,cliente,Nuevo);
+        dash = new Dashboard(usuario,producto,factura,cliente,Nuevo, log, logdeacciones);
 
         dash.setVisible(true);
         dash.setForeground(textoSecundario);
